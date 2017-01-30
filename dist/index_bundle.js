@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fedd8f27c77abd6041af"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "19dd6ba95faa8dc8a14a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -6224,7 +6224,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.USER_URL = exports.TRANSACTIONS_URL = exports.SETTINGS_LOGIN_URL = exports.SETTINGS_URL = exports.RESEND_REG_CONFIRMATION_URL = exports.REGISTRATION_CONFIRM_URL = exports.REGISTRATION_URL = exports.MEMBERS_RESUME_URL = exports.MEMBERS_URL = exports.LOGIN_FACEBOOK_URL = exports.LOGIN_URL = exports.INSTITUTIONS_SUGGEST_URL = exports.INSTITUTIONS_URL = exports.GET_IAV_TOKEN_URL = exports.CREDENTIALS_BY_ID_URL = exports.CREDENTIALS_BY_CODE_URL = exports.CREATE_FUNDING_SOURCE_BY_IAV_URL = exports.CHANGE_PASSWORD_URL = exports.CHANGE_EMAIL_CONFIRM_URL = exports.CHANGE_EMAIL_URL = exports.ACCOUNTS_SET_FUNDING_SOURCE_URL = exports.ACCOUNTS_EDIT_SHARE_URL = exports.ACCOUNTS_URL = undefined;
+	exports.USER_URL = exports.TRANSACTIONS_URL = exports.SETTINGS_LOGIN_URL = exports.SETTINGS_URL = exports.RESEND_REG_CONFIRMATION_URL = exports.REGISTRATION_CONFIRM_URL = exports.REGISTRATION_URL = exports.MEMBERS_RESUME_URL = exports.MEMBERS_URL = exports.LOGIN_FACEBOOK_URL = exports.LOGIN_URL = exports.INSTITUTIONS_SUGGEST_URL = exports.INSTITUTIONS_URL = exports.GET_IAV_TOKEN_URL = exports.CREDENTIALS_LIVE_BY_ID_URL = exports.CREDENTIALS_LIVE_BY_CODE_URL = exports.CREDENTIALS_BY_ID_URL = exports.CREDENTIALS_BY_CODE_URL = exports.CREATE_FUNDING_SOURCE_BY_IAV_URL = exports.CHANGE_PASSWORD_URL = exports.CHANGE_EMAIL_CONFIRM_URL = exports.CHANGE_EMAIL_URL = exports.ACCOUNTS_SET_FUNDING_SOURCE_URL = exports.ACCOUNTS_EDIT_SHARE_URL = exports.ACCOUNTS_URL = undefined;
 	exports.apiCall = apiCall;
 	exports.apiCall2 = apiCall2;
 	exports.apiCall3 = apiCall3;
@@ -6250,6 +6250,8 @@
 	var CREATE_FUNDING_SOURCE_BY_IAV_URL = exports.CREATE_FUNDING_SOURCE_BY_IAV_URL = _configureStore.API_ROOT_URL + 'v1/create_funding_source_by_iav';
 	var CREDENTIALS_BY_CODE_URL = exports.CREDENTIALS_BY_CODE_URL = _configureStore.API_ROOT_URL + 'v1/credentials/code';
 	var CREDENTIALS_BY_ID_URL = exports.CREDENTIALS_BY_ID_URL = _configureStore.API_ROOT_URL + 'v1/credentials/id';
+	var CREDENTIALS_LIVE_BY_CODE_URL = exports.CREDENTIALS_LIVE_BY_CODE_URL = _configureStore.API_ROOT_URL + 'v1/credentials/live/code';
+	var CREDENTIALS_LIVE_BY_ID_URL = exports.CREDENTIALS_LIVE_BY_ID_URL = _configureStore.API_ROOT_URL + 'v1/credentials/live/id';
 	var GET_IAV_TOKEN_URL = exports.GET_IAV_TOKEN_URL = _configureStore.API_ROOT_URL + 'v1/get_iav_token';
 	var INSTITUTIONS_URL = exports.INSTITUTIONS_URL = _configureStore.API_ROOT_URL + 'v1/institutions';
 	var INSTITUTIONS_SUGGEST_URL = exports.INSTITUTIONS_SUGGEST_URL = _configureStore.API_ROOT_URL + 'v1/institutions_suggest';
@@ -6560,6 +6562,10 @@
 	    __REACT_HOT_LOADER__.register(CREDENTIALS_BY_CODE_URL, 'CREDENTIALS_BY_CODE_URL', '/home/vlad/dev/web/dj/d/donkies/project/donkies_react/src/services/api.js');
 
 	    __REACT_HOT_LOADER__.register(CREDENTIALS_BY_ID_URL, 'CREDENTIALS_BY_ID_URL', '/home/vlad/dev/web/dj/d/donkies/project/donkies_react/src/services/api.js');
+
+	    __REACT_HOT_LOADER__.register(CREDENTIALS_LIVE_BY_CODE_URL, 'CREDENTIALS_LIVE_BY_CODE_URL', '/home/vlad/dev/web/dj/d/donkies/project/donkies_react/src/services/api.js');
+
+	    __REACT_HOT_LOADER__.register(CREDENTIALS_LIVE_BY_ID_URL, 'CREDENTIALS_LIVE_BY_ID_URL', '/home/vlad/dev/web/dj/d/donkies/project/donkies_react/src/services/api.js');
 
 	    __REACT_HOT_LOADER__.register(GET_IAV_TOKEN_URL, 'GET_IAV_TOKEN_URL', '/home/vlad/dev/web/dj/d/donkies/project/donkies_react/src/services/api.js');
 
@@ -45682,7 +45688,7 @@
 	                        switch (_context.prev = _context.next) {
 	                            case 0:
 	                                institution = this.props.institution;
-	                                url = _api.CREDENTIALS_BY_ID_URL + '/' + institution.id;
+	                                url = _api.CREDENTIALS_LIVE_BY_ID_URL + '/' + institution.id;
 	                                _context.next = 4;
 	                                return (0, _api.apiCall2)(url, true);
 
@@ -45733,10 +45739,9 @@
 	                    return;
 	                }
 
-	                var obj = { field_name: key, value: form[key].trim() };
+	                var obj = { guid: this.getGuid(key), value: form[key].trim() };
 	                data.credentials.push(obj);
 	            }
-
 	            this.submitCredentials(data);
 	        }
 
@@ -45840,6 +45845,44 @@
 
 	            return fetchMemberUntilCompleted;
 	        }()
+
+	        /**
+	         * @returns {string} - guid by fieldName
+	         */
+
+	    }, {
+	        key: 'getGuid',
+	        value: function getGuid(fieldName) {
+	            var credentials = this.state.credentials;
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+
+	            try {
+	                for (var _iterator = credentials[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var obj = _step.value;
+
+	                    if (obj.field_name === fieldName) {
+	                        return obj.guid;
+	                    }
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator.return) {
+	                        _iterator.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
+
+	            return null;
+	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
@@ -46886,6 +46929,10 @@
 	    }, {
 	        key: 'onUpdate',
 	        value: function onUpdate(value) {
+	            if (value.length < 3) {
+	                this.setState({ suggestions: [], hiddenInputValue: '' });
+	                return;
+	            }
 	            this.sendRequest(value);
 	        }
 	    }, {
@@ -49673,6 +49720,10 @@
 	                inProgress = _props.inProgress,
 	                user = _props.user;
 
+
+	            if (!user) {
+	                return null;
+	            }
 
 	            if (user.is_profile_completed) {
 	                return _react2.default.createElement(_components.ProfileCompleted, { user: user });

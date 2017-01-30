@@ -86,6 +86,10 @@ export default class InputAutocompleteAsync extends Component{
     }
 
     onUpdate(value){
+        if (value.length < 3){
+            this.setState({suggestions: [], hiddenInputValue: ''})
+            return
+        }
         this.sendRequest(value)
     }
 

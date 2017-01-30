@@ -1,7 +1,13 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
-import { apiCall2, apiCall3, CREDENTIALS_BY_ID_URL, MEMBERS_URL } from 'services/api'
+
+import {
+    apiCall2,
+    apiCall3,
+    CREDENTIALS_LIVE_BY_ID_URL,
+    MEMBERS_URL } from 'services/api'
+
 import { formToObject } from 'services/helpers'
 import { Button2, Input2, LoadingInline } from 'components'
 
@@ -43,7 +49,7 @@ class Credentials extends Component{
      */
     async fetchCredentials(){
         let { institution } = this.props
-        const url = CREDENTIALS_BY_ID_URL + '/' + institution.id
+        const url = CREDENTIALS_LIVE_BY_ID_URL + '/' + institution.id
 
         let response = await apiCall2(url, true) 
         let arr = await response.json()
@@ -70,10 +76,9 @@ class Credentials extends Component{
                 return
             }
 
-            let obj = {field_name: key, value: form[key].trim()}
+            let obj = {guid: this.getGuid(key), value: form[key].trim()}
             data.credentials.push(obj)
         }
-
         this.submitCredentials(data)
     }
 
@@ -109,6 +114,19 @@ class Credentials extends Component{
         } else {
             setTimeout(() => this.fetchMemberUntilCompleted(member), 5000)
         }
+    }
+
+    /**
+     * @returns {string} - guid by fieldName
+     */
+    getGuid(fieldName){
+        const { credentials } = this.state
+        for (let obj of credentials){
+            if (obj.field_name === fieldName){
+                return obj.guid
+            }
+        }
+        return null
     }
 
     render(){
