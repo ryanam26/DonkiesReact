@@ -6,7 +6,8 @@ import {
     CHANGE_EMAIL_CONFIRM_URL,
     CHANGE_PASSWORD_URL,
     USER_URL,
-     apiCall } from 'services/api'
+    USER_SETTINGS_URL,
+    apiCall } from 'services/api'
 
 
 
@@ -100,5 +101,36 @@ export function* watchChangePassword(){
   while(true){
     const { form } = yield take(actions.CHANGE_PASSWORD.SUBMIT)
     yield fork(changePassword, form)
+  }
+}
+
+
+// ------- Edit user settings
+
+function* editSettings(form){
+    yield put({type: actions.EDIT_USER_SETTINGS.REQUEST}) 
+
+    const result = yield call(apiCall, USER_SETTINGS_URL, 'PATCH', form, true)
+    
+    if (result.isError){
+        yield put({type: actions.EDIT_USER_SETTINGS.ERROR, payload: result.data})    
+        return
+    } 
+    
+    const id = createUUID()
+
+    yield put({
+        type: actions.GROWL_ADD_REQUEST,
+        payload: {id: id, message: 'Settings have been changed!', type: 'success'}
+    })
+    
+    yield put({type: actions.EDIT_USER_SETTINGS.SUCCESS, payload: result.data})
+    
+}
+
+export function* watchEditSettings(){
+  while(true){
+    const { form } = yield take(actions.EDIT_USER_SETTINGS.SUBMIT)
+    yield fork(editSettings, form)
   }
 }

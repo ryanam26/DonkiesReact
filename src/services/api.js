@@ -28,6 +28,7 @@ export const SETTINGS_URL = `${API_ROOT_URL}v1/settings`
 export const SETTINGS_LOGIN_URL = `${API_ROOT_URL}v1/settings/login`
 export const TRANSACTIONS_URL = `${API_ROOT_URL}v1/transactions`  
 export const USER_URL = `${API_ROOT_URL}v1/user`
+export const USER_SETTINGS_URL = `${API_ROOT_URL}v1/user_settings`
 
 
 /**

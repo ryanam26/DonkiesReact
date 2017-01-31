@@ -73,7 +73,7 @@ class Transactions extends Component{
         let data = {}
         data.id = 'transactions'
         data.header = [
-            'Date', 'Account', 'Amount', 'Roundup', 'Description']
+            'Date', 'Account', 'Amount', 'Roundup', 'Category', 'Description']
         data.rows = []
 
         for (let t of this.getTransactions()){
@@ -82,10 +82,11 @@ class Transactions extends Component{
 
             const roundup = t.roundup ? `$${t.roundup}` : '-'
 
-            row.cols.push({value: t.created_at})
+            row.cols.push({value: t.transacted_at})
             row.cols.push({value: t.account})
             row.cols.push({value: `$${t.amount}`})
             row.cols.push({value: roundup})
+            row.cols.push({value: t.category})
             row.cols.push({value: t.description})
             data.rows.push(row)
         }

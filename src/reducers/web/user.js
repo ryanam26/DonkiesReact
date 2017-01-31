@@ -5,9 +5,11 @@ const iState = {
     isSubmittingChangeEmail: false,
     isSubmittingChangePassword: false,
     isSubmittingEditProfile: false,
+    isSubmittingEditUserSettings: false,
     triggerChangeEmail: 0,
     triggerChangePassword: 0,
-    triggerEditProfile: 0
+    triggerEditProfile: 0,
+    triggerEditUserSettings: 0
 }
 
 export function user(state=iState, action){
@@ -73,6 +75,25 @@ export function user(state=iState, action){
                 ...state,
                 triggerEditProfile: state.triggerEditProfile + 1,
                 isSubmittingEditProfile: false
+            }
+
+        case actions.EDIT_USER_SETTINGS.REQUEST:
+            return {
+                ...state,
+                isSubmittingEditUserSettings: true
+            }
+
+        case actions.EDIT_USER_SETTINGS.ERROR:
+            return {
+                ...state,
+                isSubmittingEditUserSettings: false
+            }
+
+        case actions.EDIT_USER_SETTINGS.SUCCESS:
+            return {
+                ...state,
+                triggerEditUserSettings: state.triggerEditUserSettings + 1,
+                isSubmittingEditUserSettings: false
             }
 
         default:

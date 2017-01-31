@@ -16,6 +16,7 @@ import { watchGrowlAdd } from './web/growl'
 import { watchChangeEmail } from './web/user'
 import { watchChangePassword } from './web/user'
 import { watchEditProfile } from './web/user'
+import { watchEditSettings } from './web/user'
 
 
 function* watchNavigate(){
@@ -33,6 +34,7 @@ export default function* root() {
     fork(watchChangeEmail),
     fork(watchChangePassword),
     fork(watchEditProfile),
+    fork(watchEditSettings),
     fork(watchGrowlAdd),
     fork(watchLogin),
     fork(watchLoginFacebook),

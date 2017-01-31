@@ -20,8 +20,8 @@ const iState = {
     registration: null,
     changeEmail: null,
     changePassword: null,
-    editProfile: null
-
+    editProfile: null,
+    editUserSettings: null
 }
 
 
@@ -53,6 +53,12 @@ export function formErrors(state=iState, action){
             return {
                 ...iState,
                 editProfile: action.payload
+            }
+
+        case actions.EDIT_USER_SETTINGS.ERROR:
+            return {
+                ...iState,
+                editUserSettings: action.payload
             }
 
         case actions.CHANGE_EMAIL.ERROR:

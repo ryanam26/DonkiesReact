@@ -1,10 +1,10 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
-import { CardSimple } from 'components'
+import { CardSimple, UserSettings } from 'components'
 
 
-class SettingsPage extends Component{
+export default class SettingsPage extends Component{
     constructor(props){
         super(props)
         autoBind(this)
@@ -13,6 +13,10 @@ class SettingsPage extends Component{
     render(){
         return (
             <div className="row">
+                <div className="col-sm-6">
+                    <UserSettings />
+                </div>                
+
                 <div className="col-sm-6">
                     <CardSimple
                         header={'Unlink All Accounts \u0026 Refund All Change'}
@@ -25,20 +29,6 @@ class SettingsPage extends Component{
                         </button>
                     </CardSimple>
                 </div>
-
-                <div className="col-sm-6">
-                    <CardSimple
-                        header="Setup Automatic Transfer to Debt Accounts"
-                        headerClass="m-b-20"
-                        isContentToBody={false}>
-                        
-                        <button className="btn bgm-lightblue btn-icon-text btn-sm waves-effect m-r-5">
-                            <i className="zmdi zmdi-settings" />
-                            {'Configure'}
-                        </button>
-
-                    </CardSimple>
-                </div>
             </div>
         )
     }
@@ -47,10 +37,3 @@ class SettingsPage extends Component{
 
 SettingsPage.propTypes = {
 }
-
-const mapStateToProps = (state) => ({
-})
-
-export default connect(mapStateToProps, {
-})(SettingsPage)
-

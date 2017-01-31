@@ -14,9 +14,6 @@ export { AddBankPage }
 import { default as AddLenderPage } from './finance/AddLenderPage'
 export { AddLenderPage }
 
-import { default as SettingsPage } from './finance/SettingsPage'
-export { SettingsPage }
-
 import { default as TransactionsPage } from './finance/TransactionsPage'
 export { TransactionsPage }
 
@@ -28,6 +25,9 @@ export { HomePage }
 
 import { default as NotFoundPage } from './layout/NotFoundPage'
 export { NotFoundPage }
+
+import { default as SettingsPage } from './layout/SettingsPage'
+export { SettingsPage }
 
 import { default as TestPage } from './layout/TestPage'
 export { TestPage }
