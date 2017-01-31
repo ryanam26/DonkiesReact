@@ -63,7 +63,7 @@ class UserSettings extends Component{
                                     <SelectSimple
                                         name="minimum_transfer_amount"
                                         options={this.getTransferAmountOptions()}
-                                        defaultValue={user.minimum_transfer_amount} />
+                                        value={user.minimum_transfer_amount} />
                                 </div>
                             </div>
                         </div>
