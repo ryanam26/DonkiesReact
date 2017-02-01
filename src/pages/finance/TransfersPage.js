@@ -17,15 +17,15 @@ export default class TransfersPage extends Component{
 
         return (
             <div className="row">
-                <div className="col-sm-6 col-md-4">
+                <div className="col-sm-12 col-md-6">
                     <TransfersPrepare />
                 </div>
 
-                <div className="col-sm-6 col-md-4">
+                <div className="col-sm-12 col-md-6">
                     <TransfersDonkies />
                 </div>
 
-                <div className="col-sm-6 col-md-4">
+                <div className="col-sm-12 col-md-6">
                     <TransfersUser />
                 </div>
             </div>

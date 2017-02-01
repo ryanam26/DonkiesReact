@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
+import moment from 'moment'
 import { apiGetRequest } from 'actions'
 import { LoadingInline, TableData } from 'components'
 
@@ -16,26 +17,22 @@ class TransfersPrepare extends Component{
     }
 
     getData(){
+        const { transfers } = this.props
+
         let data = {}
-        data.id = 'transactions'
-        data.header = [
-            'Date', 'Account', 'Amount', 'Roundup', 'Category', 'Description']
+        data.id = 'transfersPrepare'
+        data.header = ['Date', 'Account', 'Roundup']
         data.rows = []
 
-        for (let t of this.getTransactions()){
+        for (let t of transfers){
             let row = {}
             row.cols = []
 
-            const roundup = t.roundup ? `$${t.roundup}` : '-'
-
-            let dt = moment(t.transacted_at)
+            let dt = moment(t.created_at)
 
             row.cols.push({value: dt.format('YYYY/MM/DD'), className: 'f-500 c-cyan'})
             row.cols.push({value: t.account})
-            row.cols.push({value: `$${t.amount}`, className: 'f-500 c-cyan'})
-            row.cols.push({value: roundup, className: 'f-500 c-cyan'})
-            row.cols.push({value: t.category})
-            row.cols.push({value: t.description})
+            row.cols.push({value: `$${t.roundup}`, className: 'f-500 c-cyan'})
             data.rows.push(row)
         }
         return data
@@ -51,9 +48,10 @@ class TransfersPrepare extends Component{
 
         return (
             <wrap>
-                <h4>{'Collected (not processed) roundup'}</h4>
-
-
+                <h4>{'History of collected roundup'}</h4>
+                <TableData
+                    data={this.getData()}
+                    searchFields={['account']} />
             </wrap>
         )
     }
