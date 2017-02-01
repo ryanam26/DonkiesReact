@@ -1,15 +1,14 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
-import { apiCall2, INSTITUTIONS_SUGGEST_URL } from 'services/api'
+import { apiCall2 } from 'services/api'
 import InputAutocompleteUI from './ui/InputAutocompleteUI'
 
 
 /**
- * Component with static suggestions.
- * Pass suggestions to InputAutocompleteUI and
- * after getting value filter suggestions and send them back
- * to UI component.
+ * Component with dynamic suggestions from API url.
+ * API endpoint input "value" in GET param.
+ * API endpoint should return content in particular format.
  *
  * @param {string} url - API endpoint url that receives 
  *                       "value" in GET param for filtering suggestions and

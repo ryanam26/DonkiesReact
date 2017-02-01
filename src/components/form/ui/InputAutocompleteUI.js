@@ -63,6 +63,8 @@ export default class InputAutocompleteUI extends Component {
      * Called on each input change.
      */
     onChange(e, {newValue, method}) {
+        this.setState({value: newValue, isError: false})
+        this.props.onUpdate(newValue)    
     }
 
     /**

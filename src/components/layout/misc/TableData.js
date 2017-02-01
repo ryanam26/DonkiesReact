@@ -136,7 +136,7 @@ class TableData extends Component{
 
     numPages(){
         let num = this.totalRows() / this.state.perPage
-        num = Math.round(num)
+        num = Math.ceil(num)
         if (num === 0){
             num = 1
         }

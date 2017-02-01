@@ -48,7 +48,7 @@ class TransfersDonkies extends Component{
 
         return (
             <wrap>
-                <h4>{'Transfers to Donkies'}</h4>
+                <h4>{'Transfers to Donkies LLC'}</h4>
                 <TableData
                     data={this.getData()}
                     searchFields={['account']} />
