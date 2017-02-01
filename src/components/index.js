@@ -97,6 +97,18 @@ import { default as TableSimple } from './layout/misc/TableSimple'
 export { TableSimple }
 
 
+// transfers
+
+import { default as TransfersDonkies } from './transfers/TransfersDonkies'
+export { TransfersDonkies }
+
+import { default as TransfersPrepare } from './transfers/TransfersPrepare'
+export { TransfersPrepare }
+
+import { default as TransfersUser } from './transfers/TransfersUser'
+export { TransfersUser }
+
+
 // user
 
 import { default as ChangeEmail } from './user/ChangeEmail'

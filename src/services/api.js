@@ -27,6 +27,9 @@ export const RESEND_REG_CONFIRMATION_URL = `${API_ROOT_URL}v1/user/resend_reg_co
 export const SETTINGS_URL = `${API_ROOT_URL}v1/settings`
 export const SETTINGS_LOGIN_URL = `${API_ROOT_URL}v1/settings/login`
 export const TRANSACTIONS_URL = `${API_ROOT_URL}v1/transactions`  
+export const TRANSFERS_PREPARE_URL = `${API_ROOT_URL}v1/transfers_prepare`
+export const TRANSFERS_DONKIES_URL = `${API_ROOT_URL}v1/transfers_donkies`
+export const TRANSFERS_USER_URL = `${API_ROOT_URL}v1/transfers_user`  
 export const USER_URL = `${API_ROOT_URL}v1/user`
 export const USER_SETTINGS_URL = `${API_ROOT_URL}v1/user_settings`
 

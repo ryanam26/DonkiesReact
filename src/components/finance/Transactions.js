@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
+import moment from 'moment'
 import { LoadingInline, SelectSimple, TableData } from 'components'
 
 
@@ -82,10 +83,12 @@ class Transactions extends Component{
 
             const roundup = t.roundup ? `$${t.roundup}` : '-'
 
-            row.cols.push({value: t.transacted_at})
+            let dt = moment(t.transacted_at)
+
+            row.cols.push({value: dt.format('YYYY/MM/DD'), className: 'f-500 c-cyan'})
             row.cols.push({value: t.account})
-            row.cols.push({value: `$${t.amount}`})
-            row.cols.push({value: roundup})
+            row.cols.push({value: `$${t.amount}`, className: 'f-500 c-cyan'})
+            row.cols.push({value: roundup, className: 'f-500 c-cyan'})
             row.cols.push({value: t.category})
             row.cols.push({value: t.description})
             data.rows.push(row)

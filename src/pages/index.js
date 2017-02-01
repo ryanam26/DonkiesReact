@@ -17,6 +17,8 @@ export { AddLenderPage }
 import { default as TransactionsPage } from './finance/TransactionsPage'
 export { TransactionsPage }
 
+import { default as TransfersPage } from './finance/TransfersPage'
+export { TransfersPage }
 
 // layout
 
