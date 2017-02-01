@@ -54,8 +54,8 @@ export { SelectSimple }
 
 // layout
 
-import { default as HomeMiniCharts } from './layout/content/HomeMiniCharts'
-export { HomeMiniCharts }
+import { default as HomeStat } from './layout/content/HomeStat'
+export { HomeStat }
 
 import { default as HomeTransactions } from './layout/content/HomeTransactions'
 export { HomeTransactions }

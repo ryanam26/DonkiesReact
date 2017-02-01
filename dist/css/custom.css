@@ -24,3 +24,22 @@
 .fake-link:hover{
     color: #0a6ebd ;
 }
+
+.dashboard-color-block{
+    padding: 20px 45px 20px 45px;
+    color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.dashboard-color-block .amount{
+    font-size: 20px;
+}
+
+.dashboard-color-block .content{
+    display: none;
+}
+
+.dashboard-color-block:hover .content{
+    display: block;
+}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
 import {
     CardSimple,
-    HomeMiniCharts,
+    HomeStat,
     HomeTransactions,
     HomeTransfer,
     TableSimple } from 'components'
@@ -18,7 +18,7 @@ export default class HomePageComponent extends Component{
     render(){
         return (
             <wrap>
-                <HomeMiniCharts />
+                <HomeStat />
                 <HomeTransfer />
                 <HomeTransactions />
             </wrap>
