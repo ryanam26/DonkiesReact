@@ -59,12 +59,10 @@ class UserSettings extends Component{
                                 {'Minimum transfer amount'}
                             </label>
                             <div className="col-sm-8">
-                                <div className="fg-line">
-                                    <SelectSimple
-                                        name="minimum_transfer_amount"
-                                        options={this.getTransferAmountOptions()}
-                                        value={user.minimum_transfer_amount} />
-                                </div>
+                                <SelectSimple
+                                    name="minimum_transfer_amount"
+                                    options={this.getTransferAmountOptions()}
+                                    value={user.minimum_transfer_amount} />
                             </div>
                         </div>
                         
