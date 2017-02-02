@@ -60,9 +60,6 @@ export { HomeStat }
 import { default as HomeTransactions } from './layout/content/HomeTransactions'
 export { HomeTransactions }
 
-import { default as HomeTransfer } from './layout/content/HomeTransfer'
-export { HomeTransfer }
-
 import { default as Loading } from './layout/content/Loading'
 export { Loading }
 

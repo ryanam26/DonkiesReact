@@ -47,11 +47,13 @@ export const REGISTRATION = createRequestTypes('REGISTRATION')
 export const SETTINGS = createRequestTypes('SETTINGS')
 export const SETTINGS_LOGIN = createRequestTypes('SETTINGS_LOGIN')
 export const TOKEN = createRequestTypes('TOKEN')
+export const STAT = createRequestTypes('STAT')
 export const TRANSACTIONS = createRequestTypes('TRANSACTIONS')
 export const TRANSFERS_DONKIES = createRequestTypes('TRANSFERS_DONKIES')
 export const TRANSFERS_PREPARE = createRequestTypes('TRANSFERS_PREPARE')
 export const TRANSFERS_USER = createRequestTypes('TRANSFERS_USER')
 export const USER = createRequestTypes('USER')
+
 export const ALERT_ADD = 'ALERT_ADD'
 export const ALERT_REMOVE = 'ALERT_REMOVE'
 export const FORM_ERRORS =  'FORM_ERRORS'

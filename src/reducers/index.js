@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
 import { accounts } from './finance/accounts'
+import { stat } from './finance/stat'
 import { transactions } from './finance/transactions'
 import { transfers } from './finance/transfers'
 
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     menu,
     settings,
     settingsLogin,
+    stat,
     transactions,
     transfers,
     user,

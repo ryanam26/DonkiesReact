@@ -5,7 +5,6 @@ import {
     CardSimple,
     HomeStat,
     HomeTransactions,
-    HomeTransfer,
     TableSimple } from 'components'
 
 
@@ -19,7 +18,6 @@ export default class HomePageComponent extends Component{
         return (
             <wrap>
                 <HomeStat />
-                <HomeTransfer />
                 <HomeTransactions />
             </wrap>
         )
