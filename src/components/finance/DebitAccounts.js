@@ -7,7 +7,7 @@ import { apiGetRequest, navigate } from 'actions'
 import { apiCall3, ACCOUNTS_SET_FUNDING_SOURCE_URL } from 'services/api'
 import { getDollarAmount } from 'services/helpers'
 import {
-    AccountRemove,
+    ConfigureAccounts,
     CardSimple,
     LoadingInline,
     Modal,
@@ -20,21 +20,12 @@ class DebitAccounts extends Component{
         autoBind(this)
 
         this.state = {
-            isShowRemoveModal: false,
             setSourceInProgressId: null
         }
     }
 
-    onClickShowModal(){
-        this.setState({isShowRemoveModal: true})
-    }
-
-    onClickCloseModal(){
-        this.setState({isShowRemoveModal: false})
-    }
-
-    onAccountRemoved(){
-        this.setState({isShowRemoveModal: false})   
+    onClickConfigure(){
+        this.props.navigate('/configure_accounts')
     }
 
     onClickSetSource(params){
@@ -146,7 +137,7 @@ class DebitAccounts extends Component{
     }
 
     render(){
-        const { isShowRemoveModal } = this.state
+        const { isShowConfigureModal } = this.state
         const { accounts } = this.props
         
         return (
@@ -154,12 +145,10 @@ class DebitAccounts extends Component{
                 {this.hasAccounts() &&
                     <Modal
                         onClickClose={this.onClickCloseModal}
-                        visible={isShowRemoveModal}
-                        title="Remove bank account">
+                        visible={isShowConfigureModal}
+                        title="Configure accounts">
                             
-                            <AccountRemove
-                                onAccountRemoved={this.onAccountRemoved}
-                                accounts={accounts} />
+                            <ConfigureAccounts />
                     </Modal>  
                 }
             
@@ -179,10 +168,10 @@ class DebitAccounts extends Component{
 
                     {this.hasAccounts() &&
                         <button
-                            onClick={this.onClickShowModal}
-                            className="btn bgm-red btn-icon-text btn-sm waves-effect m-r-5 m-t-5">
-                            <i className="zmdi zmdi-delete" />
-                            {'Remove Bank Account'}
+                            onClick={this.onClickConfigure}
+                            className="btn bgm-gray btn-icon-text btn-sm waves-effect m-r-5 m-t-5">
+                            <i className="zmdi zmdi-settings" />
+                            {'Configure'}
                         </button>
                     }
                 </CardSimple>
@@ -197,6 +186,7 @@ class DebitAccounts extends Component{
 
 DebitAccounts.propTypes = {
     accounts: PropTypes.array,
+    accountsNotActive: PropTypes.array,
     apiGetRequest: PropTypes.func,
     navigate: PropTypes.func,
     user: PropTypes.object
@@ -204,6 +194,7 @@ DebitAccounts.propTypes = {
 
 const mapStateToProps = (state) => ({
     accounts: state.accounts.debitAccounts,
+    accountsNotActive: state.accounts.debitAccountsNotActive,
     user: state.user.item
 })
 

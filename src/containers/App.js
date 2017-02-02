@@ -35,6 +35,7 @@ class App extends Component {
         this.props.apiGetRequest('user')
         this.props.apiGetRequest('transactions')
         this.props.apiGetRequest('accounts')
+        this.props.apiGetRequest('members')
         this.props.apiGetRequest('stat')
     }
 

@@ -19,6 +19,7 @@ const iState = {
     login: null,
     registration: null,
     changeEmail: null,
+    configureAccounts: null,
     changePassword: null,
     editProfile: null,
     editUserSettings: null
@@ -71,6 +72,12 @@ export function formErrors(state=iState, action){
             return {
                 ...iState,
                 changePassword: action.payload
+            }
+
+        case actions.ACCOUNTS_SET_ACTIVE.ERROR:
+            return {
+                ...iState,
+                configureAccounts: action.payload
             }
 
         default:

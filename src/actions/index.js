@@ -35,6 +35,7 @@ function createRequestTypes(base) {
 }
 
 export const ACCOUNTS = createRequestTypes('ACCOUNTS')
+export const ACCOUNTS_SET_ACTIVE = createRequestTypes('ACCOUNTS_SET_ACTIVE')
 export const API_GET_REQUEST = createRequestTypes('API_GET_REQUEST')
 export const API_EDIT_REQUEST = createRequestTypes('API_EDIT_REQUEST')
 export const CHANGE_EMAIL = createRequestTypes('CHANGE_EMAIL')
@@ -43,6 +44,7 @@ export const EDIT_PROFILE = createRequestTypes('EDIT_PROFILE')
 export const EDIT_USER_SETTINGS = createRequestTypes('EDIT_USER_SETTINGS')
 export const LOGIN = createRequestTypes('LOGIN')
 export const LOGIN_FACEBOOK = createRequestTypes('LOGIN_FACEBOOK')
+export const MEMBERS = createRequestTypes('MEMBERS')
 export const REGISTRATION = createRequestTypes('REGISTRATION')
 export const SETTINGS = createRequestTypes('SETTINGS')
 export const SETTINGS_LOGIN = createRequestTypes('SETTINGS_LOGIN')
@@ -96,6 +98,10 @@ export const resetErrorMessage = () => action(RESET_ERROR_MESSAGE)
 export const setFormErrors = (formType, errors) => action(FORM_ERRORS, {formType, errors})
 export const setActiveMenu = url => action(SET_ACTIVE_MENU, {url})
 export const updateRouterState = state => action(UPDATE_ROUTER_STATE, {state})
+
+
+// finance
+export const accountsSetActive = (id, form) => action(ACCOUNTS_SET_ACTIVE.SUBMIT, {id, form})
 
 
 // auth

@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
 import { Link } from 'react-router'
 import { getDollarAmount } from 'services/helpers'
+import { navigate } from 'actions'
 import {
-    AccountRemove,
+    ConfigureAccounts,
     CardSimple,
     Modal,
     ShareEdit,
@@ -17,7 +18,6 @@ class DebtAccounts extends Component{
         autoBind(this)
 
         this.state = {
-            isShowRemoveModal: false,
             isShowShareModal: false
         }
     }
@@ -30,18 +30,10 @@ class DebtAccounts extends Component{
         this.setState({isShowShareModal: false})
     }
 
-    onClickShowRemoveModal(){
-        this.setState({isShowRemoveModal: true})
+    onClickConfigure(){
+        this.props.navigate('/configure_accounts')
     }
-
-    onClickCloseRemoveModal(){
-        this.setState({isShowRemoveModal: false})
-    }
-
-    onAccountRemoved(){
-        this.setState({isShowRemoveModal: false})   
-    }
-
+    
     hasAccounts(){
         const { accounts } = this.props
 
@@ -84,20 +76,18 @@ class DebtAccounts extends Component{
     }
 
     render(){
-        const { isShowRemoveModal, isShowShareModal } = this.state
+        const { isShowConfigureModal, isShowShareModal } = this.state
         const { accounts } = this.props
         
         return (
             <wrap>
                 {this.hasAccounts() &&
                     <Modal
-                        onClickClose={this.onClickCloseRemoveModal}
-                        visible={isShowRemoveModal}
-                        title="Remove lender">
+                        onClickClose={this.onClickCloseConfigureModal}
+                        visible={isShowConfigureModal}
+                        title="Configure accounts">
                             
-                            <AccountRemove
-                                onAccountRemoved={this.onAccountRemoved}
-                                accounts={accounts} />
+                            <ConfigureAccounts />
                     </Modal>  
                 }
 
@@ -132,10 +122,10 @@ class DebtAccounts extends Component{
 
                     {this.hasAccounts() &&
                         <button
-                            onClick={this.onClickShowRemoveModal}
-                            className="btn bgm-red btn-icon-text btn-sm waves-effect m-r-5 m-t-5">
-                            <i className="zmdi zmdi-delete" />
-                            {'Remove lender'}
+                            onClick={this.onClickConfigure}
+                            className="btn bgm-gray btn-icon-text btn-sm waves-effect m-r-5 m-t-5">
+                            <i className="zmdi zmdi-settings" />
+                            {'Configure'}
                         </button>
                     }
                 </CardSimple>
@@ -149,12 +139,16 @@ class DebtAccounts extends Component{
 
 
 DebtAccounts.propTypes = {
-    accounts: PropTypes.array
+    accounts: PropTypes.array,
+    accountsNotActive: PropTypes.array,
+    navigate: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
-    accounts: state.accounts.debtAccounts
+    accounts: state.accounts.debtAccounts,
+    accountsNotActive: state.accounts.debtAccountsNotActive
 })
 
 export default connect(mapStateToProps, {
+    navigate
 })(DebtAccounts)

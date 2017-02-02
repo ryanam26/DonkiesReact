@@ -141,7 +141,7 @@ Transactions.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    accounts: state.accounts.allAccounts,
+    accounts: state.accounts.accounts,
     transactions: state.transactions.items
 })
 

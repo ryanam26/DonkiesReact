@@ -14,8 +14,8 @@ export { DebitAccounts }
 import { default as DebtAccounts } from './finance/DebtAccounts'
 export { DebtAccounts }
 
-import { default as AccountRemove } from './finance/AccountRemove'
-export { AccountRemove }
+import { default as ConfigureAccounts } from './finance/ConfigureAccounts'
+export { ConfigureAccounts }
 
 import { default as ShareEdit } from './finance/ShareEdit'
 export { ShareEdit }
