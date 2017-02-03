@@ -7,7 +7,8 @@ import {
     accountsSetActive,
     apiGetRequest,
     deleteMember,
-    growlAddRequest } from 'actions'
+    growlAddRequest,
+    setFormErrors } from 'actions'
 
 import { 
     ErrorBlock,
@@ -45,6 +46,7 @@ class ConfigureAccounts extends Component{
     }
 
     onClickRemoveMember(){
+        this.clearErrors()
         const { activeMemberId } = this.state
         if (!activeMemberId){
             return
@@ -57,6 +59,7 @@ class ConfigureAccounts extends Component{
      * If account is active, set not active and vice versa.
      */
     onClickAccountSetActive(id){
+        this.clearErrors()
         let account = this.getAccountById(id)
         let isActive = !account.is_active
         const form = {is_active: isActive}
@@ -67,6 +70,7 @@ class ConfigureAccounts extends Component{
      * Callback function, passed to SelectSimple
      */
     onSelectMember(value){
+        this.clearErrors()
         if (value !== ''){
             this.setState({activeMemberId: parseInt(value)})
         } else {
@@ -82,6 +86,10 @@ class ConfigureAccounts extends Component{
             }
         }
         return null
+    }
+
+    clearErrors(){
+        this.props.setFormErrors('clear', null)
     }
 
     getAccountById(id){
@@ -252,6 +260,7 @@ ConfigureAccounts.propTypes = {
     growlAddRequest: PropTypes.func,
     isDeleteMemberInProgress: PropTypes.bool,
     members: PropTypes.array,
+    setFormErrors: PropTypes.func,
     triggerDeleteMember: PropTypes.number
 }
 
@@ -268,5 +277,6 @@ export default connect(mapStateToProps, {
     accountsSetActive,
     apiGetRequest,
     growlAddRequest,
-    deleteMember
+    deleteMember,
+    setFormErrors
 })(ConfigureAccounts)
