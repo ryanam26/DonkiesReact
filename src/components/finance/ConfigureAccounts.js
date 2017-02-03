@@ -1,8 +1,14 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
-import { accountsSetActive, apiGetRequest, growlAddRequest } from 'actions'
 import { createUUID } from 'services/helpers'
+
+import {
+    accountsSetActive,
+    apiGetRequest,
+    deleteMember,
+    growlAddRequest } from 'actions'
+
 import { 
     ErrorBlock,
     LoadingInline,
@@ -18,17 +24,33 @@ class ConfigureAccounts extends Component{
         autoBind(this)
 
         this.state = {
-            activeMemberId: null,
-            isLoading: false
+            activeMemberId: null
         }
     }
     
+    componentWillReceiveProps(nextProps){
+        if (this.props.triggerDeleteMember !== nextProps.triggerDeleteMember){
+            this.props.apiGetRequest('accounts')
+            this.props.apiGetRequest('members')
+            this.props.apiGetRequest('transactions')    
+
+            const id = createUUID()
+            this.props.growlAddRequest({
+                id: id,
+                message: 'Financial institution deleted',
+                type: 'success'
+            })
+            this.setState({activeMemberId: null})
+        }
+    }
+
     onClickRemoveMember(){
         const { activeMemberId } = this.state
         if (!activeMemberId){
             return
         }
-        this.submitRequest(activeMemberId)
+        const member = this.getMemberById(activeMemberId)
+        this.props.deleteMember(member.identifier)
     }
 
     /**
@@ -50,6 +72,16 @@ class ConfigureAccounts extends Component{
         } else {
             this.setState({activeMemberId: null})
         }
+    }
+
+    getMemberById(id){
+        const { members } = this.props
+        for (let m of members){
+            if (m.id === id){
+                return m
+            }
+        }
+        return null
     }
 
     getAccountById(id){
@@ -83,35 +115,6 @@ class ConfigureAccounts extends Component{
         return data
     }
 
-    
-
-    /**
-     * Api request to remove member.
-     */
-    async submitRequest(activeMemberId){
-        this.setState({isLoading: true})
-
-        const url = `${MEMBERS_URL}/${activeMemberId}`
-
-        let response = await apiCall5(url, true) 
-
-        this.setState({isLoading: false})
-
-        if (response.status === 204){
-            // Update Redux state
-            this.props.apiGetRequest('accounts')
-            this.props.apiGetRequest('members')
-            this.props.apiGetRequest('transactions')
-        } else {
-            const id = createUUID()
-            this.props.growlAddRequest({
-                id: id,
-                message: 'Error',
-                'type': 'danger'
-            })
-        }
-    }
-
     renderAccounts(){
         const { accounts, errors } = this.props
         const { activeMemberId } = this.state
@@ -124,10 +127,6 @@ class ConfigureAccounts extends Component{
         data.id = 'accounts'
         data.header = ['ACCOUNT', 'TYPE', '']
         data.rows = []
-
-        console.log('!!!!!!!!!!!!1')
-        console.log(activeMemberId)
-        console.log(accounts.filter(a => a.member.id === activeMemberId))
 
         for (let a of accounts.filter(a => a.member.id === activeMemberId)){
             let row = {}
@@ -189,7 +188,11 @@ class ConfigureAccounts extends Component{
 
     render(){
         const { activeMemberId, isLoading } = this.state
-        const { accounts, accountsNotActive, members } = this.props
+        const {
+            accounts,
+            accountsNotActive,
+            isDeleteMemberInProgress,
+            members } = this.props
         
         if (isLoading || !members || !accounts || !accountsNotActive){
             return <LoadingInline />
@@ -210,18 +213,19 @@ class ConfigureAccounts extends Component{
                     </div>
 
                     {activeMemberId &&
-                        <div className="col-sm-6">
-                            <button
-                                onClick={this.onClickRemoveMember}
-                                className="btn bgm-red btn-icon-text btn-sm waves-effect m-t-5">
-                                    <i className="zmdi zmdi-delete" />
-                                {'Remove financial institution'}
-                            </button>
+                        <div className="col-xs-6">
+                            {isDeleteMemberInProgress ?
+                                <LoadingInline />
+                            :
+                                <button
+                                    onClick={this.onClickRemoveMember}
+                                    className="btn bgm-red btn-icon-text btn-sm waves-effect m-t-5">
+                                        <i className="zmdi zmdi-delete" />
+                                    {'Remove financial institution'}
+                                </button>}
                         </div>
                     }
                 </div>
-
-                
 
                 <div className="row">
                     <div className="col-sm-6">
@@ -243,20 +247,26 @@ ConfigureAccounts.propTypes = {
     accountsNotActive: PropTypes.array,
     accountsSetActive: PropTypes.func,
     apiGetRequest: PropTypes.func,
+    deleteMember: PropTypes.func,
     errors: PropTypes.object,
     growlAddRequest: PropTypes.func,
-    members: PropTypes.array
+    isDeleteMemberInProgress: PropTypes.bool,
+    members: PropTypes.array,
+    triggerDeleteMember: PropTypes.number
 }
 
 const mapStateToProps = (state) => ({
     accounts: state.accounts.accounts,
     accountsNotActive: state.accounts.accountsNotActive,
     errors: state.formErrors.configureAccounts,
+    isDeleteMemberInProgress: state.members.isDeleteMemberInProgress,
     members: state.members.items,
+    triggerDeleteMember: state.members.triggerDeleteMember 
 })
 
 export default connect(mapStateToProps, {
     accountsSetActive,
     apiGetRequest,
-    growlAddRequest
+    growlAddRequest,
+    deleteMember
 })(ConfigureAccounts)

@@ -80,6 +80,12 @@ export function formErrors(state=iState, action){
                 configureAccounts: action.payload
             }
 
+        case actions.DELETE_MEMBER.ERROR:
+            return {
+                ...iState,
+                configureAccounts: action.payload
+            }
+
         default:
             return state
     }

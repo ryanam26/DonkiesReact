@@ -40,6 +40,7 @@ export const API_GET_REQUEST = createRequestTypes('API_GET_REQUEST')
 export const API_EDIT_REQUEST = createRequestTypes('API_EDIT_REQUEST')
 export const CHANGE_EMAIL = createRequestTypes('CHANGE_EMAIL')
 export const CHANGE_PASSWORD = createRequestTypes('CHANGE_PASSWORD')
+export const DELETE_MEMBER = createRequestTypes('DELETE_MEMBER')
 export const EDIT_PROFILE = createRequestTypes('EDIT_PROFILE')
 export const EDIT_USER_SETTINGS = createRequestTypes('EDIT_USER_SETTINGS')
 export const LOGIN = createRequestTypes('LOGIN')
@@ -102,7 +103,7 @@ export const updateRouterState = state => action(UPDATE_ROUTER_STATE, {state})
 
 // finance
 export const accountsSetActive = (id, form) => action(ACCOUNTS_SET_ACTIVE.SUBMIT, {id, form})
-
+export const deleteMember = (identifier) => action(DELETE_MEMBER.SUBMIT, {identifier})
 
 // auth
 export const getToken = () => action(TOKEN.GET)

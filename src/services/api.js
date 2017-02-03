@@ -97,7 +97,7 @@ export function* apiCall(url, method, data, isAuth){
 
     if (status === 404){
         result.isError = true
-        result.data = {non_field_errors: ['Page not found.']}
+        result.data = {non_field_errors: ['Resource not found.']}
         return result
     }
 
