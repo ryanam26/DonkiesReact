@@ -7,13 +7,14 @@ import {
     AddLenderPage,
     ConfigureAccountsPage,
     CreateFundingSourcePage,
-    ForgotPasswordPage,
     HomePage,
     LoginPage,
     LoginFacebookPage,
     NotFoundPage,
     RegistrationPage,
     RegistrationConfirmPage,
+    ResetPasswordPage,
+    ResetPasswordRequestPage,
     SettingsPage,
     TestPage,
     TransactionsPage,
@@ -32,7 +33,8 @@ export default (
         <Route component={LoginFacebookPage} path="/login_facebook" />     
         <Route component={RegistrationPage} path="/registration" />
         <Route component={RegistrationConfirmPage} path="/confirm" />
-        <Route component={ForgotPasswordPage} path="/forgot_password" />     
+        <Route component={ResetPasswordRequestPage} path="/forgot_password" />     
+        <Route component={ResetPasswordPage} path="/reset" />     
        
         <Route component={requireAuth(UserNotConfirmedPage)} path="/not_confirmed" />
 

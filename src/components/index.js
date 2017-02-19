@@ -117,9 +117,6 @@ export { ChangePassword }
 import { default as EditProfile } from './user/EditProfile'
 export { EditProfile }
 
-import { default as ForgotPassword } from './user/ForgotPassword'
-export { ForgotPassword }
-
 import { default as Login } from './user/Login'
 export { Login }
 
@@ -134,6 +131,12 @@ export { Registration }
 
 import { default as RegistrationConfirm } from './user/RegistrationConfirm'
 export { RegistrationConfirm }
+
+import { default as ResetPassword } from './user/ResetPassword'
+export { ResetPassword }
+
+import { default as ResetPasswordRequest } from './user/ResetPasswordRequest'
+export { ResetPasswordRequest }
 
 import { default as UserNotConfirmed } from './user/UserNotConfirmed'
 export { UserNotConfirmed }

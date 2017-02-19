@@ -7,7 +7,7 @@ import { formToObject } from 'services/helpers'
 import { Alert, Checkbox, Input, ErrorBlock } from 'components'
 
 
-class ForgotPassword extends Component{
+class ResetPasswordRequest extends Component{
     constructor(props){
         super(props)
         autoBind(this)
@@ -95,7 +95,7 @@ class ForgotPassword extends Component{
     }
 }
 
-ForgotPassword.propTypes = {
+ResetPasswordRequest.propTypes = {
     errors: PropTypes.object,
     resetPasswordRequest: PropTypes.func,
     setFormErrors: PropTypes.func,
@@ -110,4 +110,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
     resetPasswordRequest,
     setFormErrors
-})(ForgotPassword)
+})(ResetPasswordRequest)

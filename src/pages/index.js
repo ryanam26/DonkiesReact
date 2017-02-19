@@ -40,9 +40,6 @@ export { TestPage }
 
 // user
 
-import { default as ForgotPasswordPage } from './user/ForgotPasswordPage'
-export { ForgotPasswordPage }
-
 import { default as LoginPage } from './user/LoginPage'
 export { LoginPage }
 
@@ -54,6 +51,12 @@ export { RegistrationConfirmPage }
 
 import { default as RegistrationPage } from './user/RegistrationPage'
 export { RegistrationPage }
+
+import { default as ResetPasswordRequestPage } from './user/ResetPasswordRequestPage'
+export { ResetPasswordRequestPage }
+
+import { default as ResetPasswordPage } from './user/ResetPasswordPage'
+export { ResetPasswordPage }
 
 import { default as UserNotConfirmedPage } from './user/UserNotConfirmedPage'
 export { UserNotConfirmedPage }
