@@ -5,6 +5,7 @@ import {
     CHANGE_EMAIL_URL,
     CHANGE_EMAIL_CONFIRM_URL,
     CHANGE_PASSWORD_URL,
+    RESET_PASSWORD_REQUEST_URL,
     USER_URL,
     USER_SETTINGS_URL,
     apiCall } from 'services/api'
@@ -93,8 +94,6 @@ function* changePassword(form){
         type: actions.GROWL_ADD_REQUEST,
         payload: {id: id, message: 'Your password has been changed!', type: 'success'}
     })
-    
-    
 }
 
 export function* watchChangePassword(){
@@ -132,5 +131,28 @@ export function* watchEditSettings(){
   while(true){
     const { form } = yield take(actions.EDIT_USER_SETTINGS.SUBMIT)
     yield fork(editSettings, form)
+  }
+}
+
+
+// ------- Reset password request
+
+function* resetPasswordRequest(form){
+    yield put({type: actions.RESET_PASSWORD_REQUEST.REQUEST}) 
+
+    const result = yield call(apiCall, RESET_PASSWORD_REQUEST_URL, 'POST', form, false)
+    
+    if (result.isError){
+        yield put({type: actions.RESET_PASSWORD_REQUEST.ERROR, payload: result.data})  
+        return  
+    } 
+
+    yield put({type: actions.RESET_PASSWORD_REQUEST.SUCCESS, payload: result.data})
+}
+
+export function* watchResetPasswordRequest(){
+  while(true){
+    const { form } = yield take(actions.RESET_PASSWORD_REQUEST.SUBMIT)
+    yield fork(resetPasswordRequest, form)
   }
 }

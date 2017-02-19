@@ -19,6 +19,7 @@ import { watchChangeEmail } from './web/user'
 import { watchChangePassword } from './web/user'
 import { watchEditProfile } from './web/user'
 import { watchEditSettings } from './web/user'
+import { watchResetPasswordRequest } from './web/user'
 
 
 function* watchNavigate(){
@@ -43,6 +44,7 @@ export default function* root() {
     fork(watchLoginFacebook),
     fork(watchNavigate),
     fork(watchRegistration),
+    fork(watchResetPasswordRequest),
     fork(watchSetActive)
   ]
 }

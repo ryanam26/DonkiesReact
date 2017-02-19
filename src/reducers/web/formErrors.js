@@ -22,7 +22,8 @@ const iState = {
     configureAccounts: null,
     changePassword: null,
     editProfile: null,
-    editUserSettings: null
+    editUserSettings: null,
+    resetPasswordRequest: null
 }
 
 
@@ -36,18 +37,6 @@ export function formErrors(state=iState, action){
                     ...iState,
                     [action.formType]: action.errors
                 }    
-            }
-
-        case actions.LOGIN.ERROR:
-            return {
-                ...iState,
-                login: action.payload
-            }
-
-        case actions.REGISTRATION.ERROR:
-            return {
-                ...iState,
-                registration: action.payload
             }
 
         case actions.EDIT_PROFILE.ERROR:
@@ -84,6 +73,25 @@ export function formErrors(state=iState, action){
             return {
                 ...iState,
                 configureAccounts: action.payload
+            }
+
+        case actions.LOGIN.ERROR:
+            return {
+                ...iState,
+                login: action.payload
+            }
+
+        case actions.REGISTRATION.ERROR:
+            return {
+                ...iState,
+                registration: action.payload
+            }
+
+        case actions.RESET_PASSWORD_REQUEST.ERROR:
+            console.log(action.payload)
+            return {
+                ...iState,
+                resetPasswordRequest: action.payload
             }
 
         default:

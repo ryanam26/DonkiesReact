@@ -9,7 +9,8 @@ const iState = {
     triggerChangeEmail: 0,
     triggerChangePassword: 0,
     triggerEditProfile: 0,
-    triggerEditUserSettings: 0
+    triggerEditUserSettings: 0,
+    triggerResetPasswordRequest: 0
 }
 
 export function user(state=iState, action){
@@ -94,6 +95,12 @@ export function user(state=iState, action){
                 ...state,
                 triggerEditUserSettings: state.triggerEditUserSettings + 1,
                 isSubmittingEditUserSettings: false
+            }
+
+        case actions.RESET_PASSWORD_REQUEST.SUCCESS:
+            return {
+                ...state,
+                triggerResetPasswordRequest: state.triggerResetPasswordRequest + 1
             }
 
         default:

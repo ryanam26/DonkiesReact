@@ -102,8 +102,8 @@ export { TransfersDonkies }
 import { default as TransfersPrepare } from './transfers/TransfersPrepare'
 export { TransfersPrepare }
 
-import { default as TransfersUser } from './transfers/TransfersUser'
-export { TransfersUser }
+import { default as TransfersDebt } from './transfers/TransfersDebt'
+export { TransfersDebt }
 
 
 // user

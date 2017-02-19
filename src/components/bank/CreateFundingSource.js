@@ -84,7 +84,7 @@ class CreateFundingSource extends Component{
             iavToken, 
             {
                 container: 'iavContainer',
-                // stylesheets: ['http://donkies.co/css/custom-dwolla.css']
+                // stylesheets: ['https://donkies.co/css/custom-dwolla.css']
             },
         (err, res) => {
             if (err === null){

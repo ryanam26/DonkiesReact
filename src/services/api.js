@@ -25,13 +25,15 @@ export const MEMBERS_RESUME_URL = `${API_ROOT_URL}v1/members/resume`
 export const REGISTRATION_URL = `${API_ROOT_URL}v1/auth/signup`
 export const REGISTRATION_CONFIRM_URL = `${API_ROOT_URL}v1/auth/signup/confirm`
 export const RESEND_REG_CONFIRMATION_URL = `${API_ROOT_URL}v1/user/resend_reg_confirmation_link`
+export const RESET_PASSWORD_REQUEST_URL = `${API_ROOT_URL}v1/password/reset/request`
+export const RESET_PASSWORD_URL = `${API_ROOT_URL}v1/password/reset`
 export const SETTINGS_URL = `${API_ROOT_URL}v1/settings`
 export const SETTINGS_LOGIN_URL = `${API_ROOT_URL}v1/settings/login`
 export const STAT_URL = `${API_ROOT_URL}v1/stat`  
 export const TRANSACTIONS_URL = `${API_ROOT_URL}v1/transactions`  
 export const TRANSFERS_PREPARE_URL = `${API_ROOT_URL}v1/transfers_prepare`
 export const TRANSFERS_DONKIES_URL = `${API_ROOT_URL}v1/transfers_donkies`
-export const TRANSFERS_USER_URL = `${API_ROOT_URL}v1/transfers_user`  
+export const TRANSFERS_DEBT_URL = `${API_ROOT_URL}v1/transfers_debt`  
 export const USER_URL = `${API_ROOT_URL}v1/user`
 export const USER_SETTINGS_URL = `${API_ROOT_URL}v1/user_settings`
 

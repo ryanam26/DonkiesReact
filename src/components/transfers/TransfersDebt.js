@@ -6,21 +6,21 @@ import { apiGetRequest } from 'actions'
 import { LoadingInline, TableData } from 'components'
 
 
-class TransfersUser extends Component{
+class TransfersDebt extends Component{
     constructor(props){
         super(props)
         autoBind(this)
     }
 
     componentWillMount(){
-        this.props.apiGetRequest('transfers_user')   
+        this.props.apiGetRequest('transfers_debt')   
     }
 
     getData(){
         const { transfers } = this.props
 
         let data = {}
-        data.id = 'transfersUser'
+        data.id = 'transfersDebt'
         data.header = ['Created', 'Account', 'Amount', 'Is processed']
         data.rows = []
 
@@ -66,15 +66,15 @@ class TransfersUser extends Component{
 }
 
 
-TransfersUser.propTypes = {
+TransfersDebt.propTypes = {
     apiGetRequest: PropTypes.func,
     transfers: PropTypes.array
 }
 
 const mapStateToProps = (state) => ({
-    transfers: state.transfers.transfersUser
+    transfers: state.transfers.transfersDebt
 })
 
 export default connect(mapStateToProps, {
     apiGetRequest
-})(TransfersUser)
+})(TransfersDebt)

@@ -13,7 +13,7 @@ export default class Footer extends Component{
     render(){
         return (
             <footer id="footer">
-                {'Copyright \u00A9 2016 Donkies.co'}
+                {'Copyright \u00A9 2017 Donkies.co'}
 
                 <ul className="f-menu">
                     <li><Link to="/">{'Home'}</Link></li>

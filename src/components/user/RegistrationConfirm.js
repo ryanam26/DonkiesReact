@@ -3,18 +3,20 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import autoBind from 'react-autobind'
+import { navigate } from 'actions'
 import { apiCall3, REGISTRATION_CONFIRM_URL } from 'services/api'
 import { Alert, Loading } from 'components'
 
 
-export default class RegistrationConfirm extends Component{
+class RegistrationConfirm extends Component{
     constructor(props){
         super(props)
         autoBind(this)
 
         this.state = {
             isError: false,
-            message: null
+            message: null,
+            redirectMessage: null
         }
     }
 
@@ -49,11 +51,19 @@ export default class RegistrationConfirm extends Component{
             this.setState({
                 message: 'You have successfully confirmed your registration.'
             })
+            this.redirectLogin()
         }
     }
 
+    redirectLogin(){
+        this.setState({
+            redirectMessage: 'You will be redirected to login in a 5 seconds.'
+        })
+        setTimeout(() => this.props.navigate('/login'), 5000)
+    }
+
     render(){
-        const { isError, message } = this.state
+        const { isError, message, redirectMessage } = this.state
         
         if (!message){
             return <Loading />
@@ -65,6 +75,9 @@ export default class RegistrationConfirm extends Component{
             <div className="login-content">
                 <div className="lc-block lc-block-alt toggled">
                     <Alert type={type} value={message} />
+                    
+                    {redirectMessage && 
+                        <Alert type="success" value={redirectMessage} />}
                 </div>
             </div>
         )
@@ -73,5 +86,13 @@ export default class RegistrationConfirm extends Component{
 
 
 RegistrationConfirm.propTypes = {
+    navigate: PropTypes.func,
     query: PropTypes.object
 }
+
+const mapStateToProps = (state) => ({
+})
+
+export default connect(mapStateToProps, {
+  navigate
+})(RegistrationConfirm)
