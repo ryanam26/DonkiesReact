@@ -15,6 +15,17 @@ export function requireSignupCompleted(Component) {
         componentWillReceiveProps(nextProps) {
         }
 
+        /**
+         * @returns {string} - returns url without query params.
+         */
+        getAllowedPath(url){
+            let index = url.indexOf('?')
+            if (index === -1){
+                return url
+            }
+            return url.slice(0, index)
+        }
+
         get isSignupCompleted(){
             const { user } = this.props
             for (let obj of user.signup_steps){
@@ -51,7 +62,7 @@ export function requireSignupCompleted(Component) {
 
             const nextStep = this.getNextStep()
 
-            if (nextStep.allowed_url === `/${location.pathname}`){
+            if (this.getAllowedPath(nextStep.allowed_url) === `/${location.pathname}`){
                 return <Component {...this.props}/>   
             }
 
