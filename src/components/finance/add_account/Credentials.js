@@ -137,7 +137,7 @@ class Credentials extends Component{
         }
 
         if (isFetchingMember){
-            return <LoadingInline message="Please wait..." />
+            return <LoadingInline message="Please wait. It may take up to 2-3 minutes." />
         }
 
         return (

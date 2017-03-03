@@ -86,7 +86,6 @@ class Registration extends Component{
 
                         <button
                             type="submit"
-                            href="#"
                             className="btn btn-login btn-success btn-float">
                             
                             <i className="zmdi zmdi-check" />

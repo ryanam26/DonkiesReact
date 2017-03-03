@@ -32,7 +32,6 @@ class App extends Component {
             params  : this.props.params
         })
         this.props.apiGetRequest('settings')
-        this.props.apiGetRequest('user')
         this.props.apiGetRequest('transactions')
         this.props.apiGetRequest('accounts')
         this.props.apiGetRequest('members')
@@ -75,10 +74,6 @@ class App extends Component {
             location,
             user } = this.props
         
-        if (!user){
-            return <Loading />    
-        }
-
         return (
             <wrap>
                 <Header />

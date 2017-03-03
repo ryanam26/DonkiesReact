@@ -202,12 +202,11 @@ class CreateFundingSource extends Component{
             this.setState({
                 success: 'The funding source account has been created.'
             })
-            // Update accounts in Redux state.
+            
+            // Update user and accounts in Redux state.
+            this.props.apiGetRequest('user')
             this.props.apiGetRequest('accounts')
         }
-
-        const result = await response.json()
-        
     }
 
     /**

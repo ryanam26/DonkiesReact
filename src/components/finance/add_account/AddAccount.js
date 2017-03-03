@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
 import { CREDENTIALS_URL, apiCall2 } from 'services/api'
 import { createUUID } from 'services/helpers'
-import { growlAddRequest } from 'actions'
+import { apiGetRequest, growlAddRequest, navigate } from 'actions'
 import { MEMBER_STATUS } from 'constants'
 import { Alert } from 'components'
 import Credentials from './Credentials'
@@ -132,6 +132,16 @@ class AddAccount extends Component{
 
         if (s.name === MEMBER_STATUS.SUCCESS){
             this.setState({successMessage: s.message})
+
+            // Update Redux state.
+            this.props.apiGetRequest('user')
+            this.props.apiGetRequest('transactions')
+            this.props.apiGetRequest('accounts')
+            this.props.apiGetRequest('members')
+
+            setTimeout(() => this.props.navigate('/accounts'), 3000)
+
+
         } else if (s.name === MEMBER_STATUS.CHALLENGED){
             this.setState({isShowChallenge: true})
 
@@ -223,7 +233,9 @@ class AddAccount extends Component{
 
 
 AddAccount.propTypes = {
+    apiGetRequest: PropTypes.func,
     growlAddRequest: PropTypes.func,
+    navigate: PropTypes.func,
     user: PropTypes.object
 }
 
@@ -232,5 +244,7 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-    growlAddRequest
+    apiGetRequest,
+    growlAddRequest,
+    navigate
 })(AddAccount)

@@ -25,6 +25,7 @@ import {
 
 import App from 'containers/App'
 import { requireAuth } from 'components/Auth'
+import { requireSignupCompleted } from 'components/SignupCompleted'
 
 
 export default (
@@ -38,7 +39,7 @@ export default (
        
         <Route component={requireAuth(UserNotConfirmedPage)} path="/not_confirmed" />
 
-        <Route component={requireAuth(App)} path="/">
+        <Route component={requireAuth(requireSignupCompleted(App))} path="/">
             <IndexRoute component={HomePage} />
             <Route component={AccountsPage} path="/accounts" />
             <Route component={AddBankPage} path="/add_bank" />

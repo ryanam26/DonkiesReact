@@ -54,6 +54,9 @@ export { SelectSimple }
 
 // layout
 
+import { default as BlockPage } from './layout/content/BlockPage'
+export { BlockPage }
+
 import { default as HomeStat } from './layout/content/HomeStat'
 export { HomeStat }
 

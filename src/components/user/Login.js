@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import autoBind from 'react-autobind'
 import { HOME_PAGE_URL } from 'store/configureStore'
+import { formToObject } from 'services/helpers'
 import { SETTINGS_LOGIN_URL } from 'services/api'
 import { apiGetRequest, login, navigate, setFormErrors } from 'actions'
 import { Checkbox, ErrorBlock, Input } from 'components'
@@ -37,20 +38,19 @@ class Login extends Component{
         e.preventDefault()
         this.props.setFormErrors('clear', null)
         
-        let email = document.querySelector('[name="email"]').value.trim()
-        let password = document.querySelector('[name="password"]').value.trim()
+        let form = formToObject(e.target)
 
-        if (email.length === 0){
+        if (form.email.length === 0){
             this.props.setFormErrors('login', {email: ['Please input email']})
             return
         }
 
-        if (password.length === 0){
+        if (form.password.length === 0){
             this.props.setFormErrors('login', {password: ['Please input password']})
             return
         }
 
-        this.props.login(email, password)
+        this.props.login(form.email, form.password)
     }
 
     renderSocial(){
@@ -78,30 +78,32 @@ class Login extends Component{
                     {this.renderSocial()}
 
                     <div className="lcb-form">
-                        <Input
-                            name="email"
-                            wrapperClass="input-group m-b-20"
-                            zmdi="zmdi-email"
-                            placeholder="Email Address"
-                            errors={errors} />
+                        
+                        <form ref="form" onSubmit={this.onSubmit} target="">
+                            <Input
+                                name="email"
+                                wrapperClass="input-group m-b-20"
+                                zmdi="zmdi-email"
+                                placeholder="Email Address"
+                                errors={errors} />
 
-                        <Input
-                            name="password"
-                            type="password"
-                            wrapperClass="input-group m-b-20"
-                            zmdi="zmdi-male"
-                            placeholder="Password"
-                            errors={errors} />
+                            <Input
+                                name="password"
+                                type="password"
+                                wrapperClass="input-group m-b-20"
+                                zmdi="zmdi-male"
+                                placeholder="Password"
+                                errors={errors} />
 
-                        <a
-                            href="#"
-                            className="btn btn-login btn-success btn-float"
-                            onClick={this.onSubmit}>
-                            
-                            <i className="zmdi zmdi-arrow-forward" />
-                        </a>
+                            <button
+                                type="submit"
+                                className="btn btn-login btn-success btn-float">
+                                
+                                <i className="zmdi zmdi-arrow-forward" />
+                            </button>
 
-                        {errors && <ErrorBlock errors={errors} />}
+                            {errors && <ErrorBlock errors={errors} />}
+                        </form>
 
                     </div>
 
