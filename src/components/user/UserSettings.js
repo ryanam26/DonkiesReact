@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
 import { formToObject } from 'services/helpers'
 import { apiGetRequest, editUserSettings, setFormErrors } from 'actions'
-import { Button2, CardSimple, Input2, SelectSimple } from 'components'
+import { Button2, CardSimple, Checkbox, Input2, SelectSimple } from 'components'
 
 
 class UserSettings extends Component{
@@ -19,6 +19,15 @@ class UserSettings extends Component{
         }
     }   
 
+    onSubmit(e){
+        e.preventDefault()
+        this.props.setFormErrors('clear', null)
+
+        const form = formToObject(e.target)
+        form.is_even_roundup = e.target.is_even_roundup.checked
+        this.props.editUserSettings(form)
+    }
+
     getTransferAmountOptions(){
         const { settings } = this.props
         let arr = []
@@ -27,14 +36,6 @@ class UserSettings extends Component{
             arr.push({text: `$${amount}`, value: amount})
         }
         return arr
-    }
-
-    onSubmit(e){
-        e.preventDefault()
-        this.props.setFormErrors('clear', null)
-
-        const form = formToObject(e.target)
-        this.props.editUserSettings(form)
     }
 
     render(){
@@ -63,6 +64,15 @@ class UserSettings extends Component{
                                     name="minimum_transfer_amount"
                                     options={this.getTransferAmountOptions()}
                                     value={user.minimum_transfer_amount} />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <div className="m-l-15">
+                                <Checkbox
+                                    name="is_even_roundup"
+                                    title="Even roundups (roundup even amounts to $1)"
+                                    isCheckedDefault={user.is_even_roundup} />
                             </div>
                         </div>
                         

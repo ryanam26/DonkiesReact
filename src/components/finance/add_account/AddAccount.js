@@ -135,11 +135,13 @@ class AddAccount extends Component{
 
             // Update Redux state.
             this.props.apiGetRequest('user')
-            this.props.apiGetRequest('transactions')
             this.props.apiGetRequest('accounts')
             this.props.apiGetRequest('members')
 
-            setTimeout(() => this.props.navigate('/accounts'), 3000)
+            setTimeout(() => {
+                this.props.apiGetRequest('transactions')
+                this.props.navigate('/accounts')   
+            }, 3000)
 
 
         } else if (s.name === MEMBER_STATUS.CHALLENGED){

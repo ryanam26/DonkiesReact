@@ -28,6 +28,10 @@ export function requireSignupCompleted(Component) {
 
         get isSignupCompleted(){
             const { user } = this.props
+            if (!user.signup_steps){
+                return true
+            }
+
             for (let obj of user.signup_steps){
                 if (!obj.is_completed){
                     return false

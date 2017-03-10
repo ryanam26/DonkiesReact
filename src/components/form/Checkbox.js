@@ -6,29 +6,39 @@ import autoBind from 'react-autobind'
 export default class Checkbox extends Component{
     static get defaultProps() {
         return {
-            disabled: false
+            disabled: false,
+            isCheckedDefault: false
         }
     }
 
     constructor(props){
         super(props)
         autoBind(this)
+
+        this.state = {
+            isChecked: false
+        }
+    }
+
+    componentWillMount(){
+        this.setState({isChecked: this.props.isCheckedDefault})   
     }
 
     onClick(){
-        this.props.onClick()
+        this.setState({isChecked: !this.state.isChecked})   
     }
     
     render(){
-        const { title } = this.props
+        const { title, name } = this.props
 
         return (
             <div className="checkbox" onClick={this.onClick}>
                 <label>
                     <input
+                        name={name}
                         type="checkbox"
                         onChange={this.onClick}
-                        checked={this.props.checked}
+                        checked={this.state.isChecked}
                         disabled={this.props.disabled} />
                     <i className="input-helper" />
                     {title}
@@ -40,10 +50,9 @@ export default class Checkbox extends Component{
 
 
 Checkbox.propTypes = {
-    checked: PropTypes.bool,
     disabled: PropTypes.bool,
-    onClick: PropTypes.func,
+    isCheckedDefault: PropTypes.bool,
+    name: PropTypes.string,
     title: PropTypes.string
 }
-
 
