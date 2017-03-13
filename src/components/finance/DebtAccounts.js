@@ -77,8 +77,13 @@ class DebtAccounts extends Component{
 
     render(){
         const { isShowConfigureModal, isShowShareModal } = this.state
-        const { accounts } = this.props
+        const { accounts, user } = this.props
         
+        let header = 'Lenders'
+        if (this.hasAccounts()){
+            header += ' - total debt: $' + user.total_debt
+        }
+
         return (
             <wrap>
                 {this.hasAccounts() &&
@@ -102,7 +107,7 @@ class DebtAccounts extends Component{
                 }
                         
                 <CardSimple
-                    header="Lenders"
+                    header={header}
                     headerClass="m-b-20"
                     isContentToBody={false}>
                                     
@@ -128,6 +133,7 @@ class DebtAccounts extends Component{
                             {'Configure'}
                         </button>
                     }
+                    
                 </CardSimple>
 
                 {this.hasAccounts() && <TableSimple data={this.getData(accounts)} />}
@@ -141,12 +147,14 @@ class DebtAccounts extends Component{
 DebtAccounts.propTypes = {
     accounts: PropTypes.array,
     accountsNotActive: PropTypes.array,
-    navigate: PropTypes.func
+    navigate: PropTypes.func,
+    user: PropTypes.object
 }
 
 const mapStateToProps = (state) => ({
     accounts: state.accounts.debtAccounts,
-    accountsNotActive: state.accounts.debtAccountsNotActive
+    accountsNotActive: state.accounts.debtAccountsNotActive,
+    user: state.user.item
 })
 
 export default connect(mapStateToProps, {

@@ -29,9 +29,15 @@ class Modal extends Component{
         
         let cn = classNames('modal fade', {'in': visible})
 
+        let modalBodyStyle = {
+            maxHeight: '80%',
+            overflowY: 'scroll'    
+        }
+        
+
         return (
             <div className={cn} style={style}>
-                <div className="modal-dialog">
+                <div className="modal-dialog" style={modalBodyStyle}>
                     <div className="modal-content">
                         <div className="modal-header">
                             <h4 className="modal-title">{title}</h4>
