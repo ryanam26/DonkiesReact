@@ -141,6 +141,9 @@ export { ResetPassword }
 import { default as ResetPasswordRequest } from './user/ResetPasswordRequest'
 export { ResetPasswordRequest }
 
+import { default as UserCloseAccount } from './user/UserCloseAccount'
+export { UserCloseAccount }
+
 import { default as UserNotConfirmed } from './user/UserNotConfirmed'
 export { UserNotConfirmed }
 

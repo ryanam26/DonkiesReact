@@ -17,6 +17,7 @@ import { watchGrowlAdd } from './web/growl'
 
 import { watchChangeEmail } from './web/user'
 import { watchChangePassword } from './web/user'
+import { watchCloseDonkiesAccount } from './web/user'
 import { watchEditProfile } from './web/user'
 import { watchEditSettings } from './web/user'
 import { watchResetPasswordRequest } from './web/user'
@@ -36,6 +37,7 @@ export default function* root() {
     fork(watchApiEditRequest),
     fork(watchChangeEmail),
     fork(watchChangePassword),
+    fork(watchCloseDonkiesAccount),
     fork(watchDeleteMember),
     fork(watchEditProfile),
     fork(watchEditSettings),

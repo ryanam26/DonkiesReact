@@ -5,11 +5,13 @@ import {
     CHANGE_EMAIL_URL,
     CHANGE_EMAIL_CONFIRM_URL,
     CHANGE_PASSWORD_URL,
+    CLOSE_DONKIES_ACCOUNT_URL,
     RESET_PASSWORD_REQUEST_URL,
     USER_URL,
     USER_SETTINGS_URL,
     apiCall } from 'services/api'
 
+import { apiGet } from './apiGetRequest'
 
 
 // ------- Edit profile
@@ -154,5 +156,27 @@ export function* watchResetPasswordRequest(){
   while(true){
     const { form } = yield take(actions.RESET_PASSWORD_REQUEST.SUBMIT)
     yield fork(resetPasswordRequest, form)
+  }
+}
+
+
+// ------- Close Donkies account
+
+function* closeAccount(){
+    const result = yield call(apiCall, CLOSE_DONKIES_ACCOUNT_URL, 'POST', {}, true)
+    
+    if (result.isError){
+        yield put({type: actions.CLOSE_DONKIES_ACCOUNT.ERROR, payload: result.data})  
+        return  
+    } 
+
+    // If success, update user in Redux state.
+    yield apiGet('user', {}, USER_URL)
+}
+
+export function* watchCloseDonkiesAccount(){
+  while(true){
+    yield take(actions.CLOSE_DONKIES_ACCOUNT.SUBMIT)
+    yield fork(closeAccount)
   }
 }

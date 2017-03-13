@@ -1,20 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { apiGetRequest, navigate } from 'actions'
+import { navigate } from 'actions'
 import { BlockPage, Loading } from 'components'
 
 
+/**
+ * Guide user through all required steps to complete sign-up.
+ * If user has not yet completed all steps, show BlockPage component.
+ */
 export function requireSignupCompleted(Component) {
 
     class SignupCompleted extends React.Component {
-
-        componentWillMount(){
-            this.props.apiGetRequest('user')
-        }
-
-        componentWillReceiveProps(nextProps) {
-        }
-
         /**
          * @returns {string} - returns url without query params.
          */
@@ -85,13 +81,11 @@ export function requireSignupCompleted(Component) {
 
     return connect(
         mapStateToProps, {
-            apiGetRequest,
             navigate
         }
     )(SignupCompleted)
 
     SignupCompleted.propTypes = {
-        apiGetRequest: PropTypes.func,
         location: PropTypes.object,
         navigate: PropTypes.func,
         user: PropTypes.object
