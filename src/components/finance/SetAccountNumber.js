@@ -10,6 +10,14 @@ class SetAccountNumber extends Component{
     constructor(props){
         super(props)
         autoBind(this)
+
+        this.state = {
+            value: ''
+        }
+    }
+
+    onChange(e){
+        this.setState({value: e.target.value})
     }
 
     onSubmit(e){
@@ -20,6 +28,7 @@ class SetAccountNumber extends Component{
         if (form.account_number.trim().length === 0){
             return
         }
+        this.setState({value: ''})
         this.props.accountsSetNumber(account.id, form)
     }
 
@@ -30,8 +39,10 @@ class SetAccountNumber extends Component{
             <div>
                 <form ref="form" onSubmit={this.onSubmit}>
                     <Input
+                        onChange={this.onChange}
                         errors={null}
-                        name="account_number" />
+                        name="account_number"
+                        value={this.state.value} />
 
                     <Button2
                         disabled={inProgress}

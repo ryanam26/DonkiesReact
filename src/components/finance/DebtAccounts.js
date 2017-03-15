@@ -85,7 +85,7 @@ class DebtAccounts extends Component{
 
             let account_number
             if (a.account_number){
-                account_number = a.account_number
+                account_number = `...${a.account_number}`
             } else {
                 account_number = <i style={{fontSize: '25px', cursor: 'pointer'}} onClick={this.onClickShowAccountNumberModal.bind(null, a)} className="zmdi zmdi-plus" />
             }
