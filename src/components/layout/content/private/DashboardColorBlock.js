@@ -17,10 +17,9 @@ export default class DashboardColorBlock extends Component{
 
         return (
             <div className="col-sm-6 col-md-4">
-                <div className={cn}>
+                <div className={cn} title={content}>
                     <div className="title-text">{title}</div>
                     <div className="amount">{value}</div>
-                    <div className="content">{content}</div>
                 </div>
             </div>
         )

@@ -18,7 +18,11 @@ class Sidebar extends Component{
                 <div className="s-profile">
                     <a>
                         <div className="sp-pic">
-                            <img src="img/demo/profile-pics/1.jpg" alt="" />
+                            {user.profile_image_url ?
+                                <img src={user.profile_image_url} alt="" />
+                            :
+                                <img src="img/demo/profile-pics/1.jpg" alt="" />
+                            }
                         </div>
 
                         <div className="sp-info">
