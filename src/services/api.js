@@ -5,6 +5,7 @@ import { API_ROOT_URL } from 'store/configureStore'
 
 export const ACCOUNTS_URL = `${API_ROOT_URL}v1/accounts`   
 export const ACCOUNTS_SET_ACTIVE_URL = `${API_ROOT_URL}v1/accounts/set_active`
+export const ACCOUNTS_SET_NUMBER_URL = `${API_ROOT_URL}v1/accounts/set_account_number`
 export const ACCOUNTS_EDIT_SHARE_URL = `${API_ROOT_URL}v1/accounts/edit_share`
 export const ACCOUNTS_SET_FUNDING_SOURCE_URL = `${API_ROOT_URL}v1/accounts/set_funding_source`   
 export const CHANGE_EMAIL_URL = `${API_ROOT_URL}v1/user/change/email`

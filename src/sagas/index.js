@@ -5,6 +5,7 @@ import * as actions from 'actions'
 import * as api from 'services/api'
 
 import { watchSetActive } from './finance/accounts'
+import { watchSetAccountNumber } from './finance/accounts'
 import { watchDeleteMember } from './finance/members'
 
 import { watchApiGetRequest } from './web/apiGetRequest'
@@ -47,7 +48,8 @@ export default function* root() {
     fork(watchNavigate),
     fork(watchRegistration),
     fork(watchResetPasswordRequest),
-    fork(watchSetActive)
+    fork(watchSetActive),
+    fork(watchSetAccountNumber)
   ]
 }
 

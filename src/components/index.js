@@ -17,6 +17,9 @@ export { DebtAccounts }
 import { default as ConfigureAccounts } from './finance/ConfigureAccounts'
 export { ConfigureAccounts }
 
+import { default as SetAccountNumber } from './finance/SetAccountNumber'
+export { SetAccountNumber }
+
 import { default as ShareEdit } from './finance/ShareEdit'
 export { ShareEdit }
 

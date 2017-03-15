@@ -8,6 +8,7 @@ import {
     ConfigureAccounts,
     CardSimple,
     Modal,
+    SetAccountNumber,
     ShareEdit,
     TableSimple } from 'components'
 
@@ -18,7 +19,15 @@ class DebtAccounts extends Component{
         autoBind(this)
 
         this.state = {
-            isShowShareModal: false
+            isShowShareModal: false,
+            isShowAccountNumberModal: false,
+            account: null
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        if (this.props.triggerSetAccountNumber !== nextProps.triggerSetAccountNumber){
+            this.setState({isShowAccountNumberModal: false})
         }
     }
 
@@ -28,6 +37,17 @@ class DebtAccounts extends Component{
 
     onClickCloseShareModal(){
         this.setState({isShowShareModal: false})
+    }
+
+    onClickShowAccountNumberModal(account){
+        this.setState({
+            account: account,
+            isShowAccountNumberModal: true
+        })
+    }
+
+    onClickCloseAccountNumberModal(){
+        this.setState({isShowAccountNumberModal: false})
     }
 
     onClickConfigure(){
@@ -50,12 +70,25 @@ class DebtAccounts extends Component{
         let data = {}
         data.id = 'debtAccounts'
         data.header = [
-            'LENDER', 'ACCOUNT NAME', 'BALANCE', 'TRANSFER SHARE', 'TRANSACTIONS']
+            'LENDER',
+            'ACCOUNT NAME',
+            'ACCOUNT NUMBER',
+            'BALANCE',
+            'TRANSFER SHARE',
+            'TRANSACTIONS'
+        ]
         data.rows = []
 
         for (let a of accounts){
             let row = {}
             row.cols = []
+
+            let account_number
+            if (a.account_number){
+                account_number = a.account_number
+            } else {
+                account_number = <i style={{fontSize: '25px', cursor: 'pointer'}} onClick={this.onClickShowAccountNumberModal.bind(null, a)} className="zmdi zmdi-plus" />
+            }
 
             let col
             col = {
@@ -63,6 +96,7 @@ class DebtAccounts extends Component{
             }
             row.cols.push(col)
             row.cols.push({value: a.name})
+            row.cols.push({value: account_number})
             row.cols.push({value: getDollarAmount(a.balance)})
             row.cols.push({value: `${a.transfer_share}%`})
 
@@ -76,12 +110,23 @@ class DebtAccounts extends Component{
     }
 
     render(){
-        const { isShowConfigureModal, isShowShareModal } = this.state
+        const {
+            isShowConfigureModal,
+            isShowShareModal,
+            isShowAccountNumberModal } = this.state
+        
         const { accounts, user } = this.props
         
         let header = 'Lenders'
         if (this.hasAccounts()){
             header += ' - total debt: $' + user.total_debt
+        }
+
+        let setAccountNumberTitle
+        if (this.state.account){
+            setAccountNumberTitle = `Set account number for "${this.state.account.name}"`
+        } else {
+            setAccountNumberTitle = ''
         }
 
         return (
@@ -105,7 +150,17 @@ class DebtAccounts extends Component{
                             <ShareEdit accounts={accounts} />
                     </Modal>  
                 }
-                        
+                
+                {this.hasAccounts() &&
+                    <Modal
+                        onClickClose={this.onClickCloseAccountNumberModal}
+                        visible={isShowAccountNumberModal}
+                        title={setAccountNumberTitle}>
+                            
+                            <SetAccountNumber account={this.state.account} />
+                    </Modal>  
+                }
+
                 <CardSimple
                     header={header}
                     headerClass="m-b-20"
@@ -148,12 +203,14 @@ DebtAccounts.propTypes = {
     accounts: PropTypes.array,
     accountsNotActive: PropTypes.array,
     navigate: PropTypes.func,
+    triggerSetAccountNumber: PropTypes.number,
     user: PropTypes.object
 }
 
 const mapStateToProps = (state) => ({
     accounts: state.accounts.debtAccounts,
     accountsNotActive: state.accounts.debtAccountsNotActive,
+    triggerSetAccountNumber: state.accounts.triggerSetAccountNumber,
     user: state.user.item
 })
 
