@@ -39,7 +39,8 @@ class Credentials extends Component{
         this.state = {
             credentials: null,
             errorSubmit: null,
-            isFetchingMember: false
+            isFetchingMember: false,
+            isSubmittingCredentials: false
         }
     }
 
@@ -90,14 +91,18 @@ class Credentials extends Component{
      * (create member)
      */
     async submitCredentials(data){
+        this.setState({isSubmittingCredentials: true})
         let response = await apiCall3(MEMBERS_URL, data, true) 
-        let member = await response.json()
+        this.setState({isSubmittingCredentials: false})
+
         if (response.status === 201){
+            let member = await response.json()
             this.props.onUpdateMember(member)
             this.setState({'isFetchingMember': true})
             this.fetchMemberUntilCompleted(member)
         } else {
-            this.setState({errorSubmit: 'Server responded with error.'})
+            this.setState({
+                errorSubmit: 'Can not create account. Please try again later.'})
         }
     }
 
@@ -141,8 +146,12 @@ class Credentials extends Component{
     }
 
     render(){
-        const { credentials, isFetchingMember, errorSubmit } = this.state
-
+        const {
+            credentials,
+            isFetchingMember,
+            isSubmittingCredentials,
+            errorSubmit } = this.state
+        
         if (!credentials){
             return <LoadingInline />
         }
@@ -165,7 +174,8 @@ class Credentials extends Component{
                     )                                
                 })}
             
-                <Button2 />
+                <Button2
+                    disabled={isSubmittingCredentials} />
 
                 {errorSubmit && <p className="custom-errors">{errorSubmit}</p>}
 
