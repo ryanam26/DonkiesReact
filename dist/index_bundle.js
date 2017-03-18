@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b68e6680aeedf473a11e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6337132c9fa523097c73"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -45436,10 +45436,19 @@
 	        var _this = _possibleConstructorReturn(this, (SetAccountNumber.__proto__ || Object.getPrototypeOf(SetAccountNumber)).call(this, props));
 
 	        (0, _reactAutobind2.default)(_this);
+
+	        _this.state = {
+	            value: ''
+	        };
 	        return _this;
 	    }
 
 	    _createClass(SetAccountNumber, [{
+	        key: 'onChange',
+	        value: function onChange(e) {
+	            this.setState({ value: e.target.value });
+	        }
+	    }, {
 	        key: 'onSubmit',
 	        value: function onSubmit(e) {
 	            var account = this.props.account;
@@ -45450,6 +45459,7 @@
 	            if (form.account_number.trim().length === 0) {
 	                return;
 	            }
+	            this.setState({ value: '' });
 	            this.props.accountsSetNumber(account.id, form);
 	        }
 	    }, {
@@ -45467,8 +45477,10 @@
 	                    'form',
 	                    { ref: 'form', onSubmit: this.onSubmit },
 	                    _react2.default.createElement(_components.Input, {
+	                        onChange: this.onChange,
 	                        errors: null,
-	                        name: 'account_number' }),
+	                        name: 'account_number',
+	                        value: this.state.value }),
 	                    _react2.default.createElement(_components.Button2, {
 	                        disabled: inProgress,
 	                        type: 'submit',

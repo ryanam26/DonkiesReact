@@ -119,7 +119,9 @@ class AddAccount extends Component{
     }
 
     /**
-     * Receives member after status is completed
+     * Receives member after status is completed.
+     * If member will get DENIED status - it will be deleted
+     * from db. In that case function get "null".
      */
     onCompleteMember(member){
         this.setState({
@@ -127,6 +129,19 @@ class AddAccount extends Component{
             isShowCredentials: false,
             isShowChallenge: false
         })
+
+        if (member === null){
+            const id = createUUID()
+            this.props.growlAddRequest({
+                id: id,
+                message: 'Incorrect credentials',
+                'type': 'danger'
+            })
+            this.setState({
+                isShowCredentials: true,
+            })
+            return
+        }
 
         const s = member.status_info
 

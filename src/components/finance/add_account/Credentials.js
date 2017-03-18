@@ -18,6 +18,9 @@ import { Button2, Input2, LoadingInline } from 'components'
  * Then user submit credentials.
  * Then fetches server until it get completed status of member
  * and send callback to parent with updated status.
+ * If member got status DENIED - it will be deleted.
+ * If we receive 404 error, it means member was deleted,
+ * show user "Incorrect credentials".
  *
  * @param {object} institution: {id: ..., name: ...}
  *
@@ -101,11 +104,19 @@ class Credentials extends Component{
     /**
      * Request MemberDetail endpoint every 5 seconds until 
      * get completed status.
+     * But if member will get DENIED status, it will be deleted
+     * from Atrium and db. In that case we get 404
+     * and pass "null" to onCompleteMember.
      */
     async fetchMemberUntilCompleted(member){
         const url = MEMBERS_URL + '/' + member.identifier
 
         let response = await apiCall2(url, true) 
+        if (response.status === 404){
+            this.props.onCompleteMember(null)
+            return
+        }
+
         member = await response.json()
 
         if (member.status_info.is_completed){
