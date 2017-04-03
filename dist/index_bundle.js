@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6337132c9fa523097c73"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f83e9469537d0f1c08fa"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -46261,7 +46261,9 @@
 	        }
 
 	        /**
-	         * Receives member after status is completed
+	         * Receives member after status is completed.
+	         * If member will get DENIED status - it will be deleted
+	         * from db. In that case function get "null".
 	         */
 
 	    }, {
@@ -46274,6 +46276,19 @@
 	                isShowCredentials: false,
 	                isShowChallenge: false
 	            });
+
+	            if (member === null) {
+	                var id = (0, _helpers.createUUID)();
+	                this.props.growlAddRequest({
+	                    id: id,
+	                    message: 'Incorrect credentials or Server unavailable. Please try again.',
+	                    'type': 'danger'
+	                });
+	                this.setState({
+	                    isShowCredentials: true
+	                });
+	                return;
+	            }
 
 	            var s = member.status_info;
 
@@ -46292,9 +46307,9 @@
 	            } else if (s.name === _constants.MEMBER_STATUS.CHALLENGED) {
 	                this.setState({ isShowChallenge: true });
 	            } else if (s.name === _constants.MEMBER_STATUS.ERROR) {
-	                var id = (0, _helpers.createUUID)();
+	                var _id = (0, _helpers.createUUID)();
 	                this.props.growlAddRequest({
-	                    id: id,
+	                    id: _id,
 	                    message: s.message,
 	                    'type': 'danger'
 	                });
@@ -46738,6 +46753,9 @@
 	 * Then user submit credentials.
 	 * Then fetches server until it get completed status of member
 	 * and send callback to parent with updated status.
+	 * If member got status DENIED - it will be deleted.
+	 * If we receive 404 error, it means member was deleted,
+	 * show user "Incorrect credentials".
 	 *
 	 * @param {object} institution: {id: ..., name: ...}
 	 *
@@ -46761,7 +46779,8 @@
 	        _this.state = {
 	            credentials: null,
 	            errorSubmit: null,
-	            isFetchingMember: false
+	            isFetchingMember: false,
+	            isSubmittingCredentials: false
 	        };
 	        return _this;
 	    }
@@ -46857,26 +46876,37 @@
 	                    while (1) {
 	                        switch (_context2.prev = _context2.next) {
 	                            case 0:
-	                                _context2.next = 2;
+	                                this.setState({ isSubmittingCredentials: true });
+	                                _context2.next = 3;
 	                                return (0, _api.apiCall3)(_api.MEMBERS_URL, data, true);
 
-	                            case 2:
+	                            case 3:
 	                                response = _context2.sent;
-	                                _context2.next = 5;
-	                                return response.json();
 
-	                            case 5:
-	                                member = _context2.sent;
+	                                this.setState({ isSubmittingCredentials: false });
 
-	                                if (response.status === 201) {
-	                                    this.props.onUpdateMember(member);
-	                                    this.setState({ 'isFetchingMember': true });
-	                                    this.fetchMemberUntilCompleted(member);
-	                                } else {
-	                                    this.setState({ errorSubmit: 'Server responded with error.' });
+	                                if (!(response.status === 201)) {
+	                                    _context2.next = 14;
+	                                    break;
 	                                }
 
-	                            case 7:
+	                                _context2.next = 8;
+	                                return response.json();
+
+	                            case 8:
+	                                member = _context2.sent;
+
+	                                this.props.onUpdateMember(member);
+	                                this.setState({ 'isFetchingMember': true });
+	                                this.fetchMemberUntilCompleted(member);
+	                                _context2.next = 15;
+	                                break;
+
+	                            case 14:
+	                                this.setState({
+	                                    errorSubmit: 'Can not create account. Please try again later.' });
+
+	                            case 15:
 	                            case 'end':
 	                                return _context2.stop();
 	                        }
@@ -46894,6 +46924,9 @@
 	        /**
 	         * Request MemberDetail endpoint every 5 seconds until 
 	         * get completed status.
+	         * But if member will get DENIED status, it will be deleted
+	         * from Atrium and db. In that case we get 404
+	         * and pass "null" to onCompleteMember.
 	         */
 
 	    }, {
@@ -46913,10 +46946,20 @@
 
 	                            case 3:
 	                                response = _context3.sent;
-	                                _context3.next = 6;
+
+	                                if (!(response.status === 404)) {
+	                                    _context3.next = 7;
+	                                    break;
+	                                }
+
+	                                this.props.onCompleteMember(null);
+	                                return _context3.abrupt('return');
+
+	                            case 7:
+	                                _context3.next = 9;
 	                                return response.json();
 
-	                            case 6:
+	                            case 9:
 	                                member = _context3.sent;
 
 
@@ -46929,7 +46972,7 @@
 	                                    }, 5000);
 	                                }
 
-	                            case 8:
+	                            case 11:
 	                            case 'end':
 	                                return _context3.stop();
 	                        }
@@ -46987,6 +47030,7 @@
 	            var _state = this.state,
 	                credentials = _state.credentials,
 	                isFetchingMember = _state.isFetchingMember,
+	                isSubmittingCredentials = _state.isSubmittingCredentials,
 	                errorSubmit = _state.errorSubmit;
 
 
@@ -47010,7 +47054,8 @@
 	                        label: obj.label,
 	                        placeholder: obj.label });
 	                }),
-	                _react2.default.createElement(_components.Button2, null),
+	                _react2.default.createElement(_components.Button2, {
+	                    disabled: isSubmittingCredentials }),
 	                errorSubmit && _react2.default.createElement(
 	                    'p',
 	                    { className: 'custom-errors' },

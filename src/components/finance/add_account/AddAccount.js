@@ -134,7 +134,7 @@ class AddAccount extends Component{
             const id = createUUID()
             this.props.growlAddRequest({
                 id: id,
-                message: 'Incorrect credentials',
+                message: 'Incorrect credentials or Server unavailable. Please try again.',
                 'type': 'danger'
             })
             this.setState({
