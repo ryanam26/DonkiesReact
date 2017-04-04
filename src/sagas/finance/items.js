@@ -1,6 +1,6 @@
 import { take, put, call, fork, select } from 'redux-saga/effects'
 import * as actions from 'actions'
-import { ITEMS_URL, apiCall } from 'services/api'
+import { ACCOUNTS_URL, ITEMS_URL, apiCall } from 'services/api'
 import { apiGet } from '../web/apiGetRequest'
 
 
