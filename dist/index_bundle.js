@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f83e9469537d0f1c08fa"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "acd62e9d0fdfe944dc57"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -44310,7 +44310,7 @@
 	        value: function componentWillReceiveProps(nextProps) {
 	            if (this.props.triggerDeleteMember !== nextProps.triggerDeleteMember) {
 	                this.props.apiGetRequest('accounts');
-	                this.props.apiGetRequest('members');
+	                this.props.apiGetRequest('items');
 	                this.props.apiGetRequest('transactions');
 
 	                var id = (0, _helpers.createUUID)();

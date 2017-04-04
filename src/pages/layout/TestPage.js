@@ -1,25 +1,43 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
-import { InputAutocompleteAsync } from 'components'
+import { InputAutocompleteAsync, PlaidLink } from 'components'
 import { INSTITUTIONS_SUGGEST_URL } from 'services/api'
 
 
-export default class TestPageComponent extends Component{
+class TestPageComponent extends Component{
     constructor(props){
         super(props)
         autoBind(this)
     }
 
     render(){
+        const { settings } = this.props
+        if (!settings){
+            return null
+        }
+
         return (
-            <div />
+            <PlaidLink>
+                <button type="button">{'Add bank account'}</button>
+            </PlaidLink>
         )
     }
 }
 
 TestPageComponent.propTypes = {
+    settings: PropTypes.object
 }
+
+const mapStateToProps = (state) => ({
+    settings: state.settings
+})
+
+export default connect(mapStateToProps, {
+})(TestPageComponent)
+
+
+
 
 // <InputAutocompleteAsync
 //     name="name"

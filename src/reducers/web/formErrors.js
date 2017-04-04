@@ -69,7 +69,7 @@ export function formErrors(state=iState, action){
                 configureAccounts: action.payload
             }
 
-        case actions.DELETE_MEMBER.ERROR:
+        case actions.DELETE_ITEM.ERROR:
             return {
                 ...iState,
                 configureAccounts: action.payload

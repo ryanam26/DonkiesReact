@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
-import { createUUID } from 'services/helpers'
 
 import {
     accountsSetActive,
@@ -32,12 +31,10 @@ class ConfigureAccounts extends Component{
     componentWillReceiveProps(nextProps){
         if (this.props.triggerDeleteMember !== nextProps.triggerDeleteMember){
             this.props.apiGetRequest('accounts')
-            this.props.apiGetRequest('members')
+            this.props.apiGetRequest('items')
             this.props.apiGetRequest('transactions')    
 
-            const id = createUUID()
             this.props.growlAddRequest({
-                id: id,
                 message: 'Financial institution deleted',
                 type: 'success'
             })

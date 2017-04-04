@@ -8,14 +8,17 @@ export { CreateFundingSource }
 import { default as AddAccount } from './finance/add_account/AddAccount'
 export { AddAccount }
 
+import { default as ConfigureAccounts } from './finance/ConfigureAccounts'
+export { ConfigureAccounts }
+
 import { default as DebitAccounts } from './finance/DebitAccounts'
 export { DebitAccounts }
 
 import { default as DebtAccounts } from './finance/DebtAccounts'
 export { DebtAccounts }
 
-import { default as ConfigureAccounts } from './finance/ConfigureAccounts'
-export { ConfigureAccounts }
+import { default as PlaidLink } from './finance/PlaidLink'
+export { PlaidLink }
 
 import { default as SetAccountNumber } from './finance/SetAccountNumber'
 export { SetAccountNumber }

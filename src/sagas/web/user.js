@@ -1,6 +1,5 @@
 import { take, put, call, fork, select } from 'redux-saga/effects'
 import * as actions from 'actions'
-import { createUUID } from 'services/helpers'
 import {
     CHANGE_EMAIL_URL,
     CHANGE_EMAIL_CONFIRM_URL,
@@ -26,11 +25,9 @@ function* editProfile(form){
         return
     } 
     
-    const id = createUUID()
-
     yield put({
         type: actions.GROWL_ADD_REQUEST,
-        payload: {id: id, message: 'Your profile has been changed!', type: 'success'}
+        payload: {message: 'Your profile has been changed!', type: 'success'}
     })
     
     yield put({type: actions.EDIT_PROFILE.SUCCESS, payload: result.data})
@@ -59,11 +56,9 @@ function* changeEmail(form){
     
     yield put({type: actions.CHANGE_EMAIL.SUCCESS, payload: result.data})
     
-    const id = createUUID()
-
     yield put({
         type: actions.GROWL_ADD_REQUEST,
-        payload: {id: id, message: result.data.message, type: 'success', delay: 20000}
+        payload: {message: result.data.message, type: 'success', delay: 20000}
     })
     
 }
@@ -90,11 +85,9 @@ function* changePassword(form){
 
     yield put({type: actions.CHANGE_PASSWORD.SUCCESS, payload: result.data})
     
-    const id = createUUID()
-
     yield put({
         type: actions.GROWL_ADD_REQUEST,
-        payload: {id: id, message: 'Your password has been changed!', type: 'success'}
+        payload: {message: 'Your password has been changed!', type: 'success'}
     })
 }
 
@@ -118,11 +111,9 @@ function* editSettings(form){
         return
     } 
     
-    const id = createUUID()
-
     yield put({
         type: actions.GROWL_ADD_REQUEST,
-        payload: {id: id, message: 'Settings have been changed!', type: 'success'}
+        payload: {message: 'Settings have been changed!', type: 'success'}
     })
     
     yield put({type: actions.EDIT_USER_SETTINGS.SUCCESS, payload: result.data})
