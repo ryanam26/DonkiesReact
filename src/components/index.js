@@ -5,8 +5,11 @@ export { CreateFundingSource }
 
 // finance
 
-import { default as AddAccount } from './finance/add_account/AddAccount'
+import { default as AddAccount } from './finance/AddAccount'
 export { AddAccount }
+
+import { default as AddBank } from './finance/AddBank'
+export { AddBank }
 
 import { default as ConfigureAccounts } from './finance/ConfigureAccounts'
 export { ConfigureAccounts }

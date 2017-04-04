@@ -8,7 +8,7 @@ import {
     GET_IAV_TOKEN_URL,
     CREATE_FUNDING_SOURCE_BY_IAV_URL } from 'services/api'
 import { DWOLLA_MODE } from 'store/configureStore'
-import { DEBIT, SAVINGS, CHECKING } from 'constants'
+import { DEBIT, DEPOSITORY } from 'constants'
 import { Alert, LoadingInline } from 'components'
 
 
@@ -119,7 +119,7 @@ class CreateFundingSource extends Component{
             return false  
         }
 
-        if (![CHECKING, SAVINGS].includes(account.type)){
+        if (![DEPOSITORY].includes(account.type)){
             this.setState({
                 error: 'You can not use this account as funding source. The account type should be Checking or Savings.'
             })
@@ -156,10 +156,10 @@ class CreateFundingSource extends Component{
      */
     getAccount(accounts, location){
         const { navigate } = this.props
-        if (location.query.hasOwnProperty('account_uid')){
-            const uid = location.query.account_uid
+        if (location.query.hasOwnProperty('account_guid')){
+            const guid = location.query.account_guid
             for (let account of accounts){
-                if (account.uid === uid){
+                if (account.guid === guid){
                     return account
                 }
             }

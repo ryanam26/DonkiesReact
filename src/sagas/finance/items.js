@@ -1,6 +1,6 @@
 import { take, put, call, fork, select } from 'redux-saga/effects'
 import * as actions from 'actions'
-import { ACCOUNTS_URL, ITEMS_URL, apiCall } from 'services/api'
+import { ACCOUNTS_URL, ITEMS_URL, USER_URL, apiCall } from 'services/api'
 import { apiGet } from '../web/apiGetRequest'
 
 
@@ -21,14 +21,12 @@ function* createItem(publicToken){
     } 
     
     yield put({type: actions.CREATE_ITEM.SUCCESS, payload: result.data}) 
-    yield put({
-        type: actions.GROWL_ADD_REQUEST,
-        payload: {message: 'Bank account created.', type: 'success'}
-    })
 
-    // Update items and accounts to Redux state.
+    // Update items, accounts and user in Redux state.
+    // User need to be updated for signup_steps
     yield apiGet('items', {}, ITEMS_URL)
     yield apiGet('accounts', {}, ACCOUNTS_URL)  
+    yield apiGet('user', {}, USER_URL)  
 }
 
 export function* watchCreateItem(){

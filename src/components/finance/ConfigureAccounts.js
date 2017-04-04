@@ -196,7 +196,7 @@ class ConfigureAccounts extends Component{
         const {
             accounts,
             accountsNotActive,
-            isDeleteMemberInProgress,
+            deleteMemberInProgress,
             members } = this.props
         
         if (isLoading || !members || !accounts || !accountsNotActive){
@@ -219,7 +219,7 @@ class ConfigureAccounts extends Component{
 
                     {activeMemberId &&
                         <div className="col-xs-6">
-                            {isDeleteMemberInProgress ?
+                            {deleteMemberInProgress ?
                                 <LoadingInline />
                             :
                                 <button
@@ -255,7 +255,7 @@ ConfigureAccounts.propTypes = {
     deleteMember: PropTypes.func,
     errors: PropTypes.object,
     growlAddRequest: PropTypes.func,
-    isDeleteMemberInProgress: PropTypes.bool,
+    deleteMemberInProgress: PropTypes.bool,
     members: PropTypes.array,
     setFormErrors: PropTypes.func,
     triggerDeleteMember: PropTypes.number
@@ -265,7 +265,7 @@ const mapStateToProps = (state) => ({
     accounts: state.accounts.accounts,
     accountsNotActive: state.accounts.accountsNotActive,
     errors: state.formErrors.configureAccounts,
-    isDeleteMemberInProgress: state.members.isDeleteMemberInProgress,
+    deleteMemberInProgress: state.members.deleteMemberInProgress,
     members: state.members.items,
     triggerDeleteMember: state.members.triggerDeleteMember 
 })

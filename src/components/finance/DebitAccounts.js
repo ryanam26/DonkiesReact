@@ -34,8 +34,8 @@ class DebitAccounts extends Component{
     }
 
     onClickCreateDwolla(params){
-        const { uid } = params
-        this.props.navigate('/create_funding_source?account_uid=' + uid)
+        const { guid } = params
+        this.props.navigate('/create_funding_source?account_guid=' + guid)
     }
 
     async setSourceRequest(id){
@@ -73,7 +73,7 @@ class DebitAccounts extends Component{
         let cn, params, onClick, value, title
         if (!account.is_dwolla_created){
             cn = 'zmdi-plus fake-link'
-            params = {uid: account.uid}
+            params = {guid: account.guid}
             onClick = this.onClickCreateDwolla
             title = 'Create funding source'
         } else if (account.is_funding_source_for_transfer){
@@ -148,7 +148,8 @@ class DebitAccounts extends Component{
                         visible={isShowConfigureModal}
                         title="Configure accounts">
                             
-                            <ConfigureAccounts />
+                            <div />
+                            {/*<ConfigureAccounts />*/}
                     </Modal>  
                 }
             
@@ -165,6 +166,7 @@ class DebitAccounts extends Component{
                         <i className="zmdi zmdi-plus" />
                         {'Add Bank Account'}
                     </Link>
+                    
 
                     {this.hasAccounts() &&
                         <button

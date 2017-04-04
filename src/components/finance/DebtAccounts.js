@@ -137,7 +137,8 @@ class DebtAccounts extends Component{
                         visible={isShowConfigureModal}
                         title="Configure accounts">
                             
-                            <ConfigureAccounts />
+                            <div />
+                            {/*<ConfigureAccounts />*/}
                     </Modal>  
                 }
 

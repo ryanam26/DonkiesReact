@@ -83,24 +83,26 @@ class Transactions extends Component{
 
             const roundup = t.roundup ? `$${t.roundup}` : '-'
 
-            let dt = moment(t.transacted_at)
+            let dt = moment(t.date)
+
+            const showAmount = parseFloat(t.amount) >= 0 ? `$${t.amount}` : t.amount.replace('-', '-$')
 
             row.cols.push({value: dt.format('YYYY/MM/DD'), className: 'f-500 c-cyan'})
             row.cols.push({value: t.account})
-            row.cols.push({value: `$${t.amount}`, className: 'f-500 c-cyan'})
+            row.cols.push({value: showAmount, className: 'f-500 c-cyan'})
             row.cols.push({value: roundup, className: 'f-500 c-cyan'})
-            row.cols.push({value: t.category})
-            row.cols.push({value: t.description})
+            row.cols.push({value: t.category ? t.category.join(', ') : ''})
+            row.cols.push({value: t.name})
             data.rows.push(row)
         }
         return data
     }
 
     render(){
-        const { transactions } = this.props
+        const { accounts, transactions } = this.props
         let { accountId } = this.state
 
-        if (!transactions){
+        if (!accounts || !transactions){
             return <LoadingInline />
         }
 

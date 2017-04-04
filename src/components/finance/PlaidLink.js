@@ -62,8 +62,10 @@ class PlaidLink extends Component{
 
     /**
      * Open PlaidLink.
+     * Pass to child component.
      */
-    onClickOpen(){
+    onClickOpen(e){
+        e.preventDefault()
         handler.open()
         this.setState({isLoading: true})
     }

@@ -3,10 +3,13 @@ import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
 import { createUUID } from 'services/helpers'
 import { apiGetRequest, growlAddRequest, navigate } from 'actions'
-import Institution from './Institution'
+import Institution from './private/Institution'
 
 
 
+/**
+ * Old implementation
+ */
 class AddAccount extends Component{
     constructor(props){
         super(props)
