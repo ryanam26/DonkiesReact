@@ -5,7 +5,7 @@ import autoBind from 'react-autobind'
 import {
     accountsSetActive,
     apiGetRequest,
-    deleteMember,
+    deleteItem,
     growlAddRequest,
     setFormErrors } from 'actions'
 
@@ -24,12 +24,12 @@ class ConfigureAccounts extends Component{
         autoBind(this)
 
         this.state = {
-            activeMemberId: null
+            activeItemId: null
         }
     }
     
     componentWillReceiveProps(nextProps){
-        if (this.props.triggerDeleteMember !== nextProps.triggerDeleteMember){
+        if (this.props.triggerItemDeleted !== nextProps.triggerItemDeleted){
             this.props.apiGetRequest('accounts')
             this.props.apiGetRequest('items')
             this.props.apiGetRequest('transactions')    
@@ -38,18 +38,18 @@ class ConfigureAccounts extends Component{
                 message: 'Financial institution deleted',
                 type: 'success'
             })
-            this.setState({activeMemberId: null})
+            this.setState({activeItemId: null})
         }
     }
 
-    onClickRemoveMember(){
+    onClickRemoveItem(){
         this.clearErrors()
-        const { activeMemberId } = this.state
-        if (!activeMemberId){
+        const { activeItemId } = this.state
+        if (!activeItemId){
             return
         }
-        const member = this.getMemberById(activeMemberId)
-        this.props.deleteMember(member.identifier)
+        const item = this.getItemById(activeItemId)
+        this.props.deleteItem(item.id)
     }
 
     /**
@@ -66,20 +66,20 @@ class ConfigureAccounts extends Component{
     /**
      * Callback function, passed to SelectSimple
      */
-    onSelectMember(value){
+    onSelectItem(value){
         this.clearErrors()
         if (value !== ''){
-            this.setState({activeMemberId: parseInt(value)})
+            this.setState({activeItemId: parseInt(value)})
         } else {
-            this.setState({activeMemberId: null})
+            this.setState({activeItemId: null})
         }
     }
 
-    getMemberById(id){
-        const { members } = this.props
-        for (let m of members){
-            if (m.id === id){
-                return m
+    getItemById(id){
+        const { items } = this.props
+        for (let item of items){
+            if (item.id === id){
+                return item
             }
         }
         return null
@@ -106,24 +106,24 @@ class ConfigureAccounts extends Component{
     }
 
     /**
-     * Options for SelectSimple for members
+     * Options for SelectSimple for items
      */
-    getMembersOptions(){
-        const { members } = this.props
+    getItemsOptions(){
+        const { items } = this.props
 
         let data = []
         data.push({value: '', text: '--- Select financial institution'})
         
-        for (let m of members){
-            data.push({value: m.id, text: m.name})
+        for (let item of items){
+            data.push({value: item.id, text: item.name})
         }
         return data
     }
 
     renderAccounts(){
         const { accounts, errors } = this.props
-        const { activeMemberId } = this.state
-        if (!activeMemberId || accounts.length === 0){
+        const { activeItemId } = this.state
+        if (!activeItemId || accounts.length === 0){
             return null
         }
 
@@ -133,7 +133,7 @@ class ConfigureAccounts extends Component{
         data.header = ['ACCOUNT', 'TYPE', '']
         data.rows = []
 
-        for (let a of accounts.filter(a => a.member.id === activeMemberId)){
+        for (let a of accounts.filter(a => a.item.id === activeItemId)){
             let row = {}
             row.cols = []
             
@@ -155,8 +155,8 @@ class ConfigureAccounts extends Component{
 
     renderAccountsNotActive(){
         const { accountsNotActive, errors } = this.props
-        const { activeMemberId } = this.state
-        if (!activeMemberId || accountsNotActive.length === 0){
+        const { activeItemId } = this.state
+        if (!activeItemId || accountsNotActive.length === 0){
             return null
         }
 
@@ -166,7 +166,7 @@ class ConfigureAccounts extends Component{
         data.header = ['ACCOUNT', 'TYPE', '']
         data.rows = []
 
-        for (let a of accountsNotActive.filter(a => a.member.id === activeMemberId)){
+        for (let a of accountsNotActive.filter(a => a.item.id === activeItemId)){
             let row = {}
             row.cols = []
             
@@ -192,14 +192,14 @@ class ConfigureAccounts extends Component{
     }
 
     render(){
-        const { activeMemberId, isLoading } = this.state
+        const { activeItemId, isLoading } = this.state
         const {
             accounts,
             accountsNotActive,
-            deleteMemberInProgress,
-            members } = this.props
+            deleteItemInProgress,
+            items } = this.props
         
-        if (isLoading || !members || !accounts || !accountsNotActive){
+        if (isLoading || !items || !accounts || !accountsNotActive){
             return <LoadingInline />
         }
 
@@ -213,17 +213,17 @@ class ConfigureAccounts extends Component{
                         
                         <SelectSimple
                             name="account"
-                            onChange={this.onSelectMember}
-                            options={this.getMembersOptions()} />
+                            onChange={this.onSelectItem}
+                            options={this.getItemsOptions()} />
                     </div>
 
-                    {activeMemberId &&
+                    {activeItemId &&
                         <div className="col-xs-6">
-                            {deleteMemberInProgress ?
+                            {deleteItemInProgress ?
                                 <LoadingInline />
                             :
                                 <button
-                                    onClick={this.onClickRemoveMember}
+                                    onClick={this.onClickRemoveItem}
                                     className="btn bgm-red btn-icon-text btn-sm waves-effect m-t-5">
                                         <i className="zmdi zmdi-delete" />
                                     {'Remove financial institution'}
@@ -252,28 +252,28 @@ ConfigureAccounts.propTypes = {
     accountsNotActive: PropTypes.array,
     accountsSetActive: PropTypes.func,
     apiGetRequest: PropTypes.func,
-    deleteMember: PropTypes.func,
+    deleteItem: PropTypes.func,
+    deleteItemInProgress: PropTypes.bool,
     errors: PropTypes.object,
     growlAddRequest: PropTypes.func,
-    deleteMemberInProgress: PropTypes.bool,
-    members: PropTypes.array,
+    items: PropTypes.array,
     setFormErrors: PropTypes.func,
-    triggerDeleteMember: PropTypes.number
+    triggerItemDeleted: PropTypes.number
 }
 
 const mapStateToProps = (state) => ({
     accounts: state.accounts.accounts,
     accountsNotActive: state.accounts.accountsNotActive,
     errors: state.formErrors.configureAccounts,
-    deleteMemberInProgress: state.members.deleteMemberInProgress,
-    members: state.members.items,
-    triggerDeleteMember: state.members.triggerDeleteMember 
+    deleteItemInProgress: state.items.deleteItemInProgress,
+    items: state.items.items,
+    triggerItemDeleted: state.items.triggerItemDeleted 
 })
 
 export default connect(mapStateToProps, {
     accountsSetActive,
     apiGetRequest,
     growlAddRequest,
-    deleteMember,
+    deleteItem,
     setFormErrors
 })(ConfigureAccounts)

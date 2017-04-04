@@ -65,7 +65,6 @@ class Transactions extends Component{
         }
         return transactions
     }
-
   
     /**
      * Prepare data for table.

@@ -100,7 +100,7 @@ class CreateFundingSource extends Component{
      *
      * 1) Account should be debit.
      * 2) Account not created yet in Dwolla. 
-     * 3) Type should be CHECKING or SAVINGS.
+     * 3) Type should be DEPOSITORY.
      * 4) User should have dwolla_customer.dwolla_id
      * 5) dwolla_customer should be verified.
      */
