@@ -36,3 +36,30 @@ export function* watchCreateItem(){
   }
 }
 
+
+// ------- Delete Item
+
+function* deleteItem(guid){
+    yield put({type: actions.DELETE_ITEM.REQUEST}) 
+    const url = `${ITEMS_URL}/${guid}`
+    
+    const result = yield call(apiCall, url, 'DELETE', {}, true)
+    
+    if (result.isError){
+        yield put({type: actions.DELETE_ITEM.ERROR, payload: result.data})    
+        return
+    } 
+    yield put({type: actions.DELETE_ITEM.SUCCESS})
+
+    // Update Redux state
+    yield apiGet('items', {}, ITEMS_URL)
+    yield apiGet('accounts', {}, ACCOUNTS_URL)  
+    
+}
+
+export function* watchDeleteItem(){
+  while(true){
+    const { guid } = yield take(actions.DELETE_ITEM.SUBMIT)
+    yield fork(deleteItem, guid)
+  }
+}

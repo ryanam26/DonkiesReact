@@ -10,6 +10,8 @@ const iState = {
     debtAccountsNotActive: null,
     debitAccountsNotActive: null,
     setAccountNumberInProgress: false,
+    createAccountInProgress: false,
+    triggerAccountCreated: 0,
     triggerSetAccountNumber: 0
 }
 
@@ -72,6 +74,25 @@ export function accounts(state=iState, action){
                 ...state,
                 setAccountNumberInProgress: false,
                 triggerSetAccountNumber: state.triggerSetAccountNumber + 1
+            }
+
+        case actions.CREATE_ACCOUNT.REQUEST:
+            return {
+                ...state,
+                createAccountInProgress: true
+            }
+
+        case actions.CREATE_ACCOUNT.SUCCESS:
+            return {
+                ...state,
+                createAccountInProgress: false,
+                triggerAccountCreated: state.triggerAccountCreated + 1
+            }
+
+        case actions.CREATE_ACCOUNT.ERROR:
+            return {
+                ...state,
+                createAccountInProgress: false
             }
 
         default:

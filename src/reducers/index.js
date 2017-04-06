@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
 import { accounts } from './finance/accounts'
+import { institutions } from './finance/institutions'
 import { items } from './finance/items'
 import { stat } from './finance/stat'
 import { transactions } from './finance/transactions'
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     alerts,
     formErrors,
     growl,
+    institutions,
     items,
     menu,
     settings,

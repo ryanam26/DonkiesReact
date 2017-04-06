@@ -43,3 +43,8 @@
 .dashboard-color-block:hover .content{
     display: block;
 }
+
+.add-debt{margin-top: 40px;}
+.add-debt .bank-name{font-weight: bold;}
+.add-debt .bank-address{}
+

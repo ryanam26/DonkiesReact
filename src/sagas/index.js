@@ -4,9 +4,11 @@ import { history } from 'services'
 import * as actions from 'actions'
 import * as api from 'services/api'
 
+import { watchCreateAccount } from './finance/accounts'
 import { watchSetActive } from './finance/accounts'
 import { watchSetAccountNumber } from './finance/accounts'
 import { watchCreateItem } from './finance/items'
+import { watchDeleteItem } from './finance/items'
 
 import { watchApiGetRequest } from './web/apiGetRequest'
 import { watchApiEditRequest } from './web/apiEditRequest'
@@ -39,7 +41,9 @@ export default function* root() {
     fork(watchChangeEmail),
     fork(watchChangePassword),
     fork(watchCloseDonkiesAccount),
+    fork(watchCreateAccount),
     fork(watchCreateItem),
+    fork(watchDeleteItem),
     fork(watchEditProfile),
     fork(watchEditSettings),
     fork(watchGrowlAdd),

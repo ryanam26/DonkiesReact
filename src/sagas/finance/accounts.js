@@ -8,6 +8,29 @@ import {
 import { apiGet } from '../web/apiGetRequest'
 
 
+// ------- Create account (manually create debt account)
+
+function* createAccount(form){
+    yield put({type: actions.CREATE_ACCOUNT.REQUEST}) 
+    const result = yield call(apiCall, ACCOUNTS_URL, 'POST', form, true)
+    
+    if (result.isError){
+        yield put({type: actions.CREATE_ACCOUNT.ERROR, payload: result.data})    
+        return
+    } 
+    
+    yield put({type: actions.CREATE_ACCOUNT.SUCCESS})    
+    yield apiGet('accounts', {}, ACCOUNTS_URL)  
+}
+
+export function* watchCreateAccount(){
+  while(true){
+    const { form } = yield take(actions.CREATE_ACCOUNT.SUBMIT)
+    yield fork(createAccount, form)
+  }
+}
+
+
 // ------- Set active
 
 function* setActive(id, form){

@@ -13,6 +13,7 @@ export const CHANGE_EMAIL_CONFIRM_URL = `${API_ROOT_URL}v1/user/change/email/con
 export const CHANGE_PASSWORD_URL = `${API_ROOT_URL}v1/user/change/password`
 export const CLOSE_DONKIES_ACCOUNT_URL = `${API_ROOT_URL}v1/user_close_account`
 export const CREATE_FUNDING_SOURCE_BY_IAV_URL = `${API_ROOT_URL}v1/create_funding_source_by_iav`
+export const DEBT_INSTITUTIONS_URL = `${API_ROOT_URL}v1/debt_institutions`
 export const GET_IAV_TOKEN_URL = `${API_ROOT_URL}v1/get_iav_token`
 export const INSTITUTIONS_URL = `${API_ROOT_URL}v1/institutions`
 export const INSTITUTIONS_SUGGEST_URL = `${API_ROOT_URL}v1/institutions_suggest`

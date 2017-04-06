@@ -66,7 +66,7 @@ export default class InputAutocomplete extends Component{
         }
 
         const arr = suggestionsAll.filter(
-            (obj) => obj.value.includes(value))
+            (obj) => obj.value.toLowerCase().includes(value.toLowerCase()))
 
         this.setState({suggestions: arr})
     }

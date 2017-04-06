@@ -49,7 +49,7 @@ class ConfigureAccounts extends Component{
             return
         }
         const item = this.getItemById(activeItemId)
-        this.props.deleteItem(item.id)
+        this.props.deleteItem(item.guid)
     }
 
     /**

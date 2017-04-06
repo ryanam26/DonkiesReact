@@ -73,9 +73,7 @@ class DebtAccounts extends Component{
             'LENDER',
             'ACCOUNT NAME',
             'ACCOUNT NUMBER',
-            'BALANCE',
-            'TRANSFER SHARE',
-            'TRANSACTIONS'
+            'TRANSFER SHARE'
         ]
         data.rows = []
 
@@ -97,13 +95,7 @@ class DebtAccounts extends Component{
             row.cols.push(col)
             row.cols.push({value: a.name})
             row.cols.push({value: account_number})
-            row.cols.push({value: getDollarAmount(a.balance)})
             row.cols.push({value: `${a.transfer_share}%`})
-
-            const link = (<Link to={'/transactions?account_id=' + a.id}>
-                            <i style={{fontSize: '25px'}} className="zmdi zmdi-view-list" />
-                        </Link>)
-            row.cols.push({value: link})
             data.rows.push(row)
         }
         return data
@@ -117,11 +109,6 @@ class DebtAccounts extends Component{
         
         const { accounts, user } = this.props
         
-        let header = 'Lenders'
-        if (this.hasAccounts()){
-            header += ' - total debt: $' + user.total_debt
-        }
-
         let setAccountNumberTitle
         if (this.state.account){
             setAccountNumberTitle = `Set account number for "${this.state.account.name}"`
@@ -163,7 +150,7 @@ class DebtAccounts extends Component{
                 }
 
                 <CardSimple
-                    header={header}
+                    header="Lenders"
                     headerClass="m-b-20"
                     isContentToBody={false}>
                                     

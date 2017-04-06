@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
-import { AddAccount } from 'components' 
+import { AddLender } from 'components' 
 
 
 export default class AddLenderPage extends Component{
@@ -12,7 +12,7 @@ export default class AddLenderPage extends Component{
 
     render(){
         return (
-            <AddAccount />
+            <AddLender />
         )
     }
 }
