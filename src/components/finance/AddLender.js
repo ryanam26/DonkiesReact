@@ -176,8 +176,18 @@ class AddLender extends Component{
                                         {this.institution.name}
                                     </div>
                                     
+                                    <div className="po-box">
+                                        {this.institution.box}
+                                    </div>
+
                                     <div className="bank-address">
                                         {this.institution.address}
+                                    </div>
+
+                                    <div className="bank-http-link">
+                                        <a href={this.institution.link} target="_blank">
+                                            {this.institution.link}
+                                        </a>
                                     </div>
                                     
                                     {this.numAccounts.map((v, index) => {
