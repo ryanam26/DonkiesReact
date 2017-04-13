@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
 import { Link } from 'react-router'
-import { TransfersDonkies, TransfersPrepare, TransfersDebt } from 'components'
+import { TransfersStripe, TransfersPrepare, TransfersDebt } from 'components'
 
 
 
@@ -22,7 +22,7 @@ export default class TransfersPage extends Component{
                 </div>
 
                 <div className="col-sm-12 col-md-6">
-                    <TransfersDonkies />
+                    <TransfersStripe />
                 </div>
 
                 <div className="col-sm-12 col-md-6">

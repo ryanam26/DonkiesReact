@@ -55,6 +55,7 @@ class UserSettings extends Component{
 
                     <div className="card-body card-padding">
                         
+                        {/*
                         <div className="form-group">
                             <label className="control-label col-sm-4">
                                 {'Minimum transfer amount'}
@@ -65,7 +66,7 @@ class UserSettings extends Component{
                                     options={this.getTransferAmountOptions()}
                                     value={user.minimum_transfer_amount} />
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="form-group">
                             <div className="m-l-15">

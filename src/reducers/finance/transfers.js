@@ -3,7 +3,8 @@
 const iState = {
     transfersPrepare: null,
     transfersDonkies: null,
-    transfersDebt: null
+    transfersDebt: null,
+    transfersStripe: null
 }
 
 
@@ -15,16 +16,22 @@ export function transfers(state=iState, action){
                 transfersDonkies: action.payload
             }
 
+        case actions.TRANSFERS_DEBT.SUCCESS:
+            return {
+                ...state,
+                transfersDebt: action.payload
+            }
+
         case actions.TRANSFERS_PREPARE.SUCCESS:
             return {
                 ...state,
                 transfersPrepare: action.payload
             }
 
-        case actions.TRANSFERS_DEBT.SUCCESS:
+        case actions.TRANSFERS_STRIPE.SUCCESS:
             return {
                 ...state,
-                transfersDebt: action.payload
+                transfersStripe: action.payload
             }
 
         default:

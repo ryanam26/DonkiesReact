@@ -61,6 +61,7 @@ export const TRANSACTIONS = createRequestTypes('TRANSACTIONS')
 export const TRANSFERS_DEBT = createRequestTypes('TRANSFERS_DEBT')
 export const TRANSFERS_DONKIES = createRequestTypes('TRANSFERS_DONKIES')
 export const TRANSFERS_PREPARE = createRequestTypes('TRANSFERS_PREPARE')
+export const TRANSFERS_STRIPE = createRequestTypes('TRANSFERS_STRIPE')
 export const USER = createRequestTypes('USER')
 
 export const ALERT_ADD = 'ALERT_ADD'

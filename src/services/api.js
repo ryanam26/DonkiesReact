@@ -31,6 +31,7 @@ export const STAT_URL = `${API_ROOT_URL}v1/stat`
 export const TRANSACTIONS_URL = `${API_ROOT_URL}v1/transactions`  
 export const TRANSFERS_PREPARE_URL = `${API_ROOT_URL}v1/transfers_prepare`
 export const TRANSFERS_DONKIES_URL = `${API_ROOT_URL}v1/transfers_donkies`
+export const TRANSFERS_STRIPE_URL = `${API_ROOT_URL}v1/transfers_stripe`
 export const TRANSFERS_DEBT_URL = `${API_ROOT_URL}v1/transfers_debt`  
 export const USER_URL = `${API_ROOT_URL}v1/user`
 export const USER_SETTINGS_URL = `${API_ROOT_URL}v1/user_settings`

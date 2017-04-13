@@ -114,11 +114,14 @@ export { TableSimple }
 import { default as TransfersDonkies } from './transfers/TransfersDonkies'
 export { TransfersDonkies }
 
+import { default as TransfersDebt } from './transfers/TransfersDebt'
+export { TransfersDebt }
+
 import { default as TransfersPrepare } from './transfers/TransfersPrepare'
 export { TransfersPrepare }
 
-import { default as TransfersDebt } from './transfers/TransfersDebt'
-export { TransfersDebt }
+import { default as TransfersStripe } from './transfers/TransfersStripe'
+export { TransfersStripe }
 
 
 // user

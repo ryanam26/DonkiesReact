@@ -37,12 +37,7 @@ class HomeStat extends Component{
                     className="bgm-bluegray"
                     title="Payments"
                     content="This is the number of payments saved since registered with the app." />
-
-                <DashboardColorBlock
-                    value={`$${stat.amount_available}`}
-                    className="bgm-orange"
-                    title="Available For Transfer"
-                    content="This is the amount that is available for transfer since the last time you transfered to your debt accounts." />
+                
             </div>
         )
     }

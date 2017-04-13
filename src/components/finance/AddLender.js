@@ -147,7 +147,7 @@ class AddLender extends Component{
             return (
                 <Alert
                     type="success"
-                    value={'Debt account created!'} />
+                    value={'Debt account(s) created!'} />
             )
         }
 
