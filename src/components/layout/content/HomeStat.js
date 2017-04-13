@@ -21,7 +21,7 @@ class HomeStat extends Component{
         return (
             <div className="row">
                 <DashboardColorBlock
-                    value={`$${stat.amount_to_donkies}`}
+                    value={`$${stat.amount_to_stripe}`}
                     className="bgm-lightgreen"
                     title="Total Round Up"
                     content="This is the total amount that has been rounded up since registering with the app." />

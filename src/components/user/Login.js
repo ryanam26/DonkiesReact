@@ -7,7 +7,7 @@ import { formToObject } from 'services/helpers'
 import { SETTINGS_LOGIN_URL } from 'services/api'
 import { apiGetRequest, login, navigate, setFormErrors } from 'actions'
 import { Checkbox, ErrorBlock, Input } from 'components'
-
+import FacebookButton from './private/FacebookButton'
 
 
 class Login extends Component{
@@ -53,29 +53,14 @@ class Login extends Component{
         this.props.login(form.email, form.password)
     }
 
-    renderSocial(){
-        const { settings } = this.props
-        if (!settings){
-            return null
-        }
-
-        return (
-            <div style={{backgroundColor: '#fff'}}>
-                <a href={settings.facebook_login_url}>
-                    <i style={{fontSize: '40px'}} className="zmdi zmdi-facebook-box" />
-                </a>
-            </div>
-        )
-    }
-
     render(){
-        const { errors } = this.props
+        const { errors, settings } = this.props
 
         return (
             <div className="login-content">
                 <div className="lc-block toggled">
                     
-                    {this.renderSocial()}
+                    <FacebookButton settings={settings} />
 
                     <div className="lcb-form">
                         

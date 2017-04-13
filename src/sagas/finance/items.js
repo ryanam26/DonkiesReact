@@ -1,7 +1,34 @@
 import { take, put, call, fork, select } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
 import * as actions from 'actions'
-import { ACCOUNTS_URL, ITEMS_URL, USER_URL, apiCall } from 'services/api'
+import {
+    ACCOUNTS_URL,
+    ITEMS_URL,
+    TRANSACTIONS_URL,
+    USER_URL,
+    apiCall } from 'services/api'
+import { getTransactions } from 'selectors'
 import { apiGet } from '../web/apiGetRequest'
+
+
+function* waitTransactions(){
+    let transactions = yield select(getTransactions)
+    const initialCount = transactions.length
+    let attempt = 0
+        
+    while (true){
+        transactions = yield select(getTransactions)
+        let count = transactions.length
+        if (count > initialCount || attempt > 10){
+            break
+        }
+
+        yield call(delay, 30000)
+        yield apiGet('transactions', {}, TRANSACTIONS_URL)
+        yield call(delay, 3000)
+        attempt++
+    }
+}
 
 
 // ------- Create Item
@@ -27,6 +54,11 @@ function* createItem(publicToken){
     yield apiGet('items', {}, ITEMS_URL)
     yield apiGet('accounts', {}, ACCOUNTS_URL)  
     yield apiGet('user', {}, USER_URL)  
+
+    // When user created new Item, transaction are not ready instantly.
+    // Wait for transactions (10 attempts every 30 seconds).
+    yield waitTransactions()
+
 }
 
 export function* watchCreateItem(){

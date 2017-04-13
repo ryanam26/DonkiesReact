@@ -39,11 +39,13 @@ class AddBank extends Component{
                     </div>
 
                     <div className="card-body card-padding">
-                        <PlaidLink>
-                            <Button2
-                                type="button"
-                                text="Create bank account" />
-                        </PlaidLink>
+                        {!showSuccess &&
+                            <PlaidLink>
+                                <Button2
+                                    type="button"
+                                    text="Create bank account" />
+                            </PlaidLink>
+                        }
 
                         {showSuccess &&
                             <Alert

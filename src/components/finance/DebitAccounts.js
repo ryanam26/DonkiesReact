@@ -71,12 +71,7 @@ class DebitAccounts extends Component{
         }
 
         let cn, params, onClick, value, title
-        if (!account.is_dwolla_created){
-            cn = 'zmdi-plus fake-link'
-            params = {guid: account.guid}
-            onClick = this.onClickCreateDwolla
-            title = 'Create funding source'
-        } else if (account.is_funding_source_for_transfer){
+        if (account.is_funding_source_for_transfer){
             cn = 'zmdi-money'
             params = null
             onClick = null
@@ -91,10 +86,6 @@ class DebitAccounts extends Component{
         cn = classNames('zmdi', cn)
         value = <i title={title} style={{fontSize: '25px'}} className={cn} />
         
-        if (!dwollaCustomerId){
-            value = '-'
-        }
-
         return {value, onClick, params}
     }
 

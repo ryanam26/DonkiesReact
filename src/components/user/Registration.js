@@ -5,6 +5,7 @@ import autoBind from 'react-autobind'
 import { navigate, registration, setFormErrors } from 'actions'
 import { Alert, Checkbox, ErrorBlock, Input } from 'components'
 import { formToObject } from 'services/helpers'
+import FacebookButton from './private/FacebookButton'
 
 
 /**
@@ -47,11 +48,14 @@ class Registration extends Component{
 
 
     render(){
-        const { errors, successMessage } = this.props
+        const { errors, successMessage, settings } = this.props
         
         return (
             <div className="login-content">
                 <div ref="block" className="lc-block toggled">
+                
+                    <FacebookButton settings={settings} />
+
                     <div className="lcb-form">
                         
                         <form ref="form" onSubmit={this.onSubmit} target="">
@@ -130,12 +134,14 @@ Registration.propTypes = {
     navigate: PropTypes.func,
     registration: PropTypes.func,
     setFormErrors: PropTypes.func,
+    settings: PropTypes.object,
     successMessage: PropTypes.string
 }
 
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
     errors: state.formErrors.registration,
+    settings: state.settingsLogin,
     successMessage: state.auth.registrationSuccessMessage
 })
 

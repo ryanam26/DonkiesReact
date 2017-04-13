@@ -47,4 +47,8 @@
 .add-debt{margin-top: 40px;}
 .add-debt .bank-name{font-weight: bold;}
 .add-debt .bank-address{}
-
+.add-debt .account-wrapper{
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0 10px 0;
+}

@@ -5,7 +5,12 @@ import {
     apiGetRequest, createAccount, navigate, setFormErrors } from 'actions'
 import { formToObject } from 'services/helpers'
 import {
-    Alert, Button2, Loading, InputAutocomplete, Input2 } from 'components'
+    Alert,
+    Button2,
+    ErrorBlock,
+    Loading,
+    InputAutocomplete,
+    Input2 } from 'components'
 
 
 class AddLender extends Component{
@@ -15,7 +20,8 @@ class AddLender extends Component{
 
         this.state = {
             institutionId: null,
-            showSuccess: false
+            showSuccess: false,
+            numAccounts: 1
         }
     }
 
@@ -31,15 +37,54 @@ class AddLender extends Component{
         }
     }
 
+    onClickPlus(){
+        this.setState({numAccounts: this.state.numAccounts + 1})
+    }
+
+    onClickMinus(){
+        this.setState({numAccounts: this.state.numAccounts - 1})   
+    }
+    
+    /**
+     * form.accounts = [{account_number: ..., additional_info: ...}, ...]
+     */
     onSubmit(e){
         e.preventDefault()
 
         const { institutionId } = this.state
         this.props.setFormErrors('clear', null)
         
-        const form = formToObject(e.target)
+        let map = {}
+        for (let el of e.target.elements){
+            let name = el.name.replace('[]', '')
+            
+            if (map.hasOwnProperty(name)){
+                map[name].push(el.value)
+            } else {
+                map[name] = [el.value]
+            }
+
+            if (name === 'account_number' && el.value.trim().length === 0){
+                this.props.setFormErrors(
+                    'createAccount',
+                    {non_field_errors: ['Account number can not be empty.']})
+                return
+            }
+        }
+
+        let arr = []
+        for (let i=0; i<map.account_number.length; i++){
+            let obj = {
+                account_number: map.account_number[i],
+                additional_info: map.additional_info[i],
+            }
+            arr.push(obj)
+        }
+
+        const form = {}
 
         form.institution_id = institutionId
+        form.accounts = arr
         this.props.createAccount(form)
     }
 
@@ -76,6 +121,15 @@ class AddLender extends Component{
         return institutions.filter(i => i.id === institutionId)[0]
     }
 
+    get numAccounts(){
+        const { numAccounts } = this.state
+        let arr = []
+        for (let i=0; i<numAccounts; i++){
+            arr.push(i)
+        }
+        return arr
+    }
+
     render(){
         const { errors, institutions, inProgress } = this.props
         const { institutionId, showSuccess } = this.state
@@ -91,7 +145,6 @@ class AddLender extends Component{
                     value={'Debt account created!'} />
             )
         }
-
 
         return (
             <div className="card col-lg-6">
@@ -117,28 +170,52 @@ class AddLender extends Component{
                                     <div className="bank-name">
                                         {this.institution.name}
                                     </div>
+                                    
                                     <div className="bank-address">
                                         {this.institution.address}
                                     </div>
+                                    
+                                    {this.numAccounts.map((v, index) => {
+                                        return (
+                                            <div key={index} className="account-wrapper">
+                                                <Input2
+                                                    name="account_number[]"
+                                                    label="Account number"
+                                                    placeholder="Enter your account number" />
+
+                                                <Input2
+                                                    name="additional_info[]"
+                                                    label="Additional info to included with payment"
+                                                    placeholder="Any additional info to include with your payment?" />
+                                            </div>
+                                        )                 
+                                    })}
+                                    
+                                    <button
+                                        onClick={this.onClickPlus}
+                                        type="button"
+                                        className="btn btn-primary btn-sm waves-effect">
+                                        {'+'}
+                                    </button>
+
+                                    {this.state.numAccounts > 1 &&
+                                        <button
+                                            onClick={this.onClickMinus}
+                                            type="button"
+                                            className="btn btn-primary btn-sm waves-effect m-l-10">
+                                            {'-'}
+                                        </button>
+                                    }
+                                    
+                                    <br /><br />    
+
+                                    <Button2
+                                        type="submit"
+                                        text="Submit" />
+
+                                    <ErrorBlock errors={errors} />
+
                                 </div>
-
-                                <br />
-                                <Input2
-                                    name="account_number"
-                                    label="Account number"
-                                    placeholder="Enter your account number"
-                                    errors={errors} />
-
-                                <Input2
-                                    name="additional_info"
-                                    label="Additional info to included with payment"
-                                    placeholder="Any additional info to include with your payment?"
-                                    errors={errors} />
-
-                                <Button2
-                                    disabled={inProgress}
-                                    type="submit"
-                                    value="Submit" />
                             </form>
                         }
                     </div>
