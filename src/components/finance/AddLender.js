@@ -46,7 +46,13 @@ class AddLender extends Component{
     }
     
     /**
-     * form.accounts = [{account_number: ..., additional_info: ...}, ...]
+     * form.accounts = [
+     *  {
+     *      account_number: ...,
+     *      additional_info: ...,
+     *      institution_id: ...
+     *  },
+     * ]
      */
     onSubmit(e){
         e.preventDefault()
@@ -77,13 +83,12 @@ class AddLender extends Component{
             let obj = {
                 account_number: map.account_number[i],
                 additional_info: map.additional_info[i],
+                institution_id: institutionId
             }
             arr.push(obj)
         }
 
         const form = {}
-
-        form.institution_id = institutionId
         form.accounts = arr
         this.props.createAccount(form)
     }
