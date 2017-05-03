@@ -51,7 +51,7 @@ class CloseAccount extends Component{
                     <Modal
                         onClickClose={this.onClickCloseModal}
                         visible
-                        title="Confirm remove account">
+                        title="Are you sure?">
                         
                         <wrap>
                             <button
@@ -59,14 +59,14 @@ class CloseAccount extends Component{
                                 className="btn bgm-red btn-icon-text btn-sm waves-effect m-r-5">
                                 
                                 <i className="zmdi zmdi-delete" />
-                                {'Remove and Refund'}
+                                {'Yes'}
                             </button>
 
                             <button
                                 onClick={this.onClickCloseModal}
                                 className="btn btn-primary btn-sm waves-effect m-r-5">
                                 
-                                {'Cancel'}
+                                {'No'}
                             </button>
                         </wrap>
 
