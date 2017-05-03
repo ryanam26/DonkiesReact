@@ -24,6 +24,10 @@ export function requireSignupCompleted(Component) {
 
         get isSignupCompleted(){
             const { user } = this.props
+            if (user.is_closed_account){
+                return true
+            }
+
             if (!user.signup_steps){
                 return true
             }

@@ -3,6 +3,14 @@
 import { default as CreateFundingSource } from './bank/CreateFundingSource'
 export { CreateFundingSource }
 
+// calculator
+
+import { default as LoanCalculator } from './calculator/LoanCalculator'
+export { LoanCalculator }
+
+import { default as NoUiSlider } from './calculator/NoUiSlider'
+export { NoUiSlider }
+
 // finance
 
 import { default as AddAccount } from './finance/AddAccount'

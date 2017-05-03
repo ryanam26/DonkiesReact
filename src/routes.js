@@ -8,6 +8,7 @@ import {
     ConfigureAccountsPage,
     CreateFundingSourcePage,
     HomePage,
+    LoanCalculatorPage,
     LoginPage,
     LoginFacebookPage,
     NotFoundPage,
@@ -47,6 +48,7 @@ export default (
             <Route component={AddLenderPage} path="/add_lender" />
             <Route component={ConfigureAccountsPage} path="/configure_accounts" />
             <Route component={CreateFundingSourcePage} path="/create_funding_source" />
+            <Route component={LoanCalculatorPage} path="/loan_calculator" />
             <Route component={SettingsPage} path="/settings" />
             <Route component={TestPage} path="/test_page" />
             <Route component={TransactionsPage} path="/transactions" />

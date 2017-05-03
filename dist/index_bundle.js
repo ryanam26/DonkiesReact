@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1e56bb3330f6e70f235e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "213ced219ff09affe0e1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43826,6 +43826,10 @@
 	            get: function get() {
 	                var user = this.props.user;
 
+	                if (user.is_closed_account) {
+	                    return true;
+	                }
+
 	                if (!user.signup_steps) {
 	                    return true;
 	                }
@@ -44916,8 +44920,22 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'div',
+	                                    { className: 'po-box' },
+	                                    this.institution.box
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
 	                                    { className: 'bank-address' },
 	                                    this.institution.address
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'bank-http-link' },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: this.institution.link, target: '_blank' },
+	                                        this.institution.link
+	                                    )
 	                                ),
 	                                this.numAccounts.map(function (v, index) {
 	                                    return _react2.default.createElement(
