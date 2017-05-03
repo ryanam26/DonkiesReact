@@ -13,7 +13,7 @@ class UserNotConfirmed extends Component{
 
         this.state = {
             isProcessing: false,
-            message: null
+            message: null,
         }
     }
 
@@ -29,7 +29,7 @@ class UserNotConfirmed extends Component{
     }
 
     render(){
-        const { isProcessing, message } = this.state
+        const { isProcessing, message, showRemoveModal } = this.state
 
         const text = `
             We sent you email with verification link.
@@ -73,3 +73,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
 })(UserNotConfirmed)
+
+
