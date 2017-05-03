@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import autoBind from 'react-autobind'
-import { apiGetRequest, navigate, registration, setFormErrors } from 'actions'
+import { apiGetRequest, navigate, login, registration, setFormErrors } from 'actions'
 import { SETTINGS_LOGIN_URL } from 'services/api'
 import { Alert, Checkbox, ErrorBlock, Input } from 'components'
 import { formToObject } from 'services/helpers'
@@ -18,6 +18,11 @@ class Registration extends Component{
     constructor(props){
         super(props)
         autoBind(this)
+
+        this.state = {
+            email: null,
+            password: null
+        }
     }
 
     componentWillMount(){
@@ -33,6 +38,9 @@ class Registration extends Component{
         
         if (nextProps.successMessage !== null){
             this.refs.form.reset()
+            // Auto login after signup
+            const { email, password } = this.state
+            this.props.login(email, password)
         }
     }
 
@@ -45,6 +53,8 @@ class Registration extends Component{
         this.props.setFormErrors('clear', null)
         
         let form = formToObject(e.target)
+
+        this.setState({email: form.email, password: form.password})
         this.props.registration(form)
     }
 
@@ -101,12 +111,6 @@ class Registration extends Component{
                         
                         </form>
 
-                        {successMessage && 
-                            <Alert
-                                type="success"
-                                showClose={false}
-                                value={successMessage} />}
-
                     </div>
 
                     <div className="lcb-navigation">
@@ -134,6 +138,7 @@ Registration.propTypes = {
     apiGetRequest: PropTypes.func,
     errors: PropTypes.object,
     isAuthenticated: PropTypes.bool,
+    login: PropTypes.func,
     navigate: PropTypes.func,
     registration: PropTypes.func,
     setFormErrors: PropTypes.func,
@@ -150,6 +155,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
     apiGetRequest,
+    login,
     navigate,
     registration,
     setFormErrors
