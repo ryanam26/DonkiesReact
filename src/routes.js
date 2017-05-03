@@ -52,10 +52,10 @@ export default (
             <Route component={SettingsPage} path="/settings" />
             <Route component={TestPage} path="/test_page" />
             <Route component={TransactionsPage} path="/transactions" />
-            <Route component={TransfersPage} path="/transfers" />
             <Route component={UserProfilePage} path="/user_profile" />
         </Route>
 
         <Route component={NotFoundPage} path="*" /> 
     </div>
 )
+

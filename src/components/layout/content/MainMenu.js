@@ -17,7 +17,6 @@ class MainMenu extends Component{
             {url: '/', name: 'Dashboard', className: 'zmdi-home'},
             {url: '/accounts', name: 'Accounts', className: 'zmdi-assignment-account'},
             {url: '/loan_calculator', name: 'Calculator', className: 'zmdi-money'},
-            {url: '/transfers', name: 'Transfers', className: 'zmdi-mail-send'},
             {url: '/settings', name: 'Settings', className: 'zmdi-settings'},
             {url: '/user_profile', name: 'Profile', className: 'zmdi-male'}
         ]

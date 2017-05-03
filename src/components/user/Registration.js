@@ -2,7 +2,8 @@ import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import autoBind from 'react-autobind'
-import { navigate, registration, setFormErrors } from 'actions'
+import { apiGetRequest, navigate, registration, setFormErrors } from 'actions'
+import { SETTINGS_LOGIN_URL } from 'services/api'
 import { Alert, Checkbox, ErrorBlock, Input } from 'components'
 import { formToObject } from 'services/helpers'
 import FacebookButton from './private/FacebookButton'
@@ -23,6 +24,7 @@ class Registration extends Component{
         if (this.props.isAuthenticated){
             this.props.navigate('/')
         }
+        this.props.apiGetRequest('settings_login', {useToken: false}, SETTINGS_LOGIN_URL)
     }
 
     componentWillReceiveProps(nextProps){
@@ -129,6 +131,7 @@ class Registration extends Component{
 }
 
 Registration.propTypes = {
+    apiGetRequest: PropTypes.func,
     errors: PropTypes.object,
     isAuthenticated: PropTypes.bool,
     navigate: PropTypes.func,
@@ -146,6 +149,7 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
+    apiGetRequest,
     navigate,
     registration,
     setFormErrors
