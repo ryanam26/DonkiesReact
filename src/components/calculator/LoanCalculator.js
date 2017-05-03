@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
 import classNames from 'classnames'
+import { thousandSeparator } from 'services/helpers'
 import { NoUiSlider } from 'components'
 import { getMenu } from './private/menu'
 
@@ -12,33 +13,93 @@ class LoanCalculator extends Component{
         autoBind(this)
 
         this.state = {
-            activeMenu: 'STUDENT'
+            activeMenuId: null,
+            isShowSlider: true,
         }
     }
 
+    componentWillMount(){
+        this.changeMenu(1)   
+    }
+
+    onClickMenu(id, e){
+        e.preventDefault()
+        this.changeMenu(id)
+    }
+
+    onUpdateLoanAmount(value){
+        this.setState({loanAmountValue: value})   
+    }
+
+    onUpdateInterestRate(value){
+        this.setState({interestRateValue: value})   
+    }
+
+    onUpdateLoanLength(value){
+        this.setState({loanLengthValue: value})   
+    }
+
+    onUpdateRoundup(value){
+        this.setState({roundupValue: value})   
+    }
+    
     get menu(){
         return getMenu()
     }
 
-    onUpdateInterest(value){
-        console.log(value)
+    getActiveMenuItem(id){
+        for (let item of this.menu){
+            if (item.id === id){
+                return item
+            }
+        }
+        return null
     }
 
+    changeMenu(id, e){
+        let item = this.getActiveMenuItem(id)
+
+        let sliders = ['loanAmount', 'interestRate', 'loanLength', 'roundup']
+        let newState = {activeMenuId: id}
+
+        for (let name of sliders){
+            let key = name + 'Value'
+            newState[key] = item[name]['start']
+        }
+        this.setState(newState)
+        
+        // Rerender slider with new values
+        this.setState({isShowSlider: false})
+        setTimeout(() => {this.setState({isShowSlider: true})}, 100)
+        
+    }    
 
     render(){
-        const { activeMenu } = this.state
+        const {
+            activeMenuId,
+            isShowSlider,
+            loanAmountValue,
+            interestRateValue,
+            loanLengthValue,
+            roundupValue } = this.state
+        
+        if (activeMenuId === null){
+            return null
+        }
 
-        console.log(this.menu)
+        let item = this.getActiveMenuItem(activeMenuId)
+
+        console.log(item)
 
         return (
             <div className="calc-container">
                 <div className="calc-tab">
                     <ul id="top-menu">
                         {this.menu.map(obj => {
-                            const cn = classNames('tab-item', {active: obj.name === activeMenu})
+                            const cn = classNames('tab-item', {active: obj.id === activeMenuId})
                             return (
                                 <li key={obj.name} className={cn}>
-                                    <a href="#">
+                                    <a href="#" onClick={this.onClickMenu.bind(null, obj.id)}>
                                         <i className={obj.icon} />
                                         <span>{obj.name}</span>
                                     </a>
@@ -51,33 +112,47 @@ class LoanCalculator extends Component{
                 <div className="calc-content">
                     <div className="content-left">
                         <div className="main-panel">
-                            <i className="icon-graduation-cap" />
-                            <h2>{'STUDENT LOANS'}</h2>
-                            <p className="main-amount">{'$75,000'}</p>
+                            <i className={item.icon} />
+                            <h2>{item.title}</h2>
+                            <p className="main-amount">{'$'}{thousandSeparator(loanAmountValue, ',')}</p>
                             <div className="slider-container">
-                                <div className="slider" id="student-loan" />
+                                {isShowSlider &&
+                                    <NoUiSlider
+                                        onUpdate={this.onUpdateLoanAmount}
+                                        start={item.loanAmount.start}
+                                        min={item.loanAmount.min}
+                                        max={item.loanAmount.max}
+                                        step={item.loanAmount.step}
+                                        precision={item.loanAmount.precision} />
+                                }
                             </div>
                         </div>
                         <div className="second-panel">
                             <div className="panel-col">
                                 <h3>{'INTEREST RATE'}</h3>
-                                <p className="sec-amount">{'6.5%'}</p>
+                                <p className="sec-amount">{interestRateValue.toFixed(1)}{'%'}</p>
                                 <div className="slider-container">
                                     <NoUiSlider
-                                        onUpdate={this.onUpdateInterest}
-                                        start={6.5}
-                                        min={1}
-                                        max={30}
-                                        step={0.1}
-                                        precision={1} />
+                                        onUpdate={this.onUpdateInterestRate}
+                                        start={item.interestRate.start}
+                                        min={item.interestRate.min}
+                                        max={item.interestRate.max}
+                                        step={item.interestRate.step}
+                                        precision={item.interestRate.precision} />
 
                                 </div>
                             </div>
                             <div className="panel-col">
                                 <h3>{'LOAN LENGTH'}</h3>
-                                <p className="sec-amount">{'10 YEARS'}</p>                          
+                                <p className="sec-amount">{loanLengthValue}{' YEARS'}</p>                          
                                 <div className="slider-container">
-                                    <div className="slider" id="loan-length" />
+                                    <NoUiSlider
+                                        onUpdate={this.onUpdateLoanLength}
+                                        start={item.loanLength.start}
+                                        min={item.loanLength.min}
+                                        max={item.loanLength.max}
+                                        step={item.loanLength.step}
+                                        precision={item.loanLength.precision} />
                                 </div>
                             </div>
 
@@ -92,11 +167,17 @@ class LoanCalculator extends Component{
                                         <h3>{'ROUND UP CONTRIBUTION'}</h3>
                                     </div>
                                     <div>
-                                        <p>{'$300'}</p>
+                                        <p>{'$'}{roundupValue}</p>
                                     </div>
                                 </div>
                                 <div className="slider-row slider-container">
-                                    <div className="slider" id="round-off" />
+                                    <NoUiSlider
+                                        onUpdate={this.onUpdateRoundup}
+                                        start={item.roundup.start}
+                                        min={item.roundup.min}
+                                        max={item.roundup.max}
+                                        step={item.roundup.step}
+                                        precision={item.roundup.precision} />
                                 </div>              
                             </div>
 

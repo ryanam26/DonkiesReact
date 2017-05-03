@@ -6,7 +6,7 @@ import autoBind from 'react-autobind'
 export default class NoUiSlider extends Component{
     static get defaultProps() {
         return {
-            precision: null,
+            precision: 0,
         }
     }
 
@@ -18,8 +18,6 @@ export default class NoUiSlider extends Component{
     componentDidMount(){
         const { start, min, max, step } = this.props
 
-        let slider = this.refs.slider
-        
         let options = {
             start: [start],
             connect: true,
@@ -30,22 +28,18 @@ export default class NoUiSlider extends Component{
             step: step
         }
 
-        noUiSlider.create(slider, options)
-        slider.noUiSlider.on('update', this.onUpdate)
+        noUiSlider.create(this.refs.slider, options)
+        this.refs.slider.noUiSlider.on('update', this.onUpdate)  
     }
 
     componentWillUnmount(){
-        let slider = this.refs.slider
-        slider.noUiSlider.off()
-
+        this.refs.slider.noUiSlider.off()
     }
 
     onUpdate(values, handle, unencoded, tap, positions){
         const { precision } = this.props
         let value = unencoded[0]
-        if (precision){
-            value = value.toFixed(precision)
-        }
+        value = parseFloat(value.toFixed(precision))
         this.props.onUpdate(value)
     }
 
