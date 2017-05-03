@@ -145,13 +145,15 @@ class LoanCalculator extends Component{
                                 <h3>{'INTEREST RATE'}</h3>
                                 <p className="sec-amount">{interestRateValue.toFixed(1)}{'%'}</p>
                                 <div className="slider-container">
-                                    <NoUiSlider
-                                        onUpdate={this.onUpdateInterestRate}
-                                        start={item.interestRate.start}
-                                        min={item.interestRate.min}
-                                        max={item.interestRate.max}
-                                        step={item.interestRate.step}
-                                        precision={item.interestRate.precision} />
+                                    {isShowSlider &&
+                                        <NoUiSlider
+                                            onUpdate={this.onUpdateInterestRate}
+                                            start={item.interestRate.start}
+                                            min={item.interestRate.min}
+                                            max={item.interestRate.max}
+                                            step={item.interestRate.step}
+                                            precision={item.interestRate.precision} />
+                                    }
 
                                 </div>
                             </div>
@@ -159,13 +161,15 @@ class LoanCalculator extends Component{
                                 <h3>{'LOAN LENGTH'}</h3>
                                 <p className="sec-amount">{loanLengthValue}{' YEARS'}</p>                          
                                 <div className="slider-container">
-                                    <NoUiSlider
-                                        onUpdate={this.onUpdateLoanLength}
-                                        start={item.loanLength.start}
-                                        min={item.loanLength.min}
-                                        max={item.loanLength.max}
-                                        step={item.loanLength.step}
-                                        precision={item.loanLength.precision} />
+                                    {isShowSlider &&
+                                        <NoUiSlider
+                                            onUpdate={this.onUpdateLoanLength}
+                                            start={item.loanLength.start}
+                                            min={item.loanLength.min}
+                                            max={item.loanLength.max}
+                                            step={item.loanLength.step}
+                                            precision={item.loanLength.precision} />
+                                    }
                                 </div>
                             </div>
 
@@ -184,13 +188,15 @@ class LoanCalculator extends Component{
                                     </div>
                                 </div>
                                 <div className="slider-row slider-container">
-                                    <NoUiSlider
-                                        onUpdate={this.onUpdateRoundup}
-                                        start={item.roundup.start}
-                                        min={item.roundup.min}
-                                        max={item.roundup.max}
-                                        step={item.roundup.step}
-                                        precision={item.roundup.precision} />
+                                    {isShowSlider &&
+                                        <NoUiSlider
+                                            onUpdate={this.onUpdateRoundup}
+                                            start={item.roundup.start}
+                                            min={item.roundup.min}
+                                            max={item.roundup.max}
+                                            step={item.roundup.step}
+                                            precision={item.roundup.precision} />
+                                    }
                                 </div>              
                             </div>
 
