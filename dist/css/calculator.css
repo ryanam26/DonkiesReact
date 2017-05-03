@@ -1,9 +1,20 @@
+/*
+	Additions:
+	1) Changed .calc-container padding to 15px
+	2) .calc-container h4 {color: #fff;}
+*/
+
 
 body .calc-container *, .add-info{
 	box-sizing: border-box;	
     font-family: "Open Sans", sans-serif;
 
 }
+
+.calc-container h4{
+	color: #fff;
+}
+
 
 .calc-container h1, .calc-container  h2, .calc-container  h3, .calc-container  h4, .calc-container  h5{
 	font-weight: 100;

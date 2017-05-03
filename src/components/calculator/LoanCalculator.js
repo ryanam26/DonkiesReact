@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import { thousandSeparator } from 'services/helpers'
 import { NoUiSlider } from 'components'
 import { getMenu } from './private/menu'
+import Calculator from './private/Calculator'
 
 
 class LoanCalculator extends Component{
@@ -74,6 +75,13 @@ class LoanCalculator extends Component{
         
     }    
 
+    /**
+     * Add thousand separator and round to int.
+     */
+    formatValue(value){
+        return thousandSeparator(parseInt(value), ',')
+    }
+
     render(){
         const {
             activeMenuId,
@@ -89,8 +97,13 @@ class LoanCalculator extends Component{
 
         let item = this.getActiveMenuItem(activeMenuId)
 
-        console.log(item)
-
+        let calc = new Calculator(
+            loanAmountValue,
+            interestRateValue,
+            loanLengthValue,
+            roundupValue
+        )
+        
         return (
             <div className="calc-container">
                 <div className="calc-tab">
@@ -192,7 +205,7 @@ class LoanCalculator extends Component{
                                         <p>{'Interest Paid'}</p>
                                     </div>
                                     <div>
-                                        <p>{'$27,193'}</p>
+                                        <p>{'$'}{this.formatValue(calc.interestPaid)}</p>
                                     </div>                  
                                 </div>
                                 <div className="content-row">
@@ -200,7 +213,7 @@ class LoanCalculator extends Component{
                                         <p>{'Amount Paid'}</p>
                                     </div>
                                     <div>
-                                        <p>{'$102,193'}</p>
+                                        <p>{'$'}{this.formatValue(calc.totalPaid)}</p>
                                     </div>                  
                                 </div>
                                 <div className="subtitle-row">
@@ -211,7 +224,7 @@ class LoanCalculator extends Component{
                                         <p>{'New Interest'}</p>
                                     </div>
                                     <div>
-                                        <p>{'$17,744'}</p>
+                                        <p>{'$'}{this.formatValue(calc.interestPaidWithRoundup)}</p>
                                     </div>                  
                                 </div>
                                 <div className="content-row">
@@ -219,7 +232,7 @@ class LoanCalculator extends Component{
                                         <p>{'New Amount'}</p>
                                     </div>
                                     <div>
-                                        <p>{'$92,744'}</p>
+                                        <p>{'$'}{this.formatValue(calc.totalPaidWithRoundup)}</p>
                                     </div>                  
                                 </div>              
                                 <div className="content-row margin-top">
@@ -227,7 +240,7 @@ class LoanCalculator extends Component{
                                         <p>{'Time Saved'}</p>
                                     </div>
                                     <div>
-                                        <p>{'3 YEARS'}</p>
+                                        <p>{calc.timeSaved}{' '}{calc.yearsString}</p>
                                     </div>                  
                                 </div>
                             </div>
@@ -235,7 +248,9 @@ class LoanCalculator extends Component{
 
                         <div className="big-row">
                             <div>
-                                <h3>{'$9,449 SAVED'}</h3>
+                                <h3>
+                                    {`$ ${this.formatValue(calc.amountSaved)} SAVED`}
+                                </h3>
                             </div>
                         </div>
 
