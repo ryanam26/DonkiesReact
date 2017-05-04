@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
 import {
-    apiGetRequest, createAccount, navigate, setFormErrors } from 'actions'
+    apiGetRequest, addLender, navigate, setFormErrors } from 'actions'
 import { formToObject } from 'services/helpers'
 import {
     Alert,
@@ -21,7 +21,6 @@ class AddLender extends Component{
         this.state = {
             institutionId: null,
             showSuccess: false,
-            numAccounts: 1
         }
     }
 
@@ -30,67 +29,20 @@ class AddLender extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        if (this.props.triggerAccountCreated !== nextProps.triggerAccountCreated){
+        if (this.props.trigger !== nextProps.trigger){
             this.refs.form.reset()
             this.setState({showSuccess: true})
             setTimeout(() => {this.props.navigate('/accounts')}, 3000)
         }
     }
 
-    onClickPlus(){
-        this.setState({numAccounts: this.state.numAccounts + 1})
-    }
-
-    onClickMinus(){
-        this.setState({numAccounts: this.state.numAccounts - 1})   
-    }
-    
-    /**
-     * form.accounts = [
-     *  {
-     *      account_number: ...,
-     *      additional_info: ...,
-     *      institution_id: ...
-     *  },
-     * ]
-     */
     onSubmit(e){
         e.preventDefault()
 
         const { institutionId } = this.state
-        this.props.setFormErrors('clear', null)
-        
-        let map = {}
-        for (let el of e.target.elements){
-            let name = el.name.replace('[]', '')
-            
-            if (map.hasOwnProperty(name)){
-                map[name].push(el.value)
-            } else {
-                map[name] = [el.value]
-            }
-
-            if (name === 'account_number' && el.value.trim().length === 0){
-                this.props.setFormErrors(
-                    'createAccount',
-                    {non_field_errors: ['Account number can not be empty.']})
-                return
-            }
-        }
-
-        let arr = []
-        for (let i=0; i<map.account_number.length; i++){
-            let obj = {
-                account_number: map.account_number[i],
-                additional_info: map.additional_info[i],
-                institution_id: institutionId
-            }
-            arr.push(obj)
-        }
-
         const form = {}
-        form.accounts = arr
-        this.props.createAccount(form)
+        form.institution_id = institutionId
+        this.props.addLender(form)
     }
 
     onSuccess(id, value){
@@ -126,15 +78,6 @@ class AddLender extends Component{
         return institutions.filter(i => i.id === institutionId)[0]
     }
 
-    get numAccounts(){
-        const { numAccounts } = this.state
-        let arr = []
-        for (let i=0; i<numAccounts; i++){
-            arr.push(i)
-        }
-        return arr
-    }
-
     render(){
         const { errors, institutions, inProgress } = this.props
         const { institutionId, showSuccess } = this.state
@@ -146,8 +89,9 @@ class AddLender extends Component{
         if (showSuccess){
             return (
                 <Alert
+                    showClose={false}
                     type="success"
-                    value={'Debt account(s) created!'} />
+                    value={'Lender created!'} />
             )
         }
 
@@ -156,7 +100,7 @@ class AddLender extends Component{
 
                 <div className="form-horizontal">
                     <div className="card-header">
-                        <h2>{'Add debt account'}</h2>
+                        <h2>{'Search for Lender'}</h2>
                     </div>
 
                     <div className="card-body card-padding">
@@ -190,43 +134,12 @@ class AddLender extends Component{
                                         </a>
                                     </div>
                                     
-                                    {this.numAccounts.map((v, index) => {
-                                        return (
-                                            <div key={index} className="account-wrapper">
-                                                <Input2
-                                                    name="account_number[]"
-                                                    label="Account number"
-                                                    placeholder="Enter your account number" />
-
-                                                <Input2
-                                                    name="additional_info[]"
-                                                    label="Additional info to included with payment"
-                                                    placeholder="Any additional info to include with your payment?" />
-                                            </div>
-                                        )                 
-                                    })}
-                                    
-                                    <button
-                                        onClick={this.onClickPlus}
-                                        type="button"
-                                        className="btn btn-primary btn-sm waves-effect">
-                                        {'+'}
-                                    </button>
-
-                                    {this.state.numAccounts > 1 &&
-                                        <button
-                                            onClick={this.onClickMinus}
-                                            type="button"
-                                            className="btn btn-primary btn-sm waves-effect m-l-10">
-                                            {'-'}
-                                        </button>
-                                    }
                                     
                                     <br /><br />    
 
                                     <Button2
                                         type="submit"
-                                        text="Submit" />
+                                        text="Add" />
 
                                     <ErrorBlock errors={errors} />
 
@@ -242,26 +155,26 @@ class AddLender extends Component{
 
 
 AddLender.propTypes = {
+    addLender: PropTypes.func,
     apiGetRequest: PropTypes.func,
-    createAccount: PropTypes.func,
     errors: PropTypes.object,
     inProgress: PropTypes.bool,
     institutions: PropTypes.array,
     navigate: PropTypes.func,
     setFormErrors: PropTypes.func,
-    triggerAccountCreated: PropTypes.number
+    trigger: PropTypes.number
 }
 
 const mapStateToProps = (state) => ({
-    errors: state.formErrors.createAccount,
-    inProgress: state.accounts.createAccountInProgress,
+    errors: state.formErrors.addLender,
+    inProgress: state.accounts.addLenderInProgress,
     institutions: state.institutions.debtInstitutions,
-    triggerAccountCreated: state.accounts.triggerAccountCreated
+    trigger: state.lenders.triggerLenderCreated
 })
 
 export default connect(mapStateToProps, {
     apiGetRequest,
-    createAccount,
+    addLender,
     navigate,
     setFormErrors
 })(AddLender)

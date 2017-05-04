@@ -16,6 +16,7 @@
 import * as actions from 'actions'
 
 const iState = {
+    addLender: null,
     login: null,
     registration: null,
     changeEmail: null,
@@ -38,6 +39,12 @@ export function formErrors(state=iState, action){
                     ...iState,
                     [action.formType]: action.errors
                 }    
+            }
+
+        case actions.ADD_LENDER.ERROR:
+            return {
+                ...iState,
+                addLender: action.payload
             }
 
         case actions.EDIT_PROFILE.ERROR:

@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
 import { Link } from 'react-router'
-import { DebitAccounts, DebtAccounts } from 'components'
+import { DebitAccounts, Lenders } from 'components'
 
 
 
@@ -20,7 +20,7 @@ export default class AccountsPage extends Component{
                 </div>
 
                 <div className="col-sm-6">
-                    <DebtAccounts />
+                    <Lenders />
                 </div>
             </div>
 

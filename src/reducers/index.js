@@ -4,6 +4,7 @@ import { routerReducer } from 'react-router-redux'
 import { accounts } from './finance/accounts'
 import { institutions } from './finance/institutions'
 import { items } from './finance/items'
+import { lenders } from './finance/lenders'
 import { stat } from './finance/stat'
 import { transactions } from './finance/transactions'
 import { transfers } from './finance/transfers'
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     growl,
     institutions,
     items,
+    lenders,
     menu,
     settings,
     settingsLogin,

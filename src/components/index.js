@@ -34,6 +34,9 @@ export { DebitAccounts }
 import { default as DebtAccounts } from './finance/DebtAccounts'
 export { DebtAccounts }
 
+import { default as Lenders } from './finance/Lenders'
+export { Lenders }
+
 import { default as PlaidLink } from './finance/PlaidLink'
 export { PlaidLink }
 
