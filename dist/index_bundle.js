@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "30f5294c74491aa320ed"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1fb252f1494193794b16"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -5061,7 +5061,7 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var global    = __webpack_require__(22)
+	var global    = __webpack_require__(23)
 	  , core      = __webpack_require__(57)
 	  , hide      = __webpack_require__(51)
 	  , redefine  = __webpack_require__(44)
@@ -6545,7 +6545,7 @@
 
 	var store  = __webpack_require__(277)('wks')
 	  , uid    = __webpack_require__(77)
-	  , Symbol = __webpack_require__(22).Symbol;
+	  , Symbol = __webpack_require__(23).Symbol;
 	module.exports = function(name){
 	  return store[name] || (store[name] =
 	    Symbol && Symbol[name] || (Symbol || uid)('Symbol.' + name));
@@ -6746,15 +6746,6 @@
 
 /***/ },
 /* 22 */
-/***/ function(module, exports) {
-
-	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-	var global = module.exports = typeof window != 'undefined' && window.Math == Math
-	  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
-	if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
-
-/***/ },
-/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7166,6 +7157,15 @@
 	}();
 
 	;
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+	var global = module.exports = typeof window != 'undefined' && window.Math == Math
+	  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
+	if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
 
 /***/ },
 /* 24 */
@@ -8448,7 +8448,7 @@
 
 	// add fake Function#toString
 	// for correct work wrapped methods / constructors with methods like LoDash isNative
-	var global    = __webpack_require__(22)
+	var global    = __webpack_require__(23)
 	  , hide      = __webpack_require__(51)
 	  , SRC       = __webpack_require__(77)('src')
 	  , TO_STRING = 'toString'
@@ -13817,7 +13817,7 @@
 
 	var actions = _interopRequireWildcard(_actions);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var api = _interopRequireWildcard(_api);
 
@@ -14085,7 +14085,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var global         = __webpack_require__(22)
+	var global         = __webpack_require__(23)
 	  , $export        = __webpack_require__(4)
 	  , redefine       = __webpack_require__(44)
 	  , redefineAll    = __webpack_require__(126)
@@ -14241,7 +14241,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var global      = __webpack_require__(22)
+	var global      = __webpack_require__(23)
 	  , $           = __webpack_require__(11)
 	  , DESCRIPTORS = __webpack_require__(42)
 	  , SPECIES     = __webpack_require__(20)('species');
@@ -23307,7 +23307,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(16)
-	  , document = __webpack_require__(22).document
+	  , document = __webpack_require__(23).document
 	  // in old IE typeof document.createElement is 'object'
 	  , is = isObject(document) && isObject(document.createElement);
 	module.exports = function(it){
@@ -23361,7 +23361,7 @@
 /* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(22).document && document.documentElement;
+	module.exports = __webpack_require__(23).document && document.documentElement;
 
 /***/ },
 /* 267 */
@@ -23480,7 +23480,7 @@
 	// all object keys, includes non-enumerable and symbols
 	var $        = __webpack_require__(11)
 	  , anObject = __webpack_require__(18)
-	  , Reflect  = __webpack_require__(22).Reflect;
+	  , Reflect  = __webpack_require__(23).Reflect;
 	module.exports = Reflect && Reflect.ownKeys || function ownKeys(it){
 	  var keys       = $.getNames(anObject(it))
 	    , getSymbols = $.getSymbols;
@@ -23500,7 +23500,7 @@
 /* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var global = __webpack_require__(22)
+	var global = __webpack_require__(23)
 	  , SHARED = '__core-js_shared__'
 	  , store  = global[SHARED] || (global[SHARED] = {});
 	module.exports = function(key){
@@ -23554,7 +23554,7 @@
 	  , invoke             = __webpack_require__(124)
 	  , html               = __webpack_require__(266)
 	  , cel                = __webpack_require__(263)
-	  , global             = __webpack_require__(22)
+	  , global             = __webpack_require__(23)
 	  , process            = global.process
 	  , setTask            = global.setImmediate
 	  , clearTask          = global.clearImmediate
@@ -43942,7 +43942,7 @@
 
 	var _actions = __webpack_require__(7);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _configureStore = __webpack_require__(90);
 
@@ -45086,13 +45086,53 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/*
+
+	Calculation of monthly scheduled payment.
+
+	X = P * ( r(1 + r)**n ) / ( (1 + r)**n - 1 )
+
+	P - Initial loan amount
+	r - interest rate per period
+	n - total number of payments
+
+	Example: 
+
+	Loan:        50 000
+	Yearly Rate: 5%
+	Loan length: 10 Years.
+
+	P = 50000
+	r = 0.00416666  ( 5%/12/100 )
+	n = 120         ( 10 * 12 monthes )
+
+	Should get 530.33 monthly scheduled payment.
+
+	Then calculate everything else:
+	Example:
+
+	№   BALANCE     SCH.PAYMENT     PRINCIPAL   INTEREST    ENDING BALANCE
+	1   50000       530.33          322         208.33      49678
+	2   49678       530.33 etc
+
+	1st row
+	interest       = balance * 0,00416666  (5%/100/12)  = 208.33
+	principal      = 530.33 - 208.33  = 322
+	ending balance = 50000 - 322 = 49678
+
+	Ending balance of the 1st row is beginning balance of 2nd row.
+	Then apply the same algorithm until the end of loan.
+
+	When extra payment is applied to monthly payment,
+	the loan will be paid faster.
+
+	Scheduled payment = Scheduled payment + Extra
+
+	*/
 
 	var Calculator = function () {
 	    function Calculator(loanAmount, interestRate, loanLength, roundup) {
@@ -45103,65 +45143,90 @@
 	        this.loanLength = loanLength;
 	        this.roundup = roundup;
 
-	        // set later
-	        // In years
-	        this.timeSaved = 0;
-	        this.amountSaved = 0;
+	        this.rate = null;
+	        this.periods = null;
+	        this.scPayment = null;
+	        this.totalPaid = null;
+	        this.totalInterest = null;
+	        this.totalPaidWithExtra = null;
+	        this.totalInterestWithExtra = null;
+	        this.totalMonthesWithExtra = null;
+	        this.totalYearsWithExtra = null;
+	        this.timeSavedMonthes = null;
+	        this.amountSaved = null;
+
+	        this.calculate();
 	    }
 
 	    _createClass(Calculator, [{
-	        key: 'interestPaid',
-	        get: function get() {
-	            var loanAmount = this.loanAmount;
-	            var interestAmount = 0;
-	            var amountPerYear = this.amountPerYear;
-
-	            for (var i = 0; i < this.loanLength; i++) {
-	                var payThisYear = loanAmount * (this.interestRate / 100);
-	                interestAmount += payThisYear;
-	                loanAmount -= amountPerYear;
-	            }
-	            return interestAmount;
+	        key: 'calculate',
+	        value: function calculate() {
+	            this.getRate();
+	            this.getPeriods();
+	            this.getScheduledPayment();
+	            this.getTotal();
+	            this.getTotalWithExtra(this.roundup);
 	        }
 	    }, {
-	        key: 'totalPaid',
-	        get: function get() {
-	            return this.loanAmount + this.interestPaid;
+	        key: 'getRate',
+	        value: function getRate() {
+	            this.rate = this.interestRate / 12 / 100;
 	        }
 	    }, {
-	        key: 'interestPaidWithRoundup',
-	        get: function get() {
-	            var loanAmount = this.loanAmount;
-	            var interestAmount = 0;
-	            var amountPerYear = this.amountPerYear + this.roundup * 12;
-
-	            var countYears = 0;
-	            while (loanAmount > 0) {
-	                countYears += 1;
-	                var payThisYear = loanAmount * (this.interestRate / 100);
-	                interestAmount += payThisYear;
-	                loanAmount -= amountPerYear;
-	            }
-
-	            this.timeSaved = this.loanLength - countYears;
-	            this.amountSaved = this.interestPaid - interestAmount;
-	            return interestAmount;
+	        key: 'getPeriods',
+	        value: function getPeriods() {
+	            this.periods = this.loanLength * 12;
 	        }
 	    }, {
-	        key: 'totalPaidWithRoundup',
-	        get: function get() {
-	            return this.loanAmount + this.interestPaidWithRoundup;
+	        key: 'getScheduledPayment',
+	        value: function getScheduledPayment() {
+	            this.scPayment = this.loanAmount * (this.rate * Math.pow(1 + this.rate, this.periods)) / (Math.pow(1 + this.rate, this.periods) - 1);
 	        }
 
 	        /**
-	         * Amount without interest rate.
-	         * Split equally per all loanLength
+	         * Calculates total payment and total interest.
 	         */
 
 	    }, {
-	        key: 'amountPerYear',
-	        get: function get() {
-	            return this.loanAmount / this.loanLength;
+	        key: 'getTotal',
+	        value: function getTotal() {
+	            this.totalPaid = this.periods * this.scPayment;
+	            this.totalInterest = this.totalPaid - this.loanAmount;
+	        }
+
+	        /**
+	         * When we add extra payment (monthly roundup)
+	         * to montly payment.
+	         */
+
+	    }, {
+	        key: 'getTotalWithExtra',
+	        value: function getTotalWithExtra(extra) {
+	            var numMonthes = 0;
+	            var beginBalance = this.loanAmount;
+	            var totalInterest = 0;
+	            var totalPaid = 0;
+	            var scPayment = this.scPayment + extra;
+
+	            while (beginBalance > 0) {
+	                numMonthes += 1;
+	                var interest = beginBalance * this.rate;
+	                var principal = scPayment - interest;
+
+	                totalInterest += interest;
+	                totalPaid += scPayment;
+	                beginBalance -= principal;
+	            }
+
+	            // If begin balance is less than 0
+	            totalPaid += beginBalance;
+
+	            this.totalPaidWithExtra = totalPaid;
+	            this.totalInterestWithExtra = totalInterest;
+	            this.totalMonthesWithExtra = numMonthes;
+	            this.totalYearsWithExtra = parseInt(numMonthes / 12);
+	            this.timeSavedMonthes = this.periods - numMonthes;
+	            this.amountSaved = parseInt(this.totalPaid - this.totalPaidWithExtra);
 	        }
 
 	        /**
@@ -45169,19 +45234,43 @@
 	         */
 
 	    }, {
-	        key: 'yearsString',
+	        key: 'yearString',
 	        get: function get() {
-	            if (this.timeSaved === 1) {
+	            if (parseInt(this.timeSavedMonthes / 12) === 1) {
 	                return 'YEAR';
 	            }
 	            return 'YEARS';
+	        }
+
+	        /**
+	         * Returns Month or Monthes depends on number of monthes
+	         */
+
+	    }, {
+	        key: 'monthString',
+	        get: function get() {
+	            if (this.timeSavedMonthes === 1) {
+	                return 'Month';
+	            }
+	            return 'Monthes';
 	        }
 	    }]);
 
 	    return Calculator;
 	}();
 
-	exports.default = Calculator;
+	var calc = new Calculator(50000, 5, 10, 30);
+	console.log(calc.rate);
+	console.log(calc.periods);
+	console.log(calc.scPayment);
+	console.log(calc.totalInterest);
+	console.log(calc.totalPaid);
+	console.log('---');
+	console.log(calc.totalPaidWithExtra);
+	console.log(calc.totalInterestWithExtra);
+	console.log(calc.totalMonthesWithExtra);
+	console.log(calc.timeSavedMonthes);
+	console.log(calc.amountSaved);
 	;
 
 	var _temp = function () {
@@ -45190,6 +45279,8 @@
 	    }
 
 	    __REACT_HOT_LOADER__.register(Calculator, 'Calculator', '/home/vlad/dev/web/dj/d/donkies/project/donkies_react/src/components/calculator/private/Calculator.js');
+
+	    __REACT_HOT_LOADER__.register(calc, 'calc', '/home/vlad/dev/web/dj/d/donkies/project/donkies_react/src/components/calculator/private/Calculator.js');
 	}();
 
 	;
@@ -46598,7 +46689,7 @@
 
 	var _actions = __webpack_require__(7);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _helpers = __webpack_require__(24);
 
@@ -47535,7 +47626,7 @@
 
 	var _actions = __webpack_require__(7);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _helpers = __webpack_require__(24);
 
@@ -48092,7 +48183,7 @@
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _components = __webpack_require__(8);
 
@@ -48895,7 +48986,7 @@
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _InputAutocompleteUI = __webpack_require__(239);
 
@@ -50074,7 +50165,7 @@
 	    _createClass(MainMenu, [{
 	        key: 'getMenu',
 	        value: function getMenu() {
-	            return [{ url: '/', name: 'Dashboard', className: 'zmdi-home' }, { url: '/accounts', name: 'Accounts', className: 'zmdi-assignment-account' }, { url: '/loan_calculator', name: 'Calculator', className: 'zmdi-money' }, { url: '/transfers', name: 'Transfers', className: 'zmdi-mail-send' }, { url: '/settings', name: 'Settings', className: 'zmdi-settings' }, { url: '/user_profile', name: 'Profile', className: 'zmdi-male' }];
+	            return [{ url: '/', name: 'Dashboard', className: 'zmdi-home' }, { url: '/accounts', name: 'Accounts', className: 'zmdi-assignment-account' }, { url: '/loan_calculator', name: 'Calculator', className: 'zmdi-money' }, { url: '/settings', name: 'Settings', className: 'zmdi-settings' }, { url: '/user_profile', name: 'Profile', className: 'zmdi-male' }];
 	        }
 	    }, {
 	        key: 'onClick',
@@ -52940,7 +53031,7 @@
 
 	var _helpers = __webpack_require__(24);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _actions = __webpack_require__(7);
 
@@ -53461,6 +53552,8 @@
 
 	var _actions = __webpack_require__(7);
 
+	var _api = __webpack_require__(22);
+
 	var _components = __webpack_require__(8);
 
 	var _helpers = __webpack_require__(24);
@@ -53491,6 +53584,11 @@
 	        var _this = _possibleConstructorReturn(this, (Registration.__proto__ || Object.getPrototypeOf(Registration)).call(this, props));
 
 	        (0, _reactAutobind2.default)(_this);
+
+	        _this.state = {
+	            email: null,
+	            password: null
+	        };
 	        return _this;
 	    }
 
@@ -53500,6 +53598,7 @@
 	            if (this.props.isAuthenticated) {
 	                this.props.navigate('/');
 	            }
+	            this.props.apiGetRequest('settings_login', { useToken: false }, _api.SETTINGS_LOGIN_URL);
 	        }
 	    }, {
 	        key: 'componentWillReceiveProps',
@@ -53508,6 +53607,12 @@
 
 	            if (nextProps.successMessage !== null) {
 	                this.refs.form.reset();
+	                // Auto login after signup
+	                var _state = this.state,
+	                    email = _state.email,
+	                    password = _state.password;
+
+	                this.props.login(email, password);
 	            }
 	        }
 	    }, {
@@ -53522,6 +53627,8 @@
 	            this.props.setFormErrors('clear', null);
 
 	            var form = (0, _helpers.formToObject)(e.target);
+
+	            this.setState({ email: form.email, password: form.password });
 	            this.props.registration(form);
 	        }
 	    }, {
@@ -53579,11 +53686,7 @@
 	                                _react2.default.createElement('i', { className: 'zmdi zmdi-check' })
 	                            ),
 	                            errors && _react2.default.createElement(_components.ErrorBlock, { errors: errors })
-	                        ),
-	                        successMessage && _react2.default.createElement(_components.Alert, {
-	                            type: 'success',
-	                            showClose: false,
-	                            value: successMessage })
+	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
@@ -53627,8 +53730,10 @@
 	}(_react.Component);
 
 	Registration.propTypes = {
+	    apiGetRequest: _react.PropTypes.func,
 	    errors: _react.PropTypes.object,
 	    isAuthenticated: _react.PropTypes.bool,
+	    login: _react.PropTypes.func,
 	    navigate: _react.PropTypes.func,
 	    registration: _react.PropTypes.func,
 	    setFormErrors: _react.PropTypes.func,
@@ -53646,6 +53751,8 @@
 	};
 
 	var _default = (0, _reactRedux.connect)(mapStateToProps, {
+	    apiGetRequest: _actions.apiGetRequest,
+	    login: _actions.login,
 	    navigate: _actions.navigate,
 	    registration: _actions.registration,
 	    setFormErrors: _actions.setFormErrors
@@ -53698,7 +53805,7 @@
 
 	var _actions = __webpack_require__(7);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _components = __webpack_require__(8);
 
@@ -53899,7 +54006,7 @@
 
 	var _actions = __webpack_require__(7);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _helpers = __webpack_require__(24);
 
@@ -54352,30 +54459,77 @@
 	        var _this = _possibleConstructorReturn(this, (CloseAccount.__proto__ || Object.getPrototypeOf(CloseAccount)).call(this, props));
 
 	        (0, _reactAutobind2.default)(_this);
+
+	        _this.state = {
+	            showRemoveModal: false
+	        };
 	        return _this;
 	    }
 
 	    _createClass(CloseAccount, [{
 	        key: 'onClickCloseAccount',
 	        value: function onClickCloseAccount() {
+	            this.setState({ showRemoveModal: true });
+	        }
+	    }, {
+	        key: 'onClickConfirm',
+	        value: function onClickConfirm() {
 	            this.props.closeDonkiesAccount();
+	        }
+	    }, {
+	        key: 'onClickCloseModal',
+	        value: function onClickCloseModal() {
+	            this.setState({ showRemoveModal: false });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var showRemoveModal = this.state.showRemoveModal;
+
+
 	            return _react2.default.createElement(
-	                _components.CardSimple,
-	                {
-	                    header: 'Close account in Donkies & Refund All Change',
-	                    headerClass: 'm-b-20',
-	                    isContentToBody: false },
+	                'wrap',
+	                null,
 	                _react2.default.createElement(
-	                    'button',
+	                    _components.CardSimple,
 	                    {
-	                        onClick: this.onClickCloseAccount,
-	                        className: 'btn bgm-red btn-icon-text btn-sm waves-effect m-r-5' },
-	                    _react2.default.createElement('i', { className: 'zmdi zmdi-delete' }),
-	                    'Remove and Refund'
+	                        header: 'Close account in Donkies & Refund All Change',
+	                        headerClass: 'm-b-20',
+	                        isContentToBody: false },
+	                    _react2.default.createElement(
+	                        'button',
+	                        {
+	                            onClick: this.onClickCloseAccount,
+	                            className: 'btn bgm-red btn-icon-text btn-sm waves-effect m-r-5' },
+	                        _react2.default.createElement('i', { className: 'zmdi zmdi-delete' }),
+	                        'Remove and Refund'
+	                    )
+	                ),
+	                showRemoveModal && _react2.default.createElement(
+	                    _components.Modal,
+	                    {
+	                        onClickClose: this.onClickCloseModal,
+	                        visible: true,
+	                        title: 'Are you sure?' },
+	                    _react2.default.createElement(
+	                        'wrap',
+	                        null,
+	                        _react2.default.createElement(
+	                            'button',
+	                            {
+	                                onClick: this.onClickConfirm,
+	                                className: 'btn bgm-red btn-icon-text btn-sm waves-effect m-r-5' },
+	                            _react2.default.createElement('i', { className: 'zmdi zmdi-delete' }),
+	                            'Yes'
+	                        ),
+	                        _react2.default.createElement(
+	                            'button',
+	                            {
+	                                onClick: this.onClickCloseModal,
+	                                className: 'btn btn-primary btn-sm waves-effect m-r-5' },
+	                            'No'
+	                        )
+	                    )
 	                )
 	            );
 	        }
@@ -54437,7 +54591,7 @@
 
 	var _reactRouter = __webpack_require__(17);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _components = __webpack_require__(8);
 
@@ -54515,7 +54669,8 @@
 	        value: function render() {
 	            var _state = this.state,
 	                isProcessing = _state.isProcessing,
-	                message = _state.message;
+	                message = _state.message,
+	                showRemoveModal = _state.showRemoveModal;
 
 
 	            var text = '\n            We sent you email with verification link.\n            Please click the link to confirm your account.\n            If you didn\'t receive verification email, you can resend the link\n            using the button below.\n        ';
@@ -58132,7 +58287,6 @@
 	        _react2.default.createElement(_reactRouter.Route, { component: _pages.SettingsPage, path: '/settings' }),
 	        _react2.default.createElement(_reactRouter.Route, { component: _pages.TestPage, path: '/test_page' }),
 	        _react2.default.createElement(_reactRouter.Route, { component: _pages.TransactionsPage, path: '/transactions' }),
-	        _react2.default.createElement(_reactRouter.Route, { component: _pages.TransfersPage, path: '/transfers' }),
 	        _react2.default.createElement(_reactRouter.Route, { component: _pages.UserProfilePage, path: '/user_profile' })
 	    ),
 	    _react2.default.createElement(_reactRouter.Route, { component: _pages.NotFoundPage, path: '*' })
@@ -58170,7 +58324,7 @@
 
 	var actions = _interopRequireWildcard(_actions);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _apiGetRequest = __webpack_require__(114);
 
@@ -58453,7 +58607,7 @@
 
 	var actions = _interopRequireWildcard(_actions);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _selectors = __webpack_require__(619);
 
@@ -58743,7 +58897,7 @@
 
 	var actions = _interopRequireWildcard(_actions);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var api = _interopRequireWildcard(_api);
 
@@ -58848,7 +59002,7 @@
 
 	var actions = _interopRequireWildcard(_actions);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var api = _interopRequireWildcard(_api);
 
@@ -59081,7 +59235,7 @@
 
 	var actions = _interopRequireWildcard(_actions);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -59188,7 +59342,7 @@
 
 	var actions = _interopRequireWildcard(_actions);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -59300,7 +59454,7 @@
 
 	var actions = _interopRequireWildcard(_actions);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -59410,7 +59564,7 @@
 
 	var actions = _interopRequireWildcard(_actions);
 
-	var _api = __webpack_require__(23);
+	var _api = __webpack_require__(22);
 
 	var _apiGetRequest = __webpack_require__(114);
 
@@ -63099,7 +63253,7 @@
 /* 723 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var global    = __webpack_require__(22)
+	var global    = __webpack_require__(23)
 	  , macrotask = __webpack_require__(280).set
 	  , Observer  = global.MutationObserver || global.WebKitMutationObserver
 	  , process   = global.process
@@ -63235,7 +63389,7 @@
 /* 726 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(22);
+	module.exports = __webpack_require__(23);
 
 /***/ },
 /* 727 */
@@ -64033,7 +64187,7 @@
 
 	'use strict';
 	var $           = __webpack_require__(11)
-	  , global      = __webpack_require__(22)
+	  , global      = __webpack_require__(23)
 	  , has         = __webpack_require__(37)
 	  , cof         = __webpack_require__(56)
 	  , toPrimitive = __webpack_require__(729)
@@ -64113,7 +64267,7 @@
 
 	// 20.1.2.2 Number.isFinite(number)
 	var $export   = __webpack_require__(4)
-	  , _isFinite = __webpack_require__(22).isFinite;
+	  , _isFinite = __webpack_require__(23).isFinite;
 
 	$export($export.S, 'Number', {
 	  isFinite: function isFinite(it){
@@ -64367,7 +64521,7 @@
 	'use strict';
 	var $          = __webpack_require__(11)
 	  , LIBRARY    = __webpack_require__(177)
-	  , global     = __webpack_require__(22)
+	  , global     = __webpack_require__(23)
 	  , ctx        = __webpack_require__(49)
 	  , classof    = __webpack_require__(121)
 	  , $export    = __webpack_require__(4)
@@ -64961,7 +65115,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var $        = __webpack_require__(11)
-	  , global   = __webpack_require__(22)
+	  , global   = __webpack_require__(23)
 	  , isRegExp = __webpack_require__(269)
 	  , $flags   = __webpack_require__(264)
 	  , $RegExp  = global.RegExp
@@ -65277,7 +65431,7 @@
 	'use strict';
 	// ECMAScript 6 symbols shim
 	var $              = __webpack_require__(11)
-	  , global         = __webpack_require__(22)
+	  , global         = __webpack_require__(23)
 	  , has            = __webpack_require__(37)
 	  , DESCRIPTORS    = __webpack_require__(42)
 	  , $export        = __webpack_require__(4)
@@ -65763,7 +65917,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(282);
-	var global      = __webpack_require__(22)
+	var global      = __webpack_require__(23)
 	  , hide        = __webpack_require__(51)
 	  , Iterators   = __webpack_require__(95)
 	  , ITERATOR    = __webpack_require__(20)('iterator')
@@ -65791,7 +65945,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	// ie9- setTimeout & setInterval additional parameters fix
-	var global     = __webpack_require__(22)
+	var global     = __webpack_require__(23)
 	  , $export    = __webpack_require__(4)
 	  , invoke     = __webpack_require__(124)
 	  , partial    = __webpack_require__(725)

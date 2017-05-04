@@ -211,7 +211,7 @@ class LoanCalculator extends Component{
                                         <p>{'Interest Paid'}</p>
                                     </div>
                                     <div>
-                                        <p>{'$'}{this.formatValue(calc.interestPaid)}</p>
+                                        <p>{'$'}{this.formatValue(calc.totalInterest)}</p>
                                     </div>                  
                                 </div>
                                 <div className="content-row">
@@ -230,7 +230,7 @@ class LoanCalculator extends Component{
                                         <p>{'New Interest'}</p>
                                     </div>
                                     <div>
-                                        <p>{'$'}{this.formatValue(calc.interestPaidWithRoundup)}</p>
+                                        <p>{'$'}{this.formatValue(calc.totalInterestWithExtra)}</p>
                                     </div>                  
                                 </div>
                                 <div className="content-row">
@@ -238,7 +238,7 @@ class LoanCalculator extends Component{
                                         <p>{'New Amount'}</p>
                                     </div>
                                     <div>
-                                        <p>{'$'}{this.formatValue(calc.totalPaidWithRoundup)}</p>
+                                        <p>{'$'}{this.formatValue(calc.totalPaidWithExtra)}</p>
                                     </div>                  
                                 </div>              
                                 <div className="content-row margin-top">
@@ -246,7 +246,7 @@ class LoanCalculator extends Component{
                                         <p>{'Time Saved'}</p>
                                     </div>
                                     <div>
-                                        <p>{calc.timeSaved}{' '}{calc.yearsString}</p>
+                                        <p>{calc.timeSavedMonthes}{' '}{calc.monthString}</p>
                                     </div>                  
                                 </div>
                             </div>
