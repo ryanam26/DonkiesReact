@@ -29,8 +29,7 @@ class Lenders extends Component{
         data.id = 'debtAccounts'
         data.header = [
             'LENDER',
-            'PO.BOX',
-            'ADDRESS',
+            'LINK',
             ''
         ]
         data.rows = []
@@ -41,9 +40,10 @@ class Lenders extends Component{
 
             let deleteButton = <i style={{fontSize: '20px', cursor: 'pointer'}} className="zmdi zmdi-delete" onClick={this.onClickDelete.bind(null, lender.id)} />                    
             
+            let href = <a target="_blank" href={lender.link}>{lender.link}</a>
+
             row.cols.push({value: lender.name})
-            row.cols.push({value: lender.box})
-            row.cols.push({value: lender.address})
+            row.cols.push({value: href})
             row.cols.push({value: deleteButton})
             data.rows.push(row)
         }

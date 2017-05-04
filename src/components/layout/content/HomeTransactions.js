@@ -12,10 +12,10 @@ class HomeTransactions extends Component{
         autoBind(this)
     }
 
-    get fundingSource(){
+    get primaryAccount(){
         const { accounts } = this.props
         for (let account of accounts){
-            if (account.is_funding_source_for_transfer){
+            if (account.is_primary){
                 return account
             }
         }
@@ -23,13 +23,13 @@ class HomeTransactions extends Component{
     }
 
     /**
-     * Get last 10 transactions for funding source account.
+     * Get last 10 transactions for primary account.
      */
     get transactions(){
         const { transactions } = this.props
         let arr = []
-        if (this.fundingSource){
-            arr = transactions.filter(tr => tr.account_id === this.fundingSource.id)
+        if (this.primaryAccount){
+            arr = transactions.filter(tr => tr.account_id === this.primaryAccount.id)
         } else {
             arr = [...transactions]
         }
