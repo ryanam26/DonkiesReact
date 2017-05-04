@@ -18,6 +18,7 @@ export const GET_IAV_TOKEN_URL = `${API_ROOT_URL}v1/get_iav_token`
 export const INSTITUTIONS_URL = `${API_ROOT_URL}v1/institutions`
 export const INSTITUTIONS_SUGGEST_URL = `${API_ROOT_URL}v1/institutions_suggest`
 export const ITEMS_URL = `${API_ROOT_URL}v1/items`
+export const LENDERS_URL = `${API_ROOT_URL}v1/lenders`
 export const LOGIN_URL = `${API_ROOT_URL}v1/auth/login`
 export const LOGIN_FACEBOOK_URL = `${API_ROOT_URL}v1/auth/facebook`
 export const REGISTRATION_URL = `${API_ROOT_URL}v1/auth/signup`

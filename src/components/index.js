@@ -19,6 +19,9 @@ export { AddAccount }
 import { default as AddBank } from './finance/AddBank'
 export { AddBank }
 
+import { default as AddDebtAccount } from './finance/AddDebtAccount'
+export { AddDebtAccount }
+
 import { default as AddLender } from './finance/AddLender'
 export { AddLender }
 

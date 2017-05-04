@@ -96,7 +96,7 @@ export default class Calculator{
 
     /**
      * When we add extra payment (monthly roundup)
-     * to montly payment.
+     * to monthly payment.
      */
     getTotalWithExtra(extra){
         let numMonthes = 0

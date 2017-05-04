@@ -11,6 +11,9 @@ export { AccountsPage }
 import { default as AddBankPage } from './finance/AddBankPage'
 export { AddBankPage }
 
+import { default as AddDebtAccountPage } from './finance/AddDebtAccountPage'
+export { AddDebtAccountPage }
+
 import { default as AddLenderPage } from './finance/AddLenderPage'
 export { AddLenderPage }
 

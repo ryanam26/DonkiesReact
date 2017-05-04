@@ -150,13 +150,13 @@ class DebtAccounts extends Component{
                 }
 
                 <CardSimple
-                    header="Lenders"
+                    header="Debt accounts"
                     headerClass="m-b-20"
                     isContentToBody={false}>
                                     
-                    <Link to="/add_lender" className="btn bgm-lightblue btn-icon-text btn-sm waves-effect m-r-5 m-t-5">
+                    <Link to="/add_debt_account" className="btn bgm-lightblue btn-icon-text btn-sm waves-effect m-r-5 m-t-5">
                         <i className="zmdi zmdi-plus" />
-                        {'Add lender'}
+                        {'Add debt account'}
                     </Link>
 
                     {(this.hasAccounts() && accounts.length > 1) &&

@@ -9,6 +9,8 @@ import { watchSetActive } from './finance/accounts'
 import { watchSetAccountNumber } from './finance/accounts'
 import { watchCreateItem } from './finance/items'
 import { watchDeleteItem } from './finance/items'
+import { watchAddLender } from './finance/lenders'
+import { watchDeleteLender } from './finance/lenders'
 
 import { watchApiGetRequest } from './web/apiGetRequest'
 import { watchApiEditRequest } from './web/apiEditRequest'
@@ -38,6 +40,8 @@ export default function* root() {
   yield [
     fork(watchApiGetRequest),
     fork(watchApiEditRequest),
+    fork(watchAddLender),
+    fork(watchDeleteLender),
     fork(watchChangeEmail),
     fork(watchChangePassword),
     fork(watchCloseDonkiesAccount),

@@ -4,6 +4,7 @@ import { Route, IndexRoute } from 'react-router'
 import {
     AccountsPage,
     AddBankPage,
+    AddDebtAccountPage,
     AddLenderPage,
     ConfigureAccountsPage,
     CreateFundingSourcePage,
@@ -59,3 +60,5 @@ export default (
     </div>
 )
 
+// Functionality for debt accounts
+// <Route component={AddDebtAccountPage} path="/add_debt_account" />

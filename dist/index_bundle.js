@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1fb252f1494193794b16"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "76dcf84b620903a9964f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -44790,7 +44790,7 @@
 	                                            'p',
 	                                            null,
 	                                            '$',
-	                                            this.formatValue(calc.interestPaid)
+	                                            this.formatValue(calc.totalInterest)
 	                                        )
 	                                    )
 	                                ),
@@ -44845,7 +44845,7 @@
 	                                            'p',
 	                                            null,
 	                                            '$',
-	                                            this.formatValue(calc.interestPaidWithRoundup)
+	                                            this.formatValue(calc.totalInterestWithExtra)
 	                                        )
 	                                    )
 	                                ),
@@ -44868,7 +44868,7 @@
 	                                            'p',
 	                                            null,
 	                                            '$',
-	                                            this.formatValue(calc.totalPaidWithRoundup)
+	                                            this.formatValue(calc.totalPaidWithExtra)
 	                                        )
 	                                    )
 	                                ),
@@ -44890,9 +44890,9 @@
 	                                        _react2.default.createElement(
 	                                            'p',
 	                                            null,
-	                                            calc.timeSaved,
+	                                            calc.timeSavedMonthes,
 	                                            ' ',
-	                                            calc.yearsString
+	                                            calc.monthString
 	                                        )
 	                                    )
 	                                )
@@ -45086,6 +45086,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -45196,7 +45200,7 @@
 
 	        /**
 	         * When we add extra payment (monthly roundup)
-	         * to montly payment.
+	         * to monthly payment.
 	         */
 
 	    }, {
@@ -45226,13 +45230,28 @@
 	            this.totalMonthesWithExtra = numMonthes;
 	            this.totalYearsWithExtra = parseInt(numMonthes / 12);
 	            this.timeSavedMonthes = this.periods - numMonthes;
-	            this.amountSaved = parseInt(this.totalPaid - this.totalPaidWithExtra);
+	            this.amountSaved = this.totalPaid - this.totalPaidWithExtra;
 	        }
 
 	        /**
 	         * Returns YEAR or YEARS depends on number of years
 	         */
 
+	    }, {
+	        key: 'debug',
+	        value: function debug() {
+	            console.log(this.rate);
+	            console.log(this.periods);
+	            console.log(this.scPayment);
+	            console.log(this.totalInterest);
+	            console.log(this.totalPaid);
+	            console.log('---');
+	            console.log(this.totalPaidWithExtra);
+	            console.log(this.totalInterestWithExtra);
+	            console.log(this.totalMonthesWithExtra);
+	            console.log(this.timeSavedMonthes);
+	            console.log(this.amountSaved);
+	        }
 	    }, {
 	        key: 'yearString',
 	        get: function get() {
@@ -45250,27 +45269,16 @@
 	        key: 'monthString',
 	        get: function get() {
 	            if (this.timeSavedMonthes === 1) {
-	                return 'Month';
+	                return 'Monthly payment';
 	            }
-	            return 'Monthes';
+	            return 'Monthly payments';
 	        }
 	    }]);
 
 	    return Calculator;
 	}();
 
-	var calc = new Calculator(50000, 5, 10, 30);
-	console.log(calc.rate);
-	console.log(calc.periods);
-	console.log(calc.scPayment);
-	console.log(calc.totalInterest);
-	console.log(calc.totalPaid);
-	console.log('---');
-	console.log(calc.totalPaidWithExtra);
-	console.log(calc.totalInterestWithExtra);
-	console.log(calc.totalMonthesWithExtra);
-	console.log(calc.timeSavedMonthes);
-	console.log(calc.amountSaved);
+	exports.default = Calculator;
 	;
 
 	var _temp = function () {
@@ -45279,8 +45287,6 @@
 	    }
 
 	    __REACT_HOT_LOADER__.register(Calculator, 'Calculator', '/home/vlad/dev/web/dj/d/donkies/project/donkies_react/src/components/calculator/private/Calculator.js');
-
-	    __REACT_HOT_LOADER__.register(calc, 'calc', '/home/vlad/dev/web/dj/d/donkies/project/donkies_react/src/components/calculator/private/Calculator.js');
 	}();
 
 	;
