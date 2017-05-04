@@ -11,7 +11,7 @@ class HomeStat extends Component{
         super(props)
         autoBind(this)
     }
-
+           
     render(){
         const { stat } = this.props
         if (!stat){
@@ -21,22 +21,22 @@ class HomeStat extends Component{
         return (
             <div className="row">
                 <DashboardColorBlock
-                    value={`$${stat.amount_to_stripe}`}
+                    value={`$${stat.roundup_since_signup.toFixed(2)}`}
                     className="bgm-lightgreen"
-                    title="Total Round Up"
+                    title="Total Round Ups since signing up"
                     content="This is the total amount that has been rounded up since registering with the app." />
 
                 <DashboardColorBlock
-                    value={`$${stat.amount_to_user}`}
+                    value={`$${stat.monthly_average_roundup.toFixed(2)}`}
                     className="bgm-purple"
-                    title="Total Transfered"
-                    content="This is the amount that has been transfered and applied to your debt accounts since registering with the app." />
+                    title="Average Monthly Round Ups"
+                    content="This is the average monthly round ups." />
 
                 <DashboardColorBlock
-                    value={stat.payments}
+                    value={stat.yearly_average_roundup.toFixed(2)}
                     className="bgm-bluegray"
-                    title="Payments"
-                    content="This is the number of payments saved since registered with the app." />
+                    title="Average Yearly Round Ups"
+                    content="This is the average yearly round ups." />
                 
             </div>
         )

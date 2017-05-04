@@ -7,6 +7,7 @@ import * as api from 'services/api'
 import { watchCreateAccount } from './finance/accounts'
 import { watchSetActive } from './finance/accounts'
 import { watchSetAccountNumber } from './finance/accounts'
+import { watchSetPrimaryAccount } from './finance/accounts'
 import { watchCreateItem } from './finance/items'
 import { watchDeleteItem } from './finance/items'
 import { watchAddLender } from './finance/lenders'
@@ -57,7 +58,8 @@ export default function* root() {
     fork(watchRegistration),
     fork(watchResetPasswordRequest),
     fork(watchSetActive),
-    fork(watchSetAccountNumber)
+    fork(watchSetAccountNumber),
+    fork(watchSetPrimaryAccount)
   ]
 }
 

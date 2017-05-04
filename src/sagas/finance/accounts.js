@@ -4,6 +4,7 @@ import {
     ACCOUNTS_URL,
     ACCOUNTS_SET_ACTIVE_URL,
     ACCOUNTS_SET_NUMBER_URL,
+    ACCOUNTS_SET_PRIMARY_URL,
     apiCall } from 'services/api'
 import { apiGet } from '../web/apiGetRequest'
 
@@ -80,5 +81,29 @@ export function* watchSetAccountNumber(){
   }
 }
 
+
+// ------- Set primary account
+
+function* setPrimaryAccount(id){
+    yield put({type: actions.ACCOUNTS_SET_PRIMARY.REQUEST}) 
+
+    const url = `${ACCOUNTS_SET_PRIMARY_URL}/${id}`
+    const result = yield call(apiCall, url, 'POST', {}, true)
+    
+    if (result.isError){
+        yield put({type: actions.ACCOUNTS_SET_PRIMARY.ERROR, payload: result.data})    
+        return
+    } 
+    
+    yield apiGet('accounts', {}, ACCOUNTS_URL)  
+    yield put({type: actions.ACCOUNTS_SET_PRIMARY.SUCCESS}) 
+}
+
+export function* watchSetPrimaryAccount(){
+  while(true){
+    const { id } = yield take(actions.ACCOUNTS_SET_PRIMARY.SUBMIT)
+    yield fork(setPrimaryAccount, id)
+  }
+}
 
 

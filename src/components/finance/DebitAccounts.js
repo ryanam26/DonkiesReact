@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
 import { Link } from 'react-router'
 import classNames from 'classnames'
-import { apiGetRequest, navigate } from 'actions'
+import { apiGetRequest, accountsSetPrimary, navigate } from 'actions'
 import { apiCall3, ACCOUNTS_SET_FUNDING_SOURCE_URL } from 'services/api'
 import { getDollarAmount } from 'services/helpers'
 import {
@@ -28,16 +28,30 @@ class DebitAccounts extends Component{
         this.props.navigate('/configure_accounts')
     }
 
+    onClickSetPrimary(params){
+        const { id } = params
+        this.props.accountsSetPrimary(id)
+    }
+
+    /**
+     * Currently not used.
+     */
     onClickSetSource(params){
         const { id } = params
         this.setSourceRequest(id)
     }
 
+    /**
+     * Currently not used.
+     */
     onClickCreateDwolla(params){
         const { guid } = params
         this.props.navigate('/create_funding_source?account_guid=' + guid)
     }
 
+    /**
+     * Currently not used.
+     */
     async setSourceRequest(id){
         this.setState({setSourceInProgressId: id})
 
@@ -62,7 +76,7 @@ class DebitAccounts extends Component{
     /**
      * Returns col object for table depends on account.
      */
-    getCol(account){
+    getColForFundingSource(account){
         const { user } = this.props
         let dwollaCustomerId = null
 
@@ -90,13 +104,36 @@ class DebitAccounts extends Component{
     }
 
     /**
+     * Returns col object for table depends on account.
+     */
+    getColForPrimary(account){
+        let cn, params, onClick, value, title
+        if (account.is_primary){
+            cn = 'zmdi-money'
+            params = null
+            onClick = null
+            title = 'Primary account'
+        } else {
+            cn = 'zmdi-assignment fake-link'
+            params = {id: account.id}
+            onClick = this.onClickSetPrimary
+            title = 'Set account as primary'
+        }
+
+        cn = classNames('zmdi', cn)
+        value = <i title={title} style={{fontSize: '25px'}} className={cn} />
+        
+        return {value, onClick, params}
+    }
+
+    /**
      * Prepare data for table.
      */
     getData(accounts){
         let data = {}
         data.id = 'debitAccounts'
         data.header = [
-            'BANK', 'ACCOUNT NAME', 'BALANCE', 'TRANSACTIONS', 'SOURCE']
+            'BANK', 'ACCOUNT NAME', 'BALANCE', 'TRANSACTIONS', 'PRIMARY']
         data.rows = []
 
         for (let a of accounts){
@@ -116,7 +153,7 @@ class DebitAccounts extends Component{
                         </Link>)
             row.cols.push({value: link})
             
-            col = this.getCol(a)
+            col = this.getColForPrimary(a)
 
             if (a.id === this.state.setSourceInProgressId){
                 col.value = <LoadingInline radius={10} />
@@ -180,6 +217,7 @@ class DebitAccounts extends Component{
 DebitAccounts.propTypes = {
     accounts: PropTypes.array,
     accountsNotActive: PropTypes.array,
+    accountsSetPrimary: PropTypes.func,
     apiGetRequest: PropTypes.func,
     navigate: PropTypes.func,
     user: PropTypes.object
@@ -192,6 +230,7 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
+    accountsSetPrimary,
     apiGetRequest,
     navigate
 })(DebitAccounts)

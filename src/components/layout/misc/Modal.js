@@ -9,7 +9,8 @@ import classNames from 'classnames'
 class Modal extends Component{
     static get defaultProps() {
         return {
-            footer: null
+            footer: null,
+            showCloseButton: true,
         }
     }
 
@@ -23,7 +24,7 @@ class Modal extends Component{
     }
 
     render(){
-        const { children, footer, title, visible } = this.props
+        const { children, footer, title, visible, showCloseButton } = this.props
 
         let style = visible ? {'display': 'block', 'paddingRight': '15px'} : {'display': 'none'}
         
@@ -48,13 +49,15 @@ class Modal extends Component{
                         <div className="modal-footer">
                             {footer}
 
-                            <button
-                                onClick={this.onClickClose}
-                                type="button"
-                                className="btn btn-link waves-effect"
-                                data-dismiss="modal">
-                                {'Close'}
-                            </button>
+                            {showCloseButton &&
+                                <button
+                                    onClick={this.onClickClose}
+                                    type="button"
+                                    className="btn btn-link waves-effect"
+                                    data-dismiss="modal">
+                                    {'Close'}
+                                </button>
+                            }
                         </div>
                     </div>
                 </div>
@@ -67,6 +70,7 @@ Modal.propTypes = {
     children: PropTypes.node,
     footer: PropTypes.node,
     onClickClose: PropTypes.func,
+    showCloseButton: PropTypes.bool,
     title: PropTypes.string,
     visible: PropTypes.bool
 }

@@ -25,7 +25,8 @@ const iState = {
     createAccount: null,
     editProfile: null,
     editUserSettings: null,
-    resetPasswordRequest: null
+    resetPasswordRequest: null,
+    setPrimaryAccount: null
 }
 
 
@@ -102,10 +103,15 @@ export function formErrors(state=iState, action){
             }
 
         case actions.RESET_PASSWORD_REQUEST.ERROR:
-            console.log(action.payload)
             return {
                 ...iState,
                 resetPasswordRequest: action.payload
+            }
+
+        case actions.ACCOUNTS_SET_PRIMARY.ERROR:
+            return {
+                ...iState,
+                setPrimaryAccount: action.payload
             }
 
         default:

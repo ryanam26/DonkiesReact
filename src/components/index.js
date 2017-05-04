@@ -43,6 +43,9 @@ export { PlaidLink }
 import { default as SetAccountNumber } from './finance/SetAccountNumber'
 export { SetAccountNumber }
 
+import { default as SetPrimaryAccount } from './finance/SetPrimaryAccount'
+export { SetPrimaryAccount }
+
 import { default as ShareEdit } from './finance/ShareEdit'
 export { ShareEdit }
 

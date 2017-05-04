@@ -8,6 +8,7 @@ export const ACCOUNTS_SET_ACTIVE_URL = `${API_ROOT_URL}v1/accounts/set_active`
 export const ACCOUNTS_SET_NUMBER_URL = `${API_ROOT_URL}v1/accounts/set_account_number`
 export const ACCOUNTS_EDIT_SHARE_URL = `${API_ROOT_URL}v1/accounts/edit_share`
 export const ACCOUNTS_SET_FUNDING_SOURCE_URL = `${API_ROOT_URL}v1/accounts/set_funding_source`   
+export const ACCOUNTS_SET_PRIMARY_URL = `${API_ROOT_URL}v1/accounts/set_primary`   
 export const CHANGE_EMAIL_URL = `${API_ROOT_URL}v1/user/change/email`
 export const CHANGE_EMAIL_CONFIRM_URL = `${API_ROOT_URL}v1/user/change/email/confirm`
 export const CHANGE_PASSWORD_URL = `${API_ROOT_URL}v1/user/change/password`
