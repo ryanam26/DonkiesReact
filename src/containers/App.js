@@ -57,12 +57,6 @@ class App extends Component {
         }
     }
 
-    componentWillUpdate(nextProps, nextState){
-        if (nextProps.user && !nextProps.user.is_confirmed){
-            this.props.navigate('/not_confirmed')
-        }
-    }
-
     handleChange(nextValue) {
         this.props.navigate(`/${nextValue}`)
     }
