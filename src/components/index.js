@@ -28,6 +28,9 @@ export { AddLender }
 import { default as ConfigureAccounts } from './finance/ConfigureAccounts'
 export { ConfigureAccounts }
 
+import { default as CreditCards } from './finance/CreditCards'
+export { CreditCards }
+
 import { default as DebitAccounts } from './finance/DebitAccounts'
 export { DebitAccounts }
 
