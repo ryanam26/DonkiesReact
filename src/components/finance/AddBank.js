@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import autoBind from 'react-autobind'
+import Script from 'react-load-script'
+
 import { navigate } from 'actions'
 import { Alert, Button2, Loading, PlaidLink } from 'components'
 
@@ -11,7 +13,9 @@ class AddBank extends Component{
         autoBind(this)
 
         this.state = {
-            showSuccess: false
+            showSuccess: false,
+            isScriptLoaded: false,
+            isScriptError: false
         }
     }
 
@@ -22,38 +26,70 @@ class AddBank extends Component{
         }
     }
 
+    onScriptError(){
+        this.setState({isScriptError: true})
+    }
+
+    onScriptLoad(){
+        this.setState({isScriptLoaded: true})
+    }
+
     render(){
         const { settings } = this.props
-        const { showSuccess } = this.state
+        const { isScriptError,  isScriptLoaded, showSuccess } = this.state
 
         if (!settings){
             return <Loading />
         }
 
+        if (isScriptError){
+            const message = `
+                We are sorry! We can not now process your request. 
+                Please try again later.
+            `
+            return (
+                <Alert
+                    type="danger"
+                    showClose={false}
+                    value={message} />
+            )
+        }
+
         return (
+            <wrap>
+
+            <Script
+                url="https://cdn.plaid.com/link/v2/stable/link-initialize.js"
+                onError={this.onScriptError}
+                onLoad={this.onScriptLoad} />
+
             <div className="card col-lg-6">
 
-                <div className="form-horizontal">
-                    <div className="card-header">
-                        <h2>{'Add bank account'}</h2>
-                    </div>
+                {isScriptLoaded &&
+                    <div className="form-horizontal">
+                        <div className="card-header">
+                            <h2>{'Add bank account'}</h2>
+                        </div>
 
-                    <div className="card-body card-padding">
-                        {!showSuccess &&
-                            <PlaidLink>
-                                <Button2
-                                    type="button"
-                                    text="Create bank account" />
-                            </PlaidLink>
-                        }
+                        <div className="card-body card-padding">
+                            {!showSuccess &&
+                                <PlaidLink>
+                                    <Button2
+                                        type="button"
+                                        text="Create bank account" />
+                                </PlaidLink>
+                            }
 
-                        {showSuccess &&
-                            <Alert
-                                type="success"
-                                value={'Bank account created!'} />}
+                            {showSuccess &&
+                                <Alert
+                                    type="success"
+                                    value={'Bank account created!'} />}
+                        </div>
                     </div>
-                </div>
+                }
+                
             </div>
+            </wrap>
         )
     }
 }

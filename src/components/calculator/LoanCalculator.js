@@ -181,7 +181,7 @@ class LoanCalculator extends Component{
                             <div className="row-sub-group">
                                 <div className="content-row main">
                                     <div>
-                                        <h3>{'ROUND UP CONTRIBUTION'}</h3>
+                                        <h3>{'MONTHLY ROUND UP CONTRIBUTION'}</h3>
                                     </div>
                                     <div>
                                         <p>{'$'}{roundupValue}</p>
