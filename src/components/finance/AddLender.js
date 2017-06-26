@@ -40,7 +40,14 @@ class AddLender extends Component{
         e.preventDefault()
 
         const { institutionId } = this.state
-        const form = {}
+        
+        const form = formToObject(e.target)
+        if (form.account_number === ''){
+            this.props.setFormErrors(
+                'addLender', {'account_number': ['Please fill account number']}) 
+            return           
+        }
+        
         form.institution_id = institutionId
         this.props.addLender(form)
     }
@@ -115,6 +122,13 @@ class AddLender extends Component{
 
                         {institutionId &&
                             <form ref="form" onSubmit={this.onSubmit}>
+                                <br /><br />
+                                <Input2
+                                    name="account_number"
+                                    placeholder="Account number"
+                                    label="Account number"
+                                    errors={errors} />
+
                                 <div className="add-debt">
                                     <div className="bank-name">
                                         {this.institution.name}
