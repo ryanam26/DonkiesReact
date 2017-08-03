@@ -30,7 +30,7 @@ function createRequestTypes(base) {
     SET_CLEAR_FORM,
     UNSET_CLEAR_FORM,
     ERROR].forEach(type => res[type] = `${base}_${type}`)
-  
+
   return res;
 }
 
@@ -89,14 +89,14 @@ function action(type, payload = {}) {
 // Generic GET request
 // Example: name="some"
 // actions should have "SOME.FETCH", "SOME.SUCCESS", "SOME.ERROR"
-// url should be equal "SOME_URL"  
+// url should be equal "SOME_URL"
 export const apiGetRequest = (name, params, url=null) => action(API_GET_REQUEST.FETCH, {name, params, url})
 
 
 // Generic EDIT (PATCH) request
 // Example: name="some"
 // actions should have "SOME_EDIT.SUCCESS", "SOME_EDIT.ERROR"
-// url in api should be equal "SOME_URL"  
+// url in api should be equal "SOME_URL"
 // form should conatain id (edit by id)
 export const apiEditRequest = (name, id, form, url=null) => action(API_EDIT_REQUEST.SUBMIT, {name, id, form, url})
 
@@ -116,7 +116,7 @@ export const updateRouterState = state => action(UPDATE_ROUTER_STATE, {state})
 export const accountsSetActive = (id, form) => action(ACCOUNTS_SET_ACTIVE.SUBMIT, {id, form})
 export const accountsSetNumber = (id, form) => action(ACCOUNTS_SET_NUMBER.SUBMIT, {id, form})
 export const accountsSetPrimary = (id) => action(ACCOUNTS_SET_PRIMARY.SUBMIT, {id})
-export const createItem = (publicToken) => action(CREATE_ITEM.SUBMIT, {publicToken})
+export const createItem = (publicToken, account_id) => action(CREATE_ITEM.SUBMIT, {publicToken, account_id})
 export const createAccount = (form) => action(CREATE_ACCOUNT.SUBMIT, {form})
 export const deleteItem = (guid) => action(DELETE_ITEM.SUBMIT, {guid})
 export const addLender = (form) => action(ADD_LENDER.SUBMIT, {form})

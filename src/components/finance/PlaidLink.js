@@ -28,13 +28,13 @@ class PlaidLink extends Component{
             key: settings.plaid_public_key,
             product: settings.plaid_products,
             webhook: settings.plaid_webhooks_url,
-            selectAccount: false,
+            selectAccount: true,
             apiVersion: 'v2',
-            
+
             onLoad: () => {
                 this.onLoad()
             },
-            
+
             /**
              * Plaid Link onSuccess returns publicToken.
              * It means Item already created in Plaid.
@@ -42,9 +42,11 @@ class PlaidLink extends Component{
              * to create Item in database.
              */
             onSuccess: (publicToken, metadata) => {
-                this.onSuccess(publicToken, metadata)
+                console.log(publicToken)
+                console.log(metadata)
+               this.onSuccess(publicToken, metadata)
             },
-            
+
             /**
              * The user exited the Link flow.
              */
@@ -75,7 +77,7 @@ class PlaidLink extends Component{
     }
 
     onSuccess(publicToken, metadata){
-        this.props.createItem(publicToken)
+        this.props.createItem(publicToken, metadata.account_id)
         this.setState({isLoading: false})
     }
 
@@ -92,7 +94,7 @@ class PlaidLink extends Component{
     render(){
         const { children, createItemInProgress } = this.props
         const isLoading = this.state.isLoading || createItemInProgress
-        
+
         const childrenWithProps = React.Children.map(children,
             (child) => React.cloneElement(child, {onClick: this.onClickOpen})
         )

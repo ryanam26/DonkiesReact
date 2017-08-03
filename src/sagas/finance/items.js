@@ -15,7 +15,7 @@ function* waitTransactions(){
     let transactions = yield select(getTransactions)
     const initialCount = transactions.length
     let attempt = 0
-        
+
     while (true){
         transactions = yield select(getTransactions)
         let count = transactions.length
@@ -33,27 +33,27 @@ function* waitTransactions(){
 
 // ------- Create Item
 
-function* createItem(publicToken){
-    yield put({type: actions.CREATE_ITEM.REQUEST}) 
-    const form = {public_token: publicToken}
+function* createItem(publicToken, account_id){
+    yield put({type: actions.CREATE_ITEM.REQUEST})
+    const form = {public_token: publicToken, account_id: account_id}
     const result = yield call(apiCall, ITEMS_URL, 'POST', form, true)
-    
+
     if (result.isError){
-        yield put({type: actions.CREATE_ITEM.ERROR, payload: result.data}) 
+        yield put({type: actions.CREATE_ITEM.ERROR, payload: result.data})
         yield put({
             type: actions.GROWL_ADD_REQUEST,
             payload: {message: 'Error in creating account.', type: 'danger'}
         })
         return
-    } 
-    
-    yield put({type: actions.CREATE_ITEM.SUCCESS, payload: result.data}) 
+    }
+
+    yield put({type: actions.CREATE_ITEM.SUCCESS, payload: result.data})
 
     // Update items, accounts and user in Redux state.
     // User need to be updated for signup_steps
     yield apiGet('items', {}, ITEMS_URL)
-    yield apiGet('accounts', {}, ACCOUNTS_URL)  
-    yield apiGet('user', {}, USER_URL)  
+    yield apiGet('accounts', {}, ACCOUNTS_URL)
+    yield apiGet('user', {}, USER_URL)
 
     // When user created new Item, transaction are not ready instantly.
     // Wait for transactions (10 attempts every 30 seconds).
@@ -63,8 +63,8 @@ function* createItem(publicToken){
 
 export function* watchCreateItem(){
   while(true){
-    const { publicToken } = yield take(actions.CREATE_ITEM.SUBMIT)
-    yield fork(createItem, publicToken)
+    const { publicToken, account_id } = yield take(actions.CREATE_ITEM.SUBMIT)
+    yield fork(createItem, publicToken, account_id)
   }
 }
 
@@ -72,21 +72,21 @@ export function* watchCreateItem(){
 // ------- Delete Item
 
 function* deleteItem(guid){
-    yield put({type: actions.DELETE_ITEM.REQUEST}) 
+    yield put({type: actions.DELETE_ITEM.REQUEST})
     const url = `${ITEMS_URL}/${guid}`
-    
+
     const result = yield call(apiCall, url, 'DELETE', {}, true)
-    
+
     if (result.isError){
-        yield put({type: actions.DELETE_ITEM.ERROR, payload: result.data})    
+        yield put({type: actions.DELETE_ITEM.ERROR, payload: result.data})
         return
-    } 
+    }
     yield put({type: actions.DELETE_ITEM.SUCCESS})
 
     // Update Redux state
     yield apiGet('items', {}, ITEMS_URL)
-    yield apiGet('accounts', {}, ACCOUNTS_URL)  
-    
+    yield apiGet('accounts', {}, ACCOUNTS_URL)
+
 }
 
 export function* watchDeleteItem(){

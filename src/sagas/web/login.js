@@ -7,7 +7,7 @@ function* login(email, password){
     let data = {email, password}
     const result = yield call(apiCall, LOGIN_URL, 'POST', data)
     if (result.isError){
-        yield put({type: actions.LOGIN.ERROR, payload: result.data})    
+        yield put({type: actions.LOGIN.ERROR, payload: result.data})
     } else {
         yield put({type: actions.LOGIN.SUCCESS, payload: result.data.token})
     }
