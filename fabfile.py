@@ -43,9 +43,24 @@ def restart_nginx():
 
 
 @with_settings(warn_only=True)
+def build():
+    local('yarn build')
+
+
+@with_settings(warn_only=True)
+def push():
+    local('git-commander')
+    local('git commit')
+    local('git push')
+
+
+@with_settings(warn_only=True)
 def deploy():
 
     print(green('Deploying to server'))
+
+    execute(build)
+    execute(push)
 
     execute(pull)
 
