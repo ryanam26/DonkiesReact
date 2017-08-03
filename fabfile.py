@@ -30,13 +30,6 @@ def pull():
 
 
 @with_settings(warn_only=True)
-def install_requirements():
-    print(green('Installing requirements...'))
-    with cd(PROJECT_PATH):
-        run('yarn')
-
-
-@with_settings(warn_only=True)
 def restart_nginx():
     print(green('Restarting nginx...'))
     run('service nginx restart')
@@ -63,9 +56,6 @@ def deploy():
     execute(push)
 
     execute(pull)
-
-    if confirm('Install requirements?', default=False):
-        execute(install_requirements)
 
     if confirm('Restart nginx?', default=False):
         execute(restart_nginx)
