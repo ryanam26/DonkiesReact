@@ -35,7 +35,7 @@ class Registration extends Component{
     componentWillReceiveProps(nextProps){
         if (nextProps.isAuthenticated)
             nextProps.navigate('/')
-        
+
         if (nextProps.successMessage !== null){
             this.refs.form.reset()
             // Auto login after signup
@@ -45,13 +45,14 @@ class Registration extends Component{
     }
 
     componentWillUnmount(){
-        this.props.setFormErrors('clear', null)   
+        this.props.setFormErrors('clear', null)
     }
 
     onSubmit(e){
+
         e.preventDefault()
         this.props.setFormErrors('clear', null)
-        
+
         let form = formToObject(e.target)
 
         this.setState({email: form.email, password: form.password})
@@ -61,15 +62,15 @@ class Registration extends Component{
 
     render(){
         const { errors, successMessage, settings } = this.props
-        
+
         return (
             <div className="login-content">
                 <div ref="block" className="lc-block toggled">
-                
+
                     <FacebookButton settings={settings} />
 
                     <div className="lcb-form">
-                        
+
                         <form ref="form" onSubmit={this.onSubmit} target="">
                         <Input
                             name="first_name"
@@ -100,15 +101,74 @@ class Registration extends Component{
                             placeholder="Password"
                             errors={errors} />
 
+                        <Input
+                            name="state"
+                            type="text"
+                            wrapperClass="input-group m-b-20"
+                            zmdi="zmdi-balance"
+                            placeholder="State"
+                            errors={errors} />
+
+                        <Input
+                            name="city"
+                            type="text"
+                            wrapperClass="input-group m-b-20"
+                            zmdi="zmdi-city-alt"
+                            placeholder="City"
+                            errors={errors} />
+
+                        <Input
+                            name="address1"
+                            type="text"
+                            wrapperClass="input-group m-b-20"
+                            zmdi="zmdi-local-store"
+                            placeholder="Address"
+                            errors={errors} />
+
+                        <Input
+                            name="postal_code"
+                            type="text"
+                            wrapperClass="input-group m-b-20"
+                            zmdi="zmdi-file-text"
+                            placeholder="Post code"
+                            errors={errors} />
+                        <Input
+                            name="date_of_birth"
+                            type="date"
+                            wrapperClass="input-group m-b-20"
+                            zmdi="zmdi-calendar"
+                            placeholder="Birth date"
+                            errors={errors} />
+                        <Input
+                            name="ssn"
+                            type="number"
+                            max="9999"
+                            wrapperClass="input-group m-b-20"
+                            zmdi="zmdi-card"
+                            placeholder="SSN"
+                            errors={errors} />
+                        <Input
+                            name="ipAddress"
+                            type="text"
+                            wrapperClass="input-group m-b-20"
+                            zmdi="zmdi-laptop"
+                            placeholder="Ip address"
+                            errors={errors} />
+
+                        <select name="type">
+                            <option value="personal">Personal</option>
+                            <option value="business">Business</option>
+                        </select>
+
                         <button
                             type="submit"
                             className="btn btn-login btn-success btn-float">
-                            
+
                             <i className="zmdi zmdi-check" />
                         </button>
 
                         {errors && <ErrorBlock errors={errors} />}
-                        
+
                         </form>
 
                     </div>
