@@ -17,6 +17,7 @@ import { watchApiGetRequest } from './web/apiGetRequest'
 import { watchApiEditRequest } from './web/apiEditRequest'
 import { watchRegistration } from './web/registration'
 import { watchLogin } from './web/login'
+import { watchLogout } from './web/logout'
 import { watchLoginFacebook } from './web/loginFacebook'
 
 import { watchGrowlAdd } from './web/growl'
@@ -53,6 +54,7 @@ export default function* root() {
     fork(watchEditSettings),
     fork(watchGrowlAdd),
     fork(watchLogin),
+    fork(watchLogout),
     fork(watchLoginFacebook),
     fork(watchNavigate),
     fork(watchRegistration),

@@ -3,12 +3,12 @@ import { put } from 'redux-saga/effects'
 import { TOKEN_EXPIRED } from 'actions'
 import { API_ROOT_URL } from 'store/configureStore'
 
-export const ACCOUNTS_URL = `${API_ROOT_URL}v1/accounts`   
+export const ACCOUNTS_URL = `${API_ROOT_URL}v1/accounts`
 export const ACCOUNTS_SET_ACTIVE_URL = `${API_ROOT_URL}v1/accounts/set_active`
 export const ACCOUNTS_SET_NUMBER_URL = `${API_ROOT_URL}v1/accounts/set_account_number`
 export const ACCOUNTS_EDIT_SHARE_URL = `${API_ROOT_URL}v1/accounts/edit_share`
-export const ACCOUNTS_SET_FUNDING_SOURCE_URL = `${API_ROOT_URL}v1/accounts/set_funding_source`   
-export const ACCOUNTS_SET_PRIMARY_URL = `${API_ROOT_URL}v1/accounts/set_primary`   
+export const ACCOUNTS_SET_FUNDING_SOURCE_URL = `${API_ROOT_URL}v1/accounts/set_funding_source`
+export const ACCOUNTS_SET_PRIMARY_URL = `${API_ROOT_URL}v1/accounts/set_primary`
 export const CHANGE_EMAIL_URL = `${API_ROOT_URL}v1/user/change/email`
 export const CHANGE_EMAIL_CONFIRM_URL = `${API_ROOT_URL}v1/user/change/email/confirm`
 export const CHANGE_PASSWORD_URL = `${API_ROOT_URL}v1/user/change/password`
@@ -21,6 +21,7 @@ export const INSTITUTIONS_SUGGEST_URL = `${API_ROOT_URL}v1/institutions_suggest`
 export const ITEMS_URL = `${API_ROOT_URL}v1/items`
 export const LENDERS_URL = `${API_ROOT_URL}v1/lenders`
 export const LOGIN_URL = `${API_ROOT_URL}v1/auth/login`
+export const LOGOUT_URL = `${API_ROOT_URL}v1/auth/logout`
 export const LOGIN_FACEBOOK_URL = `${API_ROOT_URL}v1/auth/facebook`
 export const REGISTRATION_URL = `${API_ROOT_URL}v1/auth/signup`
 export const REGISTRATION_CONFIRM_URL = `${API_ROOT_URL}v1/auth/signup/confirm`
@@ -29,26 +30,26 @@ export const RESET_PASSWORD_REQUEST_URL = `${API_ROOT_URL}v1/password/reset/requ
 export const RESET_PASSWORD_URL = `${API_ROOT_URL}v1/password/reset`
 export const SETTINGS_URL = `${API_ROOT_URL}v1/settings`
 export const SETTINGS_LOGIN_URL = `${API_ROOT_URL}v1/settings/login`
-export const STAT_URL = `${API_ROOT_URL}v1/stat`  
-export const TRANSACTIONS_URL = `${API_ROOT_URL}v1/transactions`  
+export const STAT_URL = `${API_ROOT_URL}v1/stat`
+export const TRANSACTIONS_URL = `${API_ROOT_URL}v1/transactions`
 export const TRANSFERS_PREPARE_URL = `${API_ROOT_URL}v1/transfers_prepare`
 export const TRANSFERS_DONKIES_URL = `${API_ROOT_URL}v1/transfers_donkies`
 export const TRANSFERS_STRIPE_URL = `${API_ROOT_URL}v1/transfers_stripe`
-export const TRANSFERS_DEBT_URL = `${API_ROOT_URL}v1/transfers_debt`  
+export const TRANSFERS_DEBT_URL = `${API_ROOT_URL}v1/transfers_debt`
 export const USER_URL = `${API_ROOT_URL}v1/user`
 export const USER_SETTINGS_URL = `${API_ROOT_URL}v1/user_settings`
 
 
 /**
  * Generic api call to all endpoints.
- * Under any circumstance function should 
- * return result object {isError, data}. 
+ * Under any circumstance function should
+ * return result object {isError, data}.
  *
  * @param {string}  url
  * @param {string}  method - GET, POST, PUT, PATCH, DELETE
- * @param {Object}  data   
+ * @param {Object}  data
  * @param {boolean} isAuth - Does request need token.
- * 
+ *
  * @returns {Object}  obj
  * @returns {boolean} obj.isError
  * @returns {Object}  obj.data - requested data from server
@@ -64,31 +65,31 @@ export function* apiCall(url, method, data, isAuth){
 
     let promise
     let result = {isError: false}
-    
+
     let token = ''
     if (isAuth){
-        token = window.localStorage.getItem('token')    
+        token = window.localStorage.getItem('token')
         if (token === null){
             result.isError = true
             result.data = {non_field_errors: ['The token is not provided.']}
             return result
-        }    
+        }
     }
-    
+
     try {
         let fetchObj = {method: method}
-        
+
         if (method === 'POST' || method === 'PUT' || method === 'PATCH'){
             fetchObj.body = JSON.stringify(data)
         }
 
         fetchObj.headers =  {'Accept': 'application/json', 'Content-Type': 'application/json'}
-        
+
         if (isAuth){
             fetchObj.headers.Authorization = 'Token ' + token
         }
 
-        yield promise = fetch(url, fetchObj)    
+        yield promise = fetch(url, fetchObj)
     } catch(e){
         result.isError = true
         result.data = {non_field_errors: ['Connection error.']}
@@ -115,7 +116,7 @@ export function* apiCall(url, method, data, isAuth){
         result.data = {}
         return result
     }
-    
+
     // All other success cases should get valid json object
     // otherwise it is error.
     let obj
@@ -168,7 +169,7 @@ export function apiCall2(url, isAuth){
     if (isAuth){
         let token = window.localStorage.getItem('token')
         if (token !== null){
-            fetchObj.headers.Authorization = 'Token ' + token    
+            fetchObj.headers.Authorization = 'Token ' + token
         }
     }
     return fetch(url, fetchObj)
@@ -190,7 +191,7 @@ export function apiCall3(url, data, isAuth){
     if (isAuth){
         let token = window.localStorage.getItem('token')
         if (token !== null){
-            fetchObj.headers.Authorization = 'Token ' + token    
+            fetchObj.headers.Authorization = 'Token ' + token
         }
     }
     return fetch(url, fetchObj)
@@ -212,7 +213,7 @@ export function apiCall4(url, data, isAuth){
     if (isAuth){
         let token = window.localStorage.getItem('token')
         if (token !== null){
-            fetchObj.headers.Authorization = 'Token ' + token    
+            fetchObj.headers.Authorization = 'Token ' + token
         }
     }
     return fetch(url, fetchObj)
@@ -233,7 +234,7 @@ export function apiCall5(url, isAuth){
     if (isAuth){
         let token = window.localStorage.getItem('token')
         if (token !== null){
-            fetchObj.headers.Authorization = 'Token ' + token    
+            fetchObj.headers.Authorization = 'Token ' + token
         }
     }
     return fetch(url, fetchObj)
