@@ -155,6 +155,14 @@ class Registration extends Component{
                             placeholder="Ip address"
                             errors={errors} />
 
+                        <Input
+                            name="phone"
+                            type="text"
+                            wrapperClass="input-group m-b-20"
+                            zmdi="zmdi-phone"
+                            placeholder="phone"
+                            errors={errors} />
+
                         <select name="type">
                             <option value="personal">Personal</option>
                             <option value="business">Business</option>
