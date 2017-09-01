@@ -28,7 +28,7 @@ class PlaidLink extends Component{
             key: settings.plaid_public_key,
             product: settings.plaid_products,
             webhook: settings.plaid_webhooks_url,
-            selectAccount: true,
+            selectAccount: false,
             apiVersion: 'v2',
 
             onLoad: () => {
