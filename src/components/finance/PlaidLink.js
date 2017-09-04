@@ -42,7 +42,9 @@ class PlaidLink extends Component{
              * to create Item in database.
              */
             onSuccess: (publicToken, metadata) => {
-               this.onSuccess(publicToken, metadata)
+                console.log(publicToken)
+                console.log(metadata)
+               // this.onSuccess(publicToken, metadata)
             },
 
             /**
