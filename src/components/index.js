@@ -167,6 +167,9 @@ export { ProfileCompleted }
 import { default as Registration } from './user/Registration'
 export { Registration }
 
+import { default as RegistrationParent } from './user/RegistrationParent'
+export { RegistrationParent }
+
 import { default as RegistrationConfirm } from './user/RegistrationConfirm'
 export { RegistrationConfirm }
 

@@ -10,14 +10,14 @@ const iState = {
 export function auth(state=iState, action){
     switch(action.type){
         case actions.TOKEN.GET:
-            let token = window.localStorage.getItem('token')    
+            let token = window.localStorage.getItem('token')
             if (token === null){
                 return {
                     ...state,
                     token: null,
                     isAuthenticated: false
                 }
-            } 
+            }
 
             return {
                 ...state,
@@ -26,7 +26,7 @@ export function auth(state=iState, action){
             }
 
         case actions.LOGIN.SUCCESS:
-            window.localStorage.setItem('token', action.payload)    
+            window.localStorage.setItem('token', action.payload)
             return {
                 ...state,
                 token: action.payload,
@@ -42,8 +42,8 @@ export function auth(state=iState, action){
 
         case actions.REGISTRATION.SUCCESS:
             const message = `
-                You have successfully registered on the site and welcome email 
-                has been sent to you!  
+                You have successfully registered on the site and welcome email
+                has been sent to you!
                 Please follow the link in the email to confirm your registration.`
             return {
                 ...state,
@@ -51,6 +51,18 @@ export function auth(state=iState, action){
             }
 
         case actions.REGISTRATION.ERROR:
+            return {
+                ...state,
+                registrationSuccessMessage: null
+            }
+
+        case actions.REGISTRATION_PARENT.SUCCESS:
+            return {
+                ...state,
+                registrationSuccessMessage: 'You have successfully registered'
+            }
+
+        case actions.REGISTRATION_PARENT.ERROR:
             return {
                 ...state,
                 registrationSuccessMessage: null

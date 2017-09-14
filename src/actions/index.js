@@ -56,6 +56,7 @@ export const LENDERS = createRequestTypes('LENDERS')
 export const LOGIN = createRequestTypes('LOGIN')
 export const LOGIN_FACEBOOK = createRequestTypes('LOGIN_FACEBOOK')
 export const REGISTRATION = createRequestTypes('REGISTRATION')
+export const REGISTRATION_PARENT = createRequestTypes('REGISTRATION_PARENT')
 export const RESET_PASSWORD_REQUEST = createRequestTypes('RESET_PASSWORD_REQUEST')
 export const SETTINGS = createRequestTypes('SETTINGS')
 export const SETTINGS_LOGIN = createRequestTypes('SETTINGS_LOGIN')
@@ -128,6 +129,7 @@ export const login = (email, password) => action(LOGIN.SUBMIT, {email, password}
 export const loginFacebook = (code) => action(LOGIN_FACEBOOK.SUBMIT, {code})
 export const logout = () => action(LOGOUT)
 export const registration = (form) => action(REGISTRATION.SUBMIT, {form})
+export const registrationParent = (form) => action(REGISTRATION_PARENT.SUBMIT, {form})
 
 
 // user

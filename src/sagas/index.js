@@ -16,6 +16,9 @@ import { watchDeleteLender } from './finance/lenders'
 import { watchApiGetRequest } from './web/apiGetRequest'
 import { watchApiEditRequest } from './web/apiEditRequest'
 import { watchRegistration } from './web/registration'
+
+import { watchRegistrationParent } from './web/registrationParent'
+
 import { watchLogin } from './web/login'
 import { watchLogout } from './web/logout'
 import { watchLoginFacebook } from './web/loginFacebook'
@@ -61,7 +64,8 @@ export default function* root() {
     fork(watchResetPasswordRequest),
     fork(watchSetActive),
     fork(watchSetAccountNumber),
-    fork(watchSetPrimaryAccount)
+    fork(watchSetPrimaryAccount),
+    fork(watchRegistrationParent)
   ]
 }
 

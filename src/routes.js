@@ -22,7 +22,9 @@ import {
     TransactionsPage,
     TransfersPage,
     UserNotConfirmedPage,
-    UserProfilePage } from 'pages'
+    UserProfilePage,
+    RegistrationParentPage,
+    DownLoadAppPage } from 'pages'
 
 
 import App from 'containers/App'
@@ -35,21 +37,22 @@ import { requireSignupCompleted } from 'components/SignupCompleted'
 export default (
     <div>
         <Route component={LoginPage} path="/login" />
-        <Route component={LoginFacebookPage} path="/login_facebook" />     
+        <Route component={LoginFacebookPage} path="/login_facebook" />
+        <Route component={RegistrationParentPage} path="/registration_parent" />
         <Route component={RegistrationPage} path="/registration" />
         <Route component={RegistrationConfirmPage} path="/confirm" />
-        <Route component={ResetPasswordRequestPage} path="/forgot_password" />     
-        <Route component={ResetPasswordPage} path="/reset" />     
-       
-        <Route component={requireAuth(UserNotConfirmedPage)} path="/not_confirmed" />
+        <Route component={ResetPasswordRequestPage} path="/forgot_password" />
+        <Route component={ResetPasswordPage} path="/reset" />
 
+        <Route component={requireAuth(UserNotConfirmedPage)} path="/not_confirmed" />
+        <Route component={requireAuth(DownLoadAppPage)} path="/download_app" />
         <Route
             component={
                 requireAuth(
                     requireActiveAccount(
                         requirePrimaryAccount(
                             requireSignupCompleted(App))))} path="/">
-            
+
             <IndexRoute component={HomePage} />
             <Route component={AccountsPage} path="/accounts" />
             <Route component={AddBankPage} path="/add_bank" />
@@ -63,7 +66,7 @@ export default (
             <Route component={UserProfilePage} path="/user_profile" />
         </Route>
 
-        <Route component={NotFoundPage} path="*" /> 
+        <Route component={NotFoundPage} path="*" />
     </div>
 )
 

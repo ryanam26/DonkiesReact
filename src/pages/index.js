@@ -43,6 +43,8 @@ export { SettingsPage }
 import { default as TestPage } from './layout/TestPage'
 export { TestPage }
 
+import { default as DownLoadAppPage } from './layout/DownLoadAppPage'
+export { DownLoadAppPage }
 
 // user
 
@@ -57,6 +59,10 @@ export { RegistrationConfirmPage }
 
 import { default as RegistrationPage } from './user/RegistrationPage'
 export { RegistrationPage }
+
+import { default as RegistrationParentPage } from './user/RegistrationParentPage'
+export { RegistrationParentPage }
+
 
 import { default as ResetPasswordRequestPage } from './user/ResetPasswordRequestPage'
 export { ResetPasswordRequestPage }

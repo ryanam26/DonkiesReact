@@ -24,6 +24,9 @@ export const LOGIN_URL = `${API_ROOT_URL}v1/auth/login`
 export const LOGOUT_URL = `${API_ROOT_URL}v1/auth/logout`
 export const LOGIN_FACEBOOK_URL = `${API_ROOT_URL}v1/auth/facebook`
 export const REGISTRATION_URL = `${API_ROOT_URL}v1/auth/signup`
+
+export const REGISTRATION_PARENT_URL = `${API_ROOT_URL}v1/auth/signup_parent`
+
 export const REGISTRATION_CONFIRM_URL = `${API_ROOT_URL}v1/auth/signup/confirm`
 export const RESEND_REG_CONFIRMATION_URL = `${API_ROOT_URL}v1/user/resend_reg_confirmation_link`
 export const RESET_PASSWORD_REQUEST_URL = `${API_ROOT_URL}v1/password/reset/request`

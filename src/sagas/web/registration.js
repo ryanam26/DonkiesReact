@@ -5,8 +5,8 @@ import { REGISTRATION_URL, apiCall } from 'services/api'
 
 function* registration(form){
     const result = yield call(apiCall, REGISTRATION_URL, 'POST', form)
-    if (result.isError){
-        yield put({type: actions.REGISTRATION.ERROR, payload: result.data})    
+    if(result.isError){
+        yield put({type: actions.REGISTRATION.ERROR, payload: result.data})
     } else {
         yield put({type: actions.REGISTRATION.SUCCESS, payload: ''})
     }
