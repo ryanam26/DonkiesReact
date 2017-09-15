@@ -34,7 +34,7 @@ if (module.hot) {
                 <Next
                     history={history}
                     routes={routes}
-                    store={store} /> 
+                    store={store} />
             </AppContainer>,
             document.getElementById('root'));
     });

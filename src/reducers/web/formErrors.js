@@ -39,7 +39,7 @@ export function formErrors(state=iState, action){
                 return {
                     ...iState,
                     [action.formType]: action.errors
-                }    
+                }
             }
 
         case actions.ADD_LENDER.ERROR:
@@ -102,6 +102,12 @@ export function formErrors(state=iState, action){
                 registration: action.payload
             }
 
+        case actions.REGISTRATION_PARENT.ERROR:
+            return {
+                ...iState,
+                registration: action.payload
+            }
+
         case actions.RESET_PASSWORD_REQUEST.ERROR:
             return {
                 ...iState,
@@ -118,10 +124,3 @@ export function formErrors(state=iState, action){
             return state
     }
 }
-
-
-
-
-
-        
-

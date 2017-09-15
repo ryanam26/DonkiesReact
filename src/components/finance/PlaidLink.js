@@ -81,12 +81,10 @@ class PlaidLink extends Component{
 
     onExit(metadata){
         this.setState({isLoading: false})
-        console.log(metadata)
     }
 
     onError(err, metadata){
         this.setState({isLoading: false})
-        console.log(err, metadata)
     }
 
     render(){
