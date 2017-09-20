@@ -21,7 +21,8 @@ class RegistrationParent extends Component{
 
         this.state = {
             email: null,
-            password: null
+            password: null,
+            show_child_mail: window.location.search ? false : true
         }
     }
 
@@ -136,8 +137,7 @@ class RegistrationParent extends Component{
                             placeholder="Post code"
                             errors={errors} />
                         {
-                            typeof(this.state.hash) === 'undefined' ||
-                            !this.state.hash.length ?
+                            this.state.show_child_mail ?
                             (
                                 <Input
                                     name="email_child"
