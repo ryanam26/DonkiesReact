@@ -21,9 +21,7 @@ class RegistrationParent extends Component{
 
         this.state = {
             email: null,
-            password: null,
-            id: window.location.search.split('&')[1].split('=')[1],
-            hash: window.location.search.split('&')[0].split('=')[1]
+            password: null
         }
     }
 
@@ -56,10 +54,11 @@ class RegistrationParent extends Component{
         this.props.setFormErrors('clear', null)
 
         let form = formToObject(e.target)
-
+        if (window.location.search) {
+            form.id_user = window.location.search.split('&')[1].split('=')[1]
+            form.hash_user = window.location.search.split('&')[0].split('=')[1]
+        }
         this.setState({email: form.email, password: form.password})
-        form.id_user = this.state.id
-        form.hash_user = this.state.hash
         this.props.registrationParent(form)
     }
 
