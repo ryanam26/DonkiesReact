@@ -31,13 +31,13 @@ class Login extends Component{
     }
 
     componentWillUnmount(){
-        this.props.setFormErrors('clear', null)   
+        this.props.setFormErrors('clear', null)
     }
 
     onSubmit(e){
         e.preventDefault()
         this.props.setFormErrors('clear', null)
-        
+
         let form = formToObject(e.target)
 
         if (form.email.length === 0){
@@ -59,11 +59,15 @@ class Login extends Component{
         return (
             <div className="login-content">
                 <div className="lc-block toggled">
-                    
-                    <FacebookButton settings={settings} />
+
+                    <h1 style={{
+                        color: 'white',
+                        textShadow: '1px 1px 2px #666'
+                    }}>Log In</h1>
+
 
                     <div className="lcb-form">
-                        
+
                         <form ref="form" onSubmit={this.onSubmit} target="">
                             <Input
                                 name="email"
@@ -80,11 +84,17 @@ class Login extends Component{
                                 placeholder="Password"
                                 errors={errors} />
 
+                            <div className="m-b-10">
+                                Forgot password?
+                                <Link to="/forgot_password" className="m-l-5">
+                                    <span>{'Click here'}</span>
+                                </Link>
+                            </div>
+
                             <button
                                 type="submit"
-                                className="btn btn-login btn-success btn-float">
-                                
-                                <i className="zmdi zmdi-arrow-forward" />
+                                className="btn btn-success">
+                                Continue
                             </button>
 
                             {errors && <ErrorBlock errors={errors} />}
@@ -96,18 +106,12 @@ class Login extends Component{
                         <Link
                             to="/registration"
                             data-ma-block="#l-register">
-                            
+
                             <i className="zmdi zmdi-plus" />
                             <span>{'Register'}</span>
                         </Link>
-                        
-                        <Link
-                            to="/forgot_password"
-                            data-ma-block="#l-forget-password">
-                            <i>{'?'}</i> <span>{'Forgot Password'}</span>
-                        </Link>
                     </div>
-                   
+
                 </div>
             </div>
         )

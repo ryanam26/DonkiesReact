@@ -23,7 +23,12 @@ export const LENDERS_URL = `${API_ROOT_URL}v1/lenders`
 export const LOGIN_URL = `${API_ROOT_URL}v1/auth/login`
 export const LOGOUT_URL = `${API_ROOT_URL}v1/auth/logout`
 export const LOGIN_FACEBOOK_URL = `${API_ROOT_URL}v1/auth/facebook`
+
 export const REGISTRATION_URL = `${API_ROOT_URL}v1/auth/signup`
+export const REGISTRATION_STEP1_URL = `${API_ROOT_URL}v1/auth/signup`
+export const REGISTRATION_STEP2_URL = `${API_ROOT_URL}v1/auth/signup/2`
+export const REGISTRATION_STEP3_URL = `${API_ROOT_URL}v1/auth/signup/3`
+export const REGISTRATION_STEP4_URL = `${API_ROOT_URL}v1/auth/signup/4`
 
 export const REGISTRATION_PARENT_URL = `${API_ROOT_URL}v1/auth/signup_parent`
 

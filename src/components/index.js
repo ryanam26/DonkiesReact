@@ -188,3 +188,14 @@ export { UserNotConfirmed }
 import { default as UserSettings } from './user/UserSettings'
 export { UserSettings }
 
+import { default as RegistrationStep1 } from './user/Registration/Step1';
+export { RegistrationStep1 };
+
+import { default as RegistrationStep2 } from './user/Registration/Step2';
+export { RegistrationStep2 };
+
+import { default as RegistrationStep3 } from './user/Registration/Step3';
+export { RegistrationStep3 };
+
+import { default as RegistrationStep4 } from './user/Registration/Step4';
+export { RegistrationStep4 };

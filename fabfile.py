@@ -42,7 +42,7 @@ def build():
 
 @with_settings(warn_only=True)
 def push():
-    local('git-commander')
+    local('./node_modules/.bin/git-commander')
     local('git commit')
     local('git push')
 

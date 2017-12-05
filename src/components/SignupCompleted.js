@@ -36,7 +36,7 @@ export function requireSignupCompleted(Component) {
                 if (!obj.is_completed){
                     return false
                 }
-            } 
+            }
             return true
         }
 
@@ -67,7 +67,7 @@ export function requireSignupCompleted(Component) {
             const nextStep = this.getNextStep()
 
             if (this.getAllowedPath(nextStep.allowed_url) === `/${location.pathname}`){
-                return <Component {...this.props}/>   
+                return <Component {...this.props}/>
             }
 
             return (

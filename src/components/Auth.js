@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { navigate, getToken } from 'actions'
+import { navigate, getToken, apiGetRequest } from 'actions'
 
 
 export function requireAuth(Component) {
@@ -9,6 +9,9 @@ export function requireAuth(Component) {
 
         componentWillMount() {
             this.checkAuth()
+            if(window.localStorage.getItem('token') !== null) {
+                this.props.apiGetRequest('user')
+            }
         }
 
         componentWillReceiveProps(nextProps) {
@@ -53,13 +56,15 @@ export function requireAuth(Component) {
     return connect(
         mapStateToProps, {
             navigate,
-            getToken
+            getToken,
+            apiGetRequest
         }
     )(Auth)
 
     Auth.propTypes = {
         dispatch: PropTypes.func,
         getToken: PropTypes.func,
+        apiGetRequest: PropTypes.func,
         isAuthenticated: PropTypes.bool,
         location: PropTypes.object,
         navigate: PropTypes.func,

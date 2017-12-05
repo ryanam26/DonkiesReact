@@ -3,13 +3,19 @@ import moment from 'moment'
 import React from 'react'
 
 
+export function getGeoposition() {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+
 export function validateEmail(email){
     var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
     if(!regex.test(email)) {
-        return false;   
-    } 
+        return false;
+    }
     return true;
-}     
+}
 
 
 /**
@@ -34,7 +40,7 @@ export function formToObject(form){
 export function objToParams(obj){
     return Object.keys(obj).map(
         k => k + '=' + encodeURIComponent(obj[k])
-    ).join('&')    
+    ).join('&')
 }
 
 
@@ -54,15 +60,15 @@ export function toCamelCase(str){
  * @param {string} value
  * @param {Array}  data - array of objects
  * @param {Array}  fields - array of strings
- */ 
+ */
 export function filterData(value, data, fields){
     return data.filter((obj) => {
         for (let field of fields){
             if (obj.hasOwnProperty(field) && obj[field].toLowerCase().includes(value.toLowerCase())){
-                return true    
-            }    
+                return true
+            }
         }
-        return false 
+        return false
     })
 }
 
@@ -76,7 +82,7 @@ export function formatMoney(n, c, d, t){
 
     c = isNaN(c = Math.abs(c)) ? 2 : c
     d = d === undefined ? '.' : d
-    t = t === undefined ? ',' : t 
+    t = t === undefined ? ',' : t
     let s = n < 0 ? '-' : ''
     let i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + ''
     let j = (j = i.length) > 3 ? j % 3 : 0
@@ -86,7 +92,7 @@ export function formatMoney(n, c, d, t){
 
 Array.prototype.flatResult = function (inputArray, ischild) {
     ischild = ischild || false;
-    
+
     let i = 0, len = inputArray.length;
 
     for (i = 0; i < len; i++) {
@@ -96,7 +102,7 @@ Array.prototype.flatResult = function (inputArray, ischild) {
             this.flatResult(inputArray[i].children, true);
         }
     }
-    
+
     if(ischild === false)
     {
         return this;
@@ -108,7 +114,7 @@ Number.prototype.formatMoney = function(c, d, t){
     let n = this
     c = isNaN(c = Math.abs(c)) ? 2 : c
     d = d === undefined ? '.' : d
-    t = t === undefined ? ',' : t 
+    t = t === undefined ? ',' : t
     let s = n < 0 ? '-' : ''
     let i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + ''
     let j = (j = i.length) > 3 ? j % 3 : 0
@@ -204,7 +210,7 @@ Array.prototype.limit = function(index) {
  * Example: 1 2 3 ... 7 8 9 ... 17 18 19
  *
  * Function returns combined 3 ranges.
- * Example: [1, 2, 3, 7, 8, 9, 17, 18, 19] 
+ * Example: [1, 2, 3, 7, 8, 9, 17, 18, 19]
  *
  * First range  [1, 2, 3]
  * Second range [currentPage - 1, currentPage, currentPage + 1]
@@ -212,7 +218,7 @@ Array.prototype.limit = function(index) {
  */
 export function getPaginationArr(currentPage, numPages){
     let arr = [1]
-    
+
     numPages > 1 && arr.push(2)
     numPages > 2 && arr.push(3)
 
@@ -230,7 +236,7 @@ export function getPaginationArr(currentPage, numPages){
 
 /**
  * @param {number} amount
- * @returns {string} 
+ * @returns {string}
  * Examples: $10.00 -$10.00
  */
 export function getDollarAmount(amount){
@@ -250,7 +256,7 @@ export function getArraySum(arr){
     }
     return sum
 }
-    
+
 
 export const usStates = {
     'AL': 'Alabama',

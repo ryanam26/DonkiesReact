@@ -4,9 +4,9 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "prestart": "webpack",
-    "start": "webpack-dev-server",
-    "build": "webpack -p --config webpack.config.prod.js  --define process.env.NODE_ENV='\"production\"' --progress --colors"
+    "prestart": "./node_modules/.bin/webpack",
+    "start": "./node_modules/.bin/webpack-dev-server --host 0.0.0.0 --port 8080",
+    "build": "./node_modules/.bin/webpack -p --config webpack.config.prod.js  --define process.env.NODE_ENV='\"production\"' --progress --colors"
   },
   "author": "",
   "license": "",
@@ -14,6 +14,7 @@
     "babel-polyfill": "6.3.14",
     "classnames": "^2.2.5",
     "d3-time-format": "^2.0.2",
+    "git-commander": "^0.0.14",
     "history": "^1.13.0",
     "mathjs": "^3.4.1",
     "moment": "^2.13.0",

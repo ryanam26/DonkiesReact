@@ -56,6 +56,32 @@ export function auth(state=iState, action){
                 registrationSuccessMessage: null
             }
 
+        case actions.REGISTRATION_STEP1.SUCCESS:
+            window.localStorage.setItem('token', action.payload.token)
+            return {
+                ...state,
+                token: action.payload.token,
+                isAuthenticated: true
+            }
+
+        case actions.REGISTRATION_STEP2.SUCCESS:
+            return {
+                ...state,
+                step2: true
+            }
+
+        case actions.REGISTRATION_STEP3.SUCCESS:
+            return {
+                ...state,
+                step3: true
+            }
+
+        case actions.REGISTRATION_STEP4.SUCCESS:
+            return {
+                ...state,
+                step4: true
+            }
+
         case actions.REGISTRATION_PARENT.SUCCESS:
             return {
                 ...state,

@@ -102,6 +102,30 @@ export function formErrors(state=iState, action){
                 registration: action.payload
             }
 
+        case actions.REGISTRATION_STEP1.ERROR:
+            return {
+                ...iState,
+                registrationStep1: action.payload
+            }
+
+        case actions.REGISTRATION_STEP2.ERROR:
+            return {
+                ...iState,
+                registrationStep2: action.payload
+            }
+
+        case actions.REGISTRATION_STEP3.ERROR:
+            return {
+                ...iState,
+                registrationStep3: action.payload
+            }
+
+        case actions.REGISTRATION_STEP4.ERROR:
+            return {
+                ...iState,
+                registrationStep4: action.payload
+            }
+
         case actions.REGISTRATION_PARENT.ERROR:
             return {
                 ...iState,

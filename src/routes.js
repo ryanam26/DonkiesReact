@@ -22,6 +22,12 @@ import {
     TransactionsPage,
     TransfersPage,
     UserNotConfirmedPage,
+
+    RegistrationStep1,
+    RegistrationStep2,
+    RegistrationStep3,
+    RegistrationStep4,
+
     UserProfilePage,
     RegistrationParentPage,
     DownLoadAppPage } from 'pages'
@@ -32,6 +38,7 @@ import { requireAuth } from 'components/Auth'
 import { requireActiveAccount } from 'components/ActiveAccount'
 import { requirePrimaryAccount } from 'components/PrimaryAccount'
 import { requireSignupCompleted } from 'components/SignupCompleted'
+import { requireSignupStepsCompleted } from 'components/SignupStepsCompleted'
 
 
 export default (
@@ -39,7 +46,10 @@ export default (
         <Route component={LoginPage} path="/login" />
         <Route component={LoginFacebookPage} path="/login_facebook" />
         <Route component={RegistrationParentPage} path="/registration_parent" />
-        <Route component={RegistrationPage} path="/registration" />
+        <Route component={RegistrationStep1} path="/registration" />
+        <Route component={requireAuth(RegistrationStep2)} path="/registration/2" />
+        <Route component={requireAuth(RegistrationStep3)} path="/registration/3" />
+        <Route component={requireAuth(RegistrationStep4)} path="/registration/4" />
         <Route component={RegistrationConfirmPage} path="/confirm" />
         <Route component={ResetPasswordRequestPage} path="/forgot_password" />
         <Route component={ResetPasswordPage} path="/reset" />
@@ -49,9 +59,12 @@ export default (
         <Route
             component={
                 requireAuth(
-                    requireActiveAccount(
-                        requirePrimaryAccount(
-                            requireSignupCompleted(App))))} path="/">
+                    requireSignupStepsCompleted(
+                        requireActiveAccount(
+                            requirePrimaryAccount(
+                                requireSignupCompleted(App)))))}
+            path="/"
+        >
 
             <IndexRoute component={HomePage} />
             <Route component={AccountsPage} path="/accounts" />
