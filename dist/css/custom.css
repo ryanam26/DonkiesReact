@@ -1,54 +1,59 @@
-
-.custom-error{
-    color: #f6675d;
+.custom-error {
+  color: #f6675d;
 }
 
-.custom-success{
-    color: #4caf50;
+.custom-success {
+  color: #4caf50;
 }
 
-.custom-errors{
-    margin-top: 15px;
-    color: #f6675d;
+.custom-errors {
+  margin-top: 15px;
+  color: #f6675d;
 }
 
-.custom-errors ul li{
-    list-style: none;
+.custom-errors ul li {
+  list-style: none;
 }
 
-.fake-link{
-    color: #2196f3 ;
-    cursor: pointer;
+.fake-link {
+  color: #2196f3;
+  cursor: pointer;
 }
 
-.fake-link:hover{
-    color: #0a6ebd ;
+.fake-link:hover {
+  color: #0a6ebd;
 }
 
-.dashboard-color-block{
-    padding: 20px 45px 20px 45px;
-    color: #ffffff;
-    margin-top: 10px;
-    margin-bottom: 10px;
+.dashboard-color-block {
+  padding: 20px 45px 20px 45px;
+  color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-.dashboard-color-block .amount{
-    font-size: 20px;
+.dashboard-color-block .amount {
+  font-size: 20px;
 }
 
-.dashboard-color-block .content{
-    display: none;
+.dashboard-color-block .content {
+  display: none;
 }
 
-.dashboard-color-block:hover .content{
-    display: block;
+.dashboard-color-block:hover .content {
+  display: block;
 }
 
-.add-debt{margin-top: 40px;}
-.add-debt .bank-name{font-weight: bold;}
-.add-debt .bank-address{}
-.add-debt .account-wrapper{
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px 0 10px 0;
+.add-debt {
+  margin-top: 40px;
+}
+.add-debt .bank-name {
+  font-weight: bold;
+}
+.add-debt .bank-address {
+}
+.add-debt .account-wrapper {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0 10px 0;
 }
