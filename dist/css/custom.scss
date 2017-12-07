@@ -130,3 +130,24 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.add-bank-account {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .card {
+    width: 300px;
+    text-align: center;
+  }
+
+  .form-group {
+    margin: 0;
+  }
+}

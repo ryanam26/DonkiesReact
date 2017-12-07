@@ -51,10 +51,13 @@ class HomeStat extends Component {
             showCloseButton={true}
             visible
             title="Refund"
+            contentClassNames="bgm-teal c-white"
+            headerTitleClassNames="c-white"
+            buttonClassNames="c-white"
             footer={
               <button
                 onClick={this.hideModalDelay}
-                className="btn btn-success waves-effect"
+                className="btn btn-default waves-effect"
               >
                 Confirm
               </button>

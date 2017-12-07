@@ -53,7 +53,7 @@ class HomeTransactions extends Component {
       };
       row.cols.push(col);
 
-      col = { value: tr.description };
+      col = { value: tr.name };
       row.cols.push(col);
 
       col = { value: `$${tr.amount}`, className: "f-500 c-cyan" };
