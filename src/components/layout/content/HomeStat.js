@@ -1,57 +1,55 @@
-import React, {Component, PropTypes} from 'react'
-import { connect } from 'react-redux'
-import autoBind from 'react-autobind'
-import classNames from 'classnames'
-import DashboardColorBlock from './private/DashboardColorBlock'
-import { LoadingInline } from 'components'
+import React, { Component, PropTypes } from "react";
+import { connect } from "react-redux";
+import autoBind from "react-autobind";
+import classNames from "classnames";
+import DashboardColorBlock from "./private/DashboardColorBlock";
+import { LoadingInline } from "components";
 
+class HomeStat extends Component {
+  constructor(props) {
+    super(props);
+    autoBind(this);
+  }
 
-class HomeStat extends Component{
-    constructor(props){
-        super(props)
-        autoBind(this)
+  render() {
+    const { stat } = this.props;
+    if (!stat) {
+      return null;
     }
-           
-    render(){
-        const { stat } = this.props
-        if (!stat){
-            return <LoadingInline />
-        }
 
-        return (
-            <div className="row">
-                <DashboardColorBlock
-                    value={`$${stat.roundup_since_signup.toFixed(2)}`}
-                    className="bgm-lightgreen"
-                    title="Total Round Ups since signing up"
-                    content="This is the total amount that has been rounded up since registering with the app." />
+    return (
+      <div className="row">
+        <DashboardColorBlock
+          value={`$${stat.roundup_since_signup.toFixed(2)}`}
+          className="bgm-lightgreen"
+          title="Total Saved"
+          content="This is the total amount that has been rounded up since registering with the app."
+        />
 
-                <DashboardColorBlock
-                    value={`$${stat.monthly_average_roundup.toFixed(2)}`}
-                    className="bgm-purple"
-                    title="Average Monthly Round Ups"
-                    content="This is the average monthly round ups." />
+        <DashboardColorBlock
+          value={`$${stat.monthly_average_roundup.toFixed(2)}`}
+          className="bgm-purple"
+          title="Monthly Ave Spare Change"
+          content="This is the average monthly round ups."
+        />
 
-                <DashboardColorBlock
-                    value={stat.yearly_average_roundup.toFixed(2)}
-                    className="bgm-bluegray"
-                    title="Average Yearly Round Ups"
-                    content="This is the average yearly round ups." />
-                
-            </div>
-        )
-    }
+        <DashboardColorBlock
+          value={`$${stat.yearly_average_roundup.toFixed(2)}`}
+          className="bgm-bluegray"
+          title="Yearly Ave Spare Change"
+          content="This is the average yearly round ups."
+        />
+      </div>
+    );
+  }
 }
-
 
 HomeStat.propTypes = {
-    stat: PropTypes.object
-}
+  stat: PropTypes.object
+};
 
-const mapStateToProps = (state) => ({
-    stat: state.stat
-})
+const mapStateToProps = state => ({
+  stat: state.stat
+});
 
-export default connect(mapStateToProps, {
-})(HomeStat)
-
+export default connect(mapStateToProps, {})(HomeStat);

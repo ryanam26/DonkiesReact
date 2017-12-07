@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import autoBind from "react-autobind";
 import moment from "moment";
 
-import { CardSimple, LoadingInline, TableSimple } from "components";
+import { CardSimple, LoadingInline, Loading, TableSimple } from "components";
 
 class HomeTransactions extends Component {
   constructor(props) {
@@ -71,7 +71,7 @@ class HomeTransactions extends Component {
     const { accounts, transactions } = this.props;
 
     if (!transactions || !accounts) {
-      return <LoadingInline />;
+      return <Loading />;
     }
 
     return (
