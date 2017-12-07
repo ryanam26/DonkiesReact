@@ -137,6 +137,8 @@ class EditProfile extends Component {
               errors={errors}
             />
 
+            {/*
+
             <Input2
               name="ssn"
               placeholder="SSN"
@@ -144,6 +146,8 @@ class EditProfile extends Component {
               value={user.ssn}
               errors={errors}
             />
+
+            */}
 
             <Button2
               text="save"

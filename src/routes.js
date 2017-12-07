@@ -22,6 +22,7 @@ import {
   TransactionsPage,
   TransfersPage,
   UserNotConfirmedPage,
+  FAQPage,
   RegistrationStep1,
   RegistrationStep2,
   RegistrationStep3,
@@ -68,6 +69,7 @@ export default (
     >
       <IndexRoute component={HomePage} />
       <Route component={AccountsPage} path="/accounts" />
+      <Route component={FAQPage} path="/faq" />
       <Route component={AddBankPage} path="/add_bank" />
       <Route component={AddLenderPage} path="/add_lender" />
       <Route component={ConfigureAccountsPage} path="/configure_accounts" />

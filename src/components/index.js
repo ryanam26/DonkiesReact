@@ -131,6 +131,9 @@ export { TableData };
 import { default as TableSimple } from "./layout/misc/TableSimple";
 export { TableSimple };
 
+import { default as FAQ } from "./layout/content/FAQ";
+export { FAQ };
+
 // transfers
 
 import { default as TransfersDonkies } from "./transfers/TransfersDonkies";
