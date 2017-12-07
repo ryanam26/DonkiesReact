@@ -57,5 +57,5 @@ def deploy():
 
     execute(pull)
 
-    if confirm('Restart nginx?', default=False):
+    if confirm('Restart nginx?'):
         execute(restart_nginx)
