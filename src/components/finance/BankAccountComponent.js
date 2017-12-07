@@ -34,7 +34,7 @@ class BankAccount extends React.Component {
             <div className="bank-account-block-details-content-button m-t-20">
               <Link
                 to="/configure_accounts"
-                className="btn btn-primary btn-block"
+                className="btn btn-lg btn-primary btn-block"
               >
                 Remove bank
               </Link>

@@ -10,7 +10,7 @@ export default class DashboardColorBlock extends Component {
   }
 
   render() {
-    const { value, className, content, title } = this.props;
+    const { value, className, content, title, footer } = this.props;
 
     const cn = classNames("dashboard-color-block");
 
@@ -19,6 +19,7 @@ export default class DashboardColorBlock extends Component {
         <div className={cn} title={content} data-ma-theme="blue">
           <div className="title-text">{title}</div>
           <div className="amount">{value}</div>
+          {footer}
         </div>
       </div>
     );
