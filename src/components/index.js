@@ -87,6 +87,9 @@ export { SelectClean };
 import { default as SelectSimple } from "./form/SelectSimple";
 export { SelectSimple };
 
+import { default as Select } from "./form/Select";
+export { Select };
+
 // layout
 
 import { default as BlockPage } from "./layout/content/BlockPage";

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import autoBind from "react-autobind";
+import classNames from "classnames";
 
 /**
  * Options passes to Select is array of objects.
@@ -39,11 +40,23 @@ export default class SelectSimple extends Component {
 
   render() {
     const { wrapperClassName } = this.state;
-    const { name, options, value } = this.props;
+    const { name, options, value, zmdi, wrapperClass } = this.props;
+
+    let zmdiClasses = classNames("zmdi", zmdi);
+    let wrapperClasses = classNames(wrapperClassName, wrapperClass);
 
     return (
-      <div className={wrapperClassName}>
-        <div className="select">
+      <div className={wrapperClasses}>
+        <div className="select" style={{ display: "flex" }}>
+          <span
+            className="input-group-addon"
+            style={{
+              background: "none",
+              border: 0
+            }}
+          >
+            <i className={zmdiClasses} />
+          </span>
           <select
             defaultValue={value}
             onChange={this.onChange}
