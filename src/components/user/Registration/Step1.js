@@ -12,6 +12,8 @@ import {
 import { SETTINGS_LOGIN_URL } from "services/api";
 import { Alert, Checkbox, ErrorBlock, Input, Modal } from "components";
 import { formToObject } from "services/helpers";
+import { API_ROOT_URL } from "store/configureStore";
+
 /**
  * js/app.js had method that automatically removes "toggled" class
  * from lc-block and div started to be invisible.
@@ -25,7 +27,8 @@ class Registration extends Component {
     this.state = {
       form: null,
       showModal: false,
-      agree: false
+      agree: false,
+      customErrors: {}
     };
   }
 
@@ -54,7 +57,21 @@ class Registration extends Component {
 
     let form = formToObject(e.target);
 
-    this.setState({ form, showModal: true });
+    if (!form.email) {
+      this.setState({
+        customErrors: { email: ["This field may not be blank."] }
+      });
+    } else {
+      fetch(`${API_ROOT_URL}v1/auth/signup?email=${form.email}`)
+        .then(response => {
+          if (response.status === 200) {
+            this.setState({ form, showModal: true, customErrors: {} });
+          } else {
+            this.setState({ customErrors: { email: ["User already exists"] } });
+          }
+        })
+        .catch(error => {});
+    }
   }
 
   onAccept(e) {
@@ -75,8 +92,10 @@ class Registration extends Component {
   }
 
   render() {
-    let { showModal = false, accept = false } = this.state;
-    const { errors, successMessage, settings } = this.props;
+    let { showModal = false, accept = false, customErrors } = this.state;
+    let { errors, successMessage, settings } = this.props;
+
+    errors = errors ? Object.keys(errors).length : customErrors;
 
     return (
       <div className="login-content">
