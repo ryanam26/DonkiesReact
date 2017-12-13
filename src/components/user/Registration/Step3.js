@@ -98,83 +98,156 @@ class Registration extends Component {
     this.setState({ showModal: false });
   }
 
-  onScriptError() {}
+  // onScriptError() {}
 
-  onScriptLoad() {
-    let map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 37.3002752813443, lng: -119.8828125 },
-      zoom: 5
+  // onScriptLoad() {
+  //   let map = new google.maps.Map(document.getElementById("map"), {
+  //     center: { lat: 37.3002752813443, lng: -119.8828125 },
+  //     zoom: 5
+  //   });
+
+  //   map.addListener("click", e => {
+  //     this.hideModalWindow();
+  //     let lat = e.latLng.lat(),
+  //       lng = e.latLng.lng();
+
+  //     return fetch(
+  //       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`
+  //     )
+  //       .then(r => r.json())
+  //       .then(response => {
+  //         console.log(response);
+  //         let results = response.results;
+
+  //         // Street address
+
+  //         let street = results.filter(
+  //           item => item.types[0] == "street_address"
+  //         )[0];
+  //         let street_number = street.address_components.filter(
+  //           item => item.types[0] === "street_number"
+  //         )[0].long_name;
+  //         let route = street.address_components.filter(
+  //           item => item.types[0] === "route"
+  //         )[0].long_name;
+  //         document.getElementsByName(
+  //           "address1"
+  //         )[0].value = `${route}, ${street_number}`;
+
+  //         // Zip code
+
+  //         let zipcode = results
+  //           .filter(item => item.types[0] === "postal_code")[0]
+  //           .address_components.filter(
+  //             item => item.types[0] === "postal_code"
+  //           )[0].long_name;
+  //         document.getElementsByName("postal_code")[0].value = zipcode;
+
+  //         // City
+
+  //         let city = results
+  //           .filter(
+  //             item =>
+  //               item.types[0] === "locality" && item.types[1] === "political"
+  //           )[0]
+  //           .address_components.filter(
+  //             item =>
+  //               item.types[0] === "locality" && item.types[1] === "political"
+  //           )[0].long_name;
+  //         document.getElementsByName("city")[0].value = city;
+
+  //         // State
+
+  //         let state = results
+  //           .filter(
+  //             item =>
+  //               item.types[0] === "administrative_area_level_1" &&
+  //               item.types[1] === "political"
+  //           )[0]
+  //           .address_components.filter(
+  //             item =>
+  //               item.types[0] === "administrative_area_level_1" &&
+  //               item.types[1] === "political"
+  //           )[0].short_name;
+  //         document.getElementsByName("state")[0].value = state;
+  //       })
+  //       .catch(error => {
+  //         console.log(error);
+  //       });
+  //   });
+  // }
+
+  onScriptError(e) {
+    console.log(e.target.value);
+  }
+
+  onScriptLoad(e) {
+    let autocomplete = new google.maps.places
+      .Autocomplete(document.getElementsByName("location_autocomplete")[0], {
+      types: ["geocode"]
     });
 
-    map.addListener("click", e => {
-      this.hideModalWindow();
-      let lat = e.latLng.lat(),
-        lng = e.latLng.lng();
+    autocomplete.addListener(
+      "place_changed",
+      this.fillInAddress.bind(this, autocomplete)
+    );
+  }
 
-      return fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`
-      )
-        .then(r => r.json())
-        .then(response => {
-          console.log(response);
-          let results = response.results;
+  fillInAddress(autocomplete) {
+    var place = autocomplete.getPlace();
+    console.log(place);
 
-          // Street address
+    let state = place.address_components.filter(
+      item =>
+        item.types[0] === "administrative_area_level_1" &&
+        item.types[1] === "political"
+    )[0];
 
-          let street = results.filter(
-            item => item.types[0] == "street_address"
-          )[0];
-          let street_number = street.address_components.filter(
-            item => item.types[0] === "street_number"
-          )[0].long_name;
-          let route = street.address_components.filter(
-            item => item.types[0] === "route"
-          )[0].long_name;
-          document.getElementsByName(
-            "address1"
-          )[0].value = `${route}, ${street_number}`;
+    let city = place.address_components.filter(
+      item => item.types[0] === "locality" && item.types[1] === "political"
+    )[0];
 
-          // Zip code
+    let postal_code = place.address_components.filter(
+      item => item.types[0] === "postal_code"
+    )[0];
 
-          let zipcode = results
-            .filter(item => item.types[0] === "postal_code")[0]
-            .address_components.filter(
-              item => item.types[0] === "postal_code"
-            )[0].long_name;
-          document.getElementsByName("postal_code")[0].value = zipcode;
+    let street_number =
+      place.address_components.filter(
+        item => item.types[0] === "street_number"
+      )[0] || {};
 
-          // City
+    let route =
+      place.address_components.filter(item => item.types[0] === "route")[0] ||
+      {};
 
-          let city = results
-            .filter(
-              item =>
-                item.types[0] === "locality" && item.types[1] === "political"
-            )[0]
-            .address_components.filter(
-              item =>
-                item.types[0] === "locality" && item.types[1] === "political"
-            )[0].long_name;
-          document.getElementsByName("city")[0].value = city;
+    let street = "";
 
-          // State
+    if (Object.keys(route).length) {
+      street = route.long_name;
+    }
 
-          let state = results
-            .filter(
-              item =>
-                item.types[0] === "administrative_area_level_1" &&
-                item.types[1] === "political"
-            )[0]
-            .address_components.filter(
-              item =>
-                item.types[0] === "administrative_area_level_1" &&
-                item.types[1] === "political"
-            )[0].short_name;
-          document.getElementsByName("state")[0].value = state;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    });
+    if (Object.keys(street_number).length) {
+      street += `, ${street_number.long_name}`;
+    }
+
+    if (state !== undefined) {
+      document.getElementsByName("state")[0].value = state.short_name;
+    }
+
+    if (city !== undefined) {
+      document.getElementsByName("city")[0].value = city.long_name;
+    }
+
+    if (street !== ", ") {
+      document.getElementsByName("address1")[0].value = street;
+    }
+
+    if (postal_code !== undefined) {
+      document.getElementsByName("postal_code")[0].value =
+        postal_code.long_name;
+    }
+
+    this.hideModalWindow();
   }
 
   render() {
@@ -202,6 +275,28 @@ class Registration extends Component {
             >
               <div>
                 <Script
+                  url={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`}
+                  onError={this.onScriptError}
+                  onLoad={this.onScriptLoad}
+                />
+                <Input
+                  name="location_autocomplete"
+                  type="text"
+                  placeholder="Enter your Address"
+                />
+              </div>
+            </Modal>
+          ) : null}
+
+          {/*showModal ? (
+            <Modal
+              onClickClose={this.hideModalWindow}
+              showCloseButton={true}
+              visible
+              title="Select your location"
+            >
+              <div>
+                <Script
                   url={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}`}
                   onError={this.onScriptError}
                   onLoad={this.onScriptLoad}
@@ -209,7 +304,7 @@ class Registration extends Component {
                 <div style={{ height: 250 }} id="map" />
               </div>
             </Modal>
-          ) : null}
+          ) : null*/}
 
           <div className="lcb-form">
             <form ref="form" onSubmit={this.onSubmit} target="">
