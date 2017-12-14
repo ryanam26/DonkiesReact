@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import autoBind from "react-autobind";
 import Script from "react-load-script";
 
-import { navigate } from "actions";
+import { apiGetRequest, navigate } from "actions";
 import { Alert, Button2, Loading, PlaidLink } from "components";
 
 class AddBank extends Component {
@@ -16,6 +16,10 @@ class AddBank extends Component {
       isScriptLoaded: false,
       isScriptError: false
     };
+  }
+
+  componentWillMount() {
+    this.props.apiGetRequest("settings");
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,39 +56,38 @@ class AddBank extends Component {
     }
 
     return (
-      <wrap className="add-bank-account">
-        <Script
-          url="https://cdn.plaid.com/link/v2/stable/link-initialize.js"
-          onError={this.onScriptError}
-          onLoad={this.onScriptLoad}
-        />
+      <div className="login-content">
+        <div ref="block" className="lc-block toggled">
+          <h1
+            style={{
+              color: "white",
+              textShadow: "1px 1px 2px #666"
+            }}
+          >
+            Please add Primary Bank Account
+          </h1>
 
-        <div className="card">
-          {isScriptLoaded && (
-            <div className="form-horizontal">
-              <div className="card-header">
-                <h2>{"Add bank account"}</h2>
-              </div>
+          <Script
+            url="https://cdn.plaid.com/link/v2/stable/link-initialize.js"
+            onError={this.onScriptError}
+            onLoad={this.onScriptLoad}
+          />
 
-              <div className="card-body card-padding">
-                {!showSuccess && (
-                  <PlaidLink>
-                    <Button2
-                      wrapperClass=""
-                      type="button"
-                      text="Add Bank Account"
-                    />
-                  </PlaidLink>
-                )}
+          {isScriptLoaded ? (
+            <div className="lcb-form" style={{ padding: 35 }}>
+              {!showSuccess && (
+                <PlaidLink>
+                  <button className="btn btn-default">Add bank account</button>
+                </PlaidLink>
+              )}
 
-                {showSuccess && (
-                  <Alert type="success" value={"Bank account created!"} />
-                )}
-              </div>
+              {showSuccess && (
+                <Alert type="success" value={"Bank account created!"} />
+              )}
             </div>
-          )}
+          ) : null}
         </div>
-      </wrap>
+      </div>
     );
   }
 }
@@ -101,5 +104,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
+  apiGetRequest,
   navigate
 })(AddBank);

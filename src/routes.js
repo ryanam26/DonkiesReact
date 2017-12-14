@@ -60,9 +60,7 @@ export default (
     <Route
       component={requireAuth(
         requireSignupStepsCompleted(
-          requireActiveAccount(
-            requirePrimaryAccount(requireSignupCompleted(App))
-          )
+          requireActiveAccount(requirePrimaryAccount(App))
         )
       )}
       path="/"

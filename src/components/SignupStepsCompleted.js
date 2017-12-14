@@ -1,53 +1,33 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { navigate } from 'actions'
-import { Loading } from 'components'
-
+import React from "react";
+import { connect } from "react-redux";
+import { navigate } from "actions";
+import { Loading } from "components";
 
 export function requireSignupStepsCompleted(Component) {
-
-    class SignupStepCompleted extends React.Component {
-
-        componentWillMount() {
-            let { user } = this.props;
-
-            if(user !== null && user.registration_step) {
-                this.props.navigate(`/registration/${user.registration_step}`)
-            }
-        }
-
-        componentWillUpdate(nextProps, nextState) {
-            let { user } = nextProps;
-
-            if(user !== null && user.registration_step) {
-                this.props.navigate(`/registration/${user.registration_step}`)
-            }
-        }
-
-        render() {
-            let { user } = this.props;
-
-            if (user === null){
-                return <Loading />
-            }
-
-            return <Component {...this.props}/>
-        }
+  class SignupStepCompleted extends React.Component {
+    componentWillUpdate(nextProps, nextState) {
+      let { user } = nextProps;
+      if (user !== null && user.registration_step) {
+        this.props.navigate(`/registration/${user.registration_step}`);
+      }
     }
 
-    const mapStateToProps = (state) => ({
-        user: state.user.item
-    });
+    render() {
+      let { user } = this.props;
 
-    return connect(
-        mapStateToProps, {
-            navigate
-        }
-    )(SignupStepCompleted)
+      if (user === null) {
+        return <Loading />;
+      }
 
-    SignupStepCompleted.propTypes = {
-        navigate: PropTypes.func,
-        user: PropTypes.object
+      return <Component {...this.props} />;
     }
+  }
+
+  const mapStateToProps = state => ({
+    user: state.user.item
+  });
+
+  return connect(mapStateToProps, {
+    navigate
+  })(SignupStepCompleted);
 }
-
