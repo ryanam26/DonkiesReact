@@ -13,10 +13,6 @@ export function requirePrimaryAccount(Component) {
     constructor(props) {
       super(props);
       autoBind(this);
-
-      this.state = {
-        showModal: true
-      };
     }
 
     componentWillMount() {
@@ -53,25 +49,8 @@ export function requirePrimaryAccount(Component) {
     }
 
     render() {
-      const { showModal } = this.state;
-
       if (this.accounts.length > 1 && !this.hasPrimary()) {
-        return (
-          <wrap>
-            <Component {...this.props} />
-
-            {showModal && (
-              <Modal
-                onClickClose={null}
-                showCloseButton={false}
-                visible
-                title="Set primary account"
-              >
-                <SetPrimaryAccount accounts={this.accounts} />
-              </Modal>
-            )}
-          </wrap>
-        );
+        return <SetPrimaryAccount accounts={this.accounts} />;
       }
 
       if (!this.accounts.length) {
