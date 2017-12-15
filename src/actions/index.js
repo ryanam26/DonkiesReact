@@ -39,6 +39,7 @@ export const ACCOUNTS_SET_ACTIVE = createRequestTypes("ACCOUNTS_SET_ACTIVE");
 export const ACCOUNTS_SET_NUMBER = createRequestTypes("ACCOUNTS_SET_NUMBER");
 export const ACCOUNTS_SET_PRIMARY = createRequestTypes("ACCOUNTS_SET_PRIMARY");
 export const ADD_LENDER = createRequestTypes("ADD_LENDER");
+export const CHANGE_LENDER = createRequestTypes("CHANGE_LENDER");
 export const API_GET_REQUEST = createRequestTypes("API_GET_REQUEST");
 export const API_EDIT_REQUEST = createRequestTypes("API_EDIT_REQUEST");
 export const CHANGE_EMAIL = createRequestTypes("CHANGE_EMAIL");
@@ -55,6 +56,8 @@ export const EDIT_PROFILE = createRequestTypes("EDIT_PROFILE");
 export const EDIT_USER_SETTINGS = createRequestTypes("EDIT_USER_SETTINGS");
 export const ITEMS = createRequestTypes("ITEMS");
 export const LENDERS = createRequestTypes("LENDERS");
+export const USER_LENDERS = createRequestTypes("USER_LENDERS");
+export const CHANGE_USER_LENDER = createRequestTypes("CHANGE_USER_LENDER");
 export const LOGIN = createRequestTypes("LOGIN");
 export const LOGIN_FACEBOOK = createRequestTypes("LOGIN_FACEBOOK");
 export const REGISTRATION = createRequestTypes("REGISTRATION");
@@ -135,6 +138,8 @@ export const createItem = (publicToken, account_id) =>
 export const createAccount = form => action(CREATE_ACCOUNT.SUBMIT, { form });
 export const deleteItem = guid => action(DELETE_ITEM.SUBMIT, { guid });
 export const addLender = form => action(ADD_LENDER.SUBMIT, { form });
+export const changeUserLender = (pk, account_number) =>
+  action(CHANGE_USER_LENDER.SUBMIT, { pk, account_number });
 export const deleteLender = id => action(DELETE_LENDER.SUBMIT, { id });
 
 // auth

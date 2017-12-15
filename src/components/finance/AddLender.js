@@ -1,7 +1,13 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import autoBind from "react-autobind";
-import { apiGetRequest, addLender, navigate, setFormErrors } from "actions";
+import {
+  apiGetRequest,
+  addLender,
+  navigate,
+  setFormErrors,
+  changeUserLender
+} from "actions";
 import { formToObject } from "services/helpers";
 import {
   Alert,
@@ -25,6 +31,7 @@ class AddLender extends Component {
 
   componentWillMount() {
     this.props.apiGetRequest("debt_institutions");
+    this.props.apiGetRequest("user_lenders");
   }
 
   componentWillReceiveProps(nextProps) {
@@ -87,8 +94,15 @@ class AddLender extends Component {
     return institutions.filter(i => i.id === institutionId)[0];
   }
 
+  changeLender(pk, e) {
+    let account_number = document.getElementsByName(
+      `lender[${pk}].account_number`
+    )[0].value;
+    this.props.changeUserLender(pk, account_number);
+  }
+
   render() {
-    const { errors, institutions, inProgress } = this.props;
+    const { errors, institutions, inProgress, user_lenders = [] } = this.props;
     const { institutionId, showSuccess } = this.state;
 
     if (!institutions) {
@@ -169,36 +183,29 @@ class AddLender extends Component {
 
               <div className="card-body card-padding">
                 <div className="lender-user-section">
-                  <div className="lender-user-section-bank">
-                    <div>American Express (Credit card)</div>
-                    <div className="lender-user-section-bank-input">
-                      <Input2
-                        name="account_number"
-                        placeholder="Account number"
-                        wrapperClass=""
-                        col2=""
-                        errors={errors}
-                      />
-                      <Button2
-                        className="btn btn-warning btn-sm waves-effect"
-                        type="submit"
-                        text="Edit"
-                      />
-                    </div>
-                  </div>
-                  <div className="lender-user-section-bank">
-                    <div>Bank of America (Credit card)</div>
-                    <div className="lender-user-section-bank-input">
-                      <Input2
-                        name="account_number"
-                        placeholder="Account number"
-                        wrapperClass=""
-                        col2=""
-                        errors={errors}
-                      />
-                      <Button2 type="submit" text="Save" />
-                    </div>
-                  </div>
+                  {user_lenders.length
+                    ? user_lenders.map((bank, index) => (
+                        <div key={index} className="lender-user-section-bank">
+                          <div>{bank.institution_name}</div>
+                          <div className="lender-user-section-bank-input">
+                            <Input2
+                              name={`lender[${bank.pk}].account_number`}
+                              placeholder="Account number"
+                              wrapperClass=""
+                              col2=""
+                              value={bank.account_number}
+                              errors={errors}
+                            />
+                            <Button2
+                              onClick={this.changeLender.bind(this, bank.pk)}
+                              className="btn btn-success btn-sm waves-effect"
+                              type="submit"
+                              text="Save"
+                            />
+                          </div>
+                        </div>
+                      ))
+                    : null}
                 </div>
               </div>
             </div>
@@ -211,10 +218,12 @@ class AddLender extends Component {
 
 AddLender.propTypes = {
   addLender: PropTypes.func,
+  changeUserLender: PropTypes.func,
   apiGetRequest: PropTypes.func,
   errors: PropTypes.object,
   inProgress: PropTypes.bool,
   institutions: PropTypes.array,
+  user_lenders: PropTypes.array,
   navigate: PropTypes.func,
   setFormErrors: PropTypes.func,
   trigger: PropTypes.number
@@ -224,12 +233,14 @@ const mapStateToProps = state => ({
   errors: state.formErrors.addLender,
   inProgress: state.accounts.addLenderInProgress,
   institutions: state.institutions.debtInstitutions,
+  user_lenders: state.lenders.user_lenders,
   trigger: state.lenders.triggerLenderCreated
 });
 
 export default connect(mapStateToProps, {
   apiGetRequest,
   addLender,
+  changeUserLender,
   navigate,
   setFormErrors
 })(AddLender);

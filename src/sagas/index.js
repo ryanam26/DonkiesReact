@@ -11,6 +11,7 @@ import { watchSetPrimaryAccount } from "./finance/accounts";
 import { watchCreateItem } from "./finance/items";
 import { watchDeleteItem } from "./finance/items";
 import { watchAddLender } from "./finance/lenders";
+import { watchChangeUserLender } from "./finance/lenders";
 import { watchDeleteLender } from "./finance/lenders";
 
 import { watchApiGetRequest } from "./web/apiGetRequest";
@@ -48,6 +49,7 @@ export default function* root() {
     fork(watchApiGetRequest),
     fork(watchApiEditRequest),
     fork(watchAddLender),
+    fork(watchChangeUserLender),
     fork(watchDeleteLender),
     fork(watchChangeEmail),
     fork(watchChangePassword),
