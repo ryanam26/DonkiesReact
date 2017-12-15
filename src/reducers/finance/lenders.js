@@ -29,6 +29,12 @@ export function lenders(state = iState, action) {
                 user_lenders: action.payload
             };
 
+        case actions.DELETE_USER_LENDER.SUCCESS:
+            return {
+                ...state,
+                user_lenders: action.payload
+            };
+
         case actions.ADD_LENDER.REQUEST:
             return {
                 ...state,

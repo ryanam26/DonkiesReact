@@ -6,7 +6,8 @@ import {
   addLender,
   navigate,
   setFormErrors,
-  changeUserLender
+  changeUserLender,
+  deleteUserLender
 } from "actions";
 import { formToObject } from "services/helpers";
 import {
@@ -94,11 +95,15 @@ class AddLender extends Component {
     return institutions.filter(i => i.id === institutionId)[0];
   }
 
-  changeLender(pk, e) {
+  changeUserLender(pk, e) {
     let account_number = document.getElementsByName(
       `lender[${pk}].account_number`
     )[0].value;
     this.props.changeUserLender(pk, account_number);
+  }
+
+  deleteUserLender(pk, e) {
+    this.props.deleteUserLender(pk);
   }
 
   render() {
@@ -197,10 +202,22 @@ class AddLender extends Component {
                               errors={errors}
                             />
                             <Button2
-                              onClick={this.changeLender.bind(this, bank.pk)}
+                              onClick={this.changeUserLender.bind(
+                                this,
+                                bank.pk
+                              )}
                               className="btn btn-success btn-sm waves-effect"
                               type="submit"
                               text="Save"
+                            />
+                            <Button2
+                              onClick={this.deleteUserLender.bind(
+                                this,
+                                bank.pk
+                              )}
+                              className="btn btn-danger btn-sm waves-effect"
+                              type="submit"
+                              text="Delete"
                             />
                           </div>
                         </div>
@@ -219,6 +236,7 @@ class AddLender extends Component {
 AddLender.propTypes = {
   addLender: PropTypes.func,
   changeUserLender: PropTypes.func,
+  deleteUserLender: PropTypes.func,
   apiGetRequest: PropTypes.func,
   errors: PropTypes.object,
   inProgress: PropTypes.bool,
@@ -241,6 +259,7 @@ export default connect(mapStateToProps, {
   apiGetRequest,
   addLender,
   changeUserLender,
+  deleteUserLender,
   navigate,
   setFormErrors
 })(AddLender);

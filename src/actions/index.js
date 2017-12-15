@@ -58,6 +58,7 @@ export const ITEMS = createRequestTypes("ITEMS");
 export const LENDERS = createRequestTypes("LENDERS");
 export const USER_LENDERS = createRequestTypes("USER_LENDERS");
 export const CHANGE_USER_LENDER = createRequestTypes("CHANGE_USER_LENDER");
+export const DELETE_USER_LENDER = createRequestTypes("DELETE_USER_LENDER");
 export const LOGIN = createRequestTypes("LOGIN");
 export const LOGIN_FACEBOOK = createRequestTypes("LOGIN_FACEBOOK");
 export const REGISTRATION = createRequestTypes("REGISTRATION");
@@ -140,6 +141,7 @@ export const deleteItem = guid => action(DELETE_ITEM.SUBMIT, { guid });
 export const addLender = form => action(ADD_LENDER.SUBMIT, { form });
 export const changeUserLender = (pk, account_number) =>
   action(CHANGE_USER_LENDER.SUBMIT, { pk, account_number });
+export const deleteUserLender = pk => action(DELETE_USER_LENDER.SUBMIT, { pk });
 export const deleteLender = id => action(DELETE_LENDER.SUBMIT, { id });
 
 // auth

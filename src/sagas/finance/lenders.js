@@ -79,3 +79,26 @@ export function* watchChangeUserLender() {
     yield fork(changeUserLender, pk, account_number);
   }
 }
+
+// ------- Delete user lender
+
+function* deleteUserLender(pk) {
+  yield put({ type: actions.DELETE_USER_LENDER.REQUEST });
+  const url = `${USER_LENDERS_URL}/${pk}`;
+
+  const result = yield call(apiCall, url, "DELETE", {}, true);
+
+  if (result.isError) {
+    yield put({ type: actions.DELETE_USER_LENDER.ERROR, payload: result.data });
+    return;
+  }
+
+  yield put({ type: actions.DELETE_USER_LENDER.SUCCESS, payload: result.data });
+}
+
+export function* watchDeleteUserLender() {
+  while (true) {
+    const { pk } = yield take(actions.DELETE_USER_LENDER.SUBMIT);
+    yield fork(deleteUserLender, pk);
+  }
+}
