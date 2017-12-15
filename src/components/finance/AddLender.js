@@ -26,7 +26,8 @@ class AddLender extends Component {
 
     this.state = {
       institutionId: null,
-      showSuccess: false
+      showSuccess: false,
+      editField: {}
     };
   }
 
@@ -98,19 +99,38 @@ class AddLender extends Component {
   }
 
   changeUserLender(pk, e) {
+    let { editField } = this.state;
+
     let account_number = document.getElementsByName(
       `lender[${pk}].account_number`
     )[0].value;
     this.props.changeUserLender(pk, account_number);
+
+    this.setState({
+      editField: {
+        ...editField,
+        [pk]: false
+      }
+    });
   }
 
   deleteUserLender(pk, e) {
     this.props.deleteUserLender(pk);
   }
 
+  makeFieldEditable(pk, e) {
+    let { editField } = this.state;
+    this.setState({
+      editField: {
+        ...editField,
+        [pk]: true
+      }
+    });
+  }
+
   render() {
     const { errors, institutions, inProgress, user_lenders = [] } = this.props;
-    const { institutionId, showSuccess } = this.state;
+    const { institutionId, showSuccess, editField } = this.state;
 
     if (!institutions) {
       return <Loading />;
@@ -202,16 +222,29 @@ class AddLender extends Component {
                               col2=""
                               value={bank.account_number}
                               errors={errors}
+                              disabled={!editField[bank.pk]}
                             />
-                            <Button2
-                              onClick={this.changeUserLender.bind(
-                                this,
-                                bank.pk
-                              )}
-                              className="btn btn-warning btn-sm waves-effect"
-                              type="submit"
-                              text="Edit"
-                            />
+                            {!editField[bank.pk] ? (
+                              <Button2
+                                onClick={this.makeFieldEditable.bind(
+                                  this,
+                                  bank.pk
+                                )}
+                                className="btn btn-warning btn-sm waves-effect"
+                                type="submit"
+                                text="Edit"
+                              />
+                            ) : (
+                              <Button2
+                                onClick={this.changeUserLender.bind(
+                                  this,
+                                  bank.pk
+                                )}
+                                className="btn btn-success btn-sm waves-effect"
+                                type="submit"
+                                text="Save"
+                              />
+                            )}
                             <Button2
                               onClick={this.deleteUserLender.bind(
                                 this,
