@@ -32,6 +32,12 @@ class MainMenu extends Component {
         // className: "zmdi-assignment-account"
       },
       {
+        url: "/add_lender",
+        name: "Lenders",
+        className: ""
+        // className: "zmdi-money"
+      },
+      {
         url: "/loan_calculator",
         name: "Calculator",
         className: ""

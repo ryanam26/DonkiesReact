@@ -156,3 +156,22 @@
   display: flex;
   width: 100%;
 }
+
+.lender-user-section {
+  margin: 0 100px;
+
+  &-bank {
+    &:not(:last-child) {
+      // margin-bottom: 30px;
+    }
+    &-input {
+      display: flex;
+      align-items: flex-start;
+      margin-top: 10px;
+
+      > div:first-child {
+        flex: 1;
+      }
+    }
+  }
+}
