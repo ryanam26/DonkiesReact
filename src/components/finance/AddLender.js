@@ -35,15 +35,15 @@ class AddLender extends Component {
     this.props.apiGetRequest("user_lenders");
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.trigger !== nextProps.trigger) {
-      this.refs.form.reset();
-      this.setState({ showSuccess: true });
-      setTimeout(() => {
-        this.props.navigate("/accounts");
-      }, 3000);
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.trigger !== nextProps.trigger) {
+  //     this.refs.form.reset();
+  //     this.setState({ showSuccess: true });
+  //     setTimeout(() => {
+  //       this.props.navigate("/accounts");
+  //     }, 3000);
+  //   }
+  // }
 
   onSubmit(e) {
     e.preventDefault();
@@ -60,6 +60,8 @@ class AddLender extends Component {
 
     form.institution_id = institutionId;
     this.props.addLender(form);
+    this.refs.form.reset();
+    this.setState({ institutionId: null });
   }
 
   onSuccess(id, value) {

@@ -16,6 +16,7 @@ function* addLender(form) {
 
   yield put({ type: actions.ADD_LENDER.SUCCESS });
   yield apiGet("lenders", {}, LENDERS_URL);
+  yield apiGet("user_lenders", {}, USER_LENDERS_URL);
 }
 
 export function* watchAddLender() {
