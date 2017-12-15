@@ -206,9 +206,9 @@ class AddLender extends Component {
                                 this,
                                 bank.pk
                               )}
-                              className="btn btn-success btn-sm waves-effect"
+                              className="btn btn-warning btn-sm waves-effect"
                               type="submit"
-                              text="Save"
+                              text="Edit"
                             />
                             <Button2
                               onClick={this.deleteUserLender.bind(
