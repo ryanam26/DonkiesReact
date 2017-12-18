@@ -36,15 +36,16 @@ class AddLender extends Component {
     this.props.apiGetRequest("user_lenders");
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.trigger !== nextProps.trigger) {
-  //     this.refs.form.reset();
-  //     this.setState({ showSuccess: true });
-  //     setTimeout(() => {
-  //       this.props.navigate("/accounts");
-  //     }, 3000);
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    let { user_lenders = [] } = this.props;
+
+    if (
+      user_lenders.length &&
+      user_lenders.length !== nextProps.user_lenders.length
+    ) {
+      this.props.navigate("/");
+    }
+  }
 
   onSubmit(e) {
     e.preventDefault();
@@ -230,6 +231,7 @@ class AddLender extends Component {
                                   this,
                                   bank.pk
                                 )}
+                                wrapperClass=""
                                 className="btn btn-warning btn-sm waves-effect"
                                 type="submit"
                                 text="Edit"
@@ -240,6 +242,7 @@ class AddLender extends Component {
                                   this,
                                   bank.pk
                                 )}
+                                wrapperClass=""
                                 className="btn btn-success btn-sm waves-effect"
                                 type="submit"
                                 text="Save"
@@ -250,6 +253,7 @@ class AddLender extends Component {
                                 this,
                                 bank.pk
                               )}
+                              wrapperClass=""
                               className="btn btn-danger btn-sm waves-effect"
                               type="submit"
                               text="Delete"

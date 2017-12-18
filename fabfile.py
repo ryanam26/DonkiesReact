@@ -20,11 +20,11 @@ def pull():
 
     with cd(PROJECT_PATH):
         if confirm('Stash?', default=False):
-            run('git stash --all')
+            run('git stash')
             run('git pull --rebase')
             run('git stash pop')
         else:
-            run('git pull --no-commit')
+            run('git pull')
 
         print(green('Getting files from github completed'))
 
@@ -43,8 +43,12 @@ def build():
 @with_settings(warn_only=True)
 def push():
     local('./node_modules/.bin/git-commander')
-    local('git commit')
-    local('git push')
+    if confirm('Forced?', default=False):
+        local('git commit --amend')
+        local('git push -u -f')
+    else:
+        local('git commit')
+        local('git push')
 
 
 @with_settings(warn_only=True)
