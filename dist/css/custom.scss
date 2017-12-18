@@ -1,3 +1,5 @@
+$tablet: 768px;
+
 .custom-error {
   color: #f6675d;
 }
@@ -119,8 +121,15 @@
   padding: 0;
 }
 
+#header .hi-trigger {
+  float: left;
+}
+
 .faq-block {
   padding: 10px 80px;
+  @media (max-width: $tablet) {
+    padding: 10px 30px;
+  }
 }
 
 .dashboard-color-block {
@@ -159,6 +168,10 @@
 
 .lender-user-section {
   margin: 0 100px;
+
+  @media (max-width: $tablet) {
+    margin: 0;
+  }
 
   &-bank {
     &:not(:last-child) {
