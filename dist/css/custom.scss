@@ -94,13 +94,10 @@ $tablet: 768px;
   justify-content: center;
   overflow: hidden;
 
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
   @media (max-width: $tablet) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
     left: 15px;
     right: 15px;
   }
@@ -113,7 +110,9 @@ $tablet: 768px;
       text-align: center;
     }
     &-content {
-      padding: 10px 200px;
+      @media (min-width: $tablet) {
+        padding: 10px 200px;
+      }
       font-size: 25px;
       text-align: center;
     }
@@ -131,6 +130,9 @@ $tablet: 768px;
 
 .faq-block {
   padding: 10px 80px;
+  p {
+    text-align: justify;
+  }
   @media (max-width: $tablet) {
     padding: 10px 30px;
   }
@@ -186,5 +188,11 @@ $tablet: 768px;
         flex: 1;
       }
     }
+  }
+}
+
+.lc-block:not(.lc-block-alt) .lcb-form {
+  @media (max-width: $tablet) {
+    padding: 35px 25px 35px 25px;
   }
 }
