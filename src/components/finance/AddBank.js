@@ -26,7 +26,7 @@ class AddBank extends Component {
     if (this.props.triggerItemCreated !== nextProps.triggerItemCreated) {
       this.setState({ showSuccess: true });
       setTimeout(() => {
-        this.props.navigate("/");
+        this.props.navigate("/add_lender");
       }, 5000);
     }
   }
