@@ -234,7 +234,7 @@ class ConfigureAccounts extends Component {
                 <h2>{"Configure accounts"}</h2>
 
                 <div className="row">
-                    <div className="col-xs-6">
+                    <div className="col-md-6">
                         <SelectSimple
                             name="account"
                             onChange={this.onSelectItem}
@@ -243,7 +243,7 @@ class ConfigureAccounts extends Component {
                     </div>
 
                     {activeItemId && (
-                        <div className="col-xs-6">
+                        <div className="col-md-6">
                             {deleteItemInProgress ? (
                                 <LoadingInline />
                             ) : (
