@@ -40,8 +40,9 @@ class AddLender extends Component {
     let { user_lenders = [] } = this.props;
 
     if (
-      user_lenders.length &&
-      user_lenders.length !== nextProps.user_lenders.length
+      user_lenders !== undefined &&
+      nextProps.user_lenders !== undefined &&
+      user_lenders.length < nextProps.user_lenders.length
     ) {
       this.props.navigate("/");
     }

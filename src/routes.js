@@ -38,6 +38,7 @@ import { requireActiveAccount } from "components/ActiveAccount";
 import { requirePrimaryAccount } from "components/PrimaryAccount";
 import { requireSignupCompleted } from "components/SignupCompleted";
 import { requireSignupStepsCompleted } from "components/SignupStepsCompleted";
+import { checkLenders } from "components/CheckLenders";
 
 export default (
   <div>
@@ -65,21 +66,27 @@ export default (
       )}
       path="/"
     >
-      <IndexRoute component={HomePage} />
-      <Route component={AccountsPage} path="/accounts" />
-      <Route component={FAQPage} path="/faq" />
-      <Route component={AddBankPage} path="/add_bank" />
+      <IndexRoute component={checkLenders(HomePage)} />
+      <Route component={checkLenders(AccountsPage)} path="/accounts" />
+      <Route component={checkLenders(FAQPage)} path="/faq" />
+      <Route component={checkLenders(AddBankPage)} path="/add_bank" />
       <Route component={AddLenderPage} path="/add_lender" />
-      <Route component={ConfigureAccountsPage} path="/configure_accounts" />
       <Route
-        component={CreateFundingSourcePage}
+        component={checkLenders(ConfigureAccountsPage)}
+        path="/configure_accounts"
+      />
+      <Route
+        component={checkLenders(CreateFundingSourcePage)}
         path="/create_funding_source"
       />
-      <Route component={LoanCalculatorPage} path="/loan_calculator" />
-      <Route component={SettingsPage} path="/settings" />
-      <Route component={TestPage} path="/test_page" />
-      <Route component={TransactionsPage} path="/transactions" />
-      <Route component={UserProfilePage} path="/user_profile" />
+      <Route
+        component={checkLenders(LoanCalculatorPage)}
+        path="/loan_calculator"
+      />
+      <Route component={checkLenders(SettingsPage)} path="/settings" />
+      <Route component={checkLenders(TestPage)} path="/test_page" />
+      <Route component={checkLenders(TransactionsPage)} path="/transactions" />
+      <Route component={checkLenders(UserProfilePage)} path="/user_profile" />
     </Route>
 
     <Route component={NotFoundPage} path="*" />
