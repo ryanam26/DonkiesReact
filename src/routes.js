@@ -23,6 +23,7 @@ import {
   TransfersPage,
   UserNotConfirmedPage,
   FAQPage,
+  TermsPage,
   RegistrationStep1,
   RegistrationStep2,
   RegistrationStep3,
@@ -50,6 +51,7 @@ export default (
     <Route component={requireAuth(RegistrationStep3)} path="/registration/3" />
     <Route component={requireAuth(RegistrationStep4)} path="/registration/4" />
     <Route component={RegistrationConfirmPage} path="/confirm" />
+    <Route component={TermsPage} path="/terms" />
     <Route component={ResetPasswordRequestPage} path="/forgot_password" />
     <Route component={ResetPasswordPage} path="/reset" />
 

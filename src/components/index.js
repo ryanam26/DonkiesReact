@@ -137,6 +137,9 @@ export { TableSimple };
 import { default as FAQ } from "./layout/content/FAQ";
 export { FAQ };
 
+import { default as Terms } from "./layout/content/Terms";
+export { Terms };
+
 // transfers
 
 import { default as TransfersDonkies } from "./transfers/TransfersDonkies";

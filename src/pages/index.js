@@ -49,6 +49,9 @@ export { DownLoadAppPage };
 import { default as FAQPage } from "./layout/FAQPage";
 export { FAQPage };
 
+import { default as TermsPage } from "./layout/TermsPage";
+export { TermsPage };
+
 // user
 
 import { default as LoginPage } from "./user/LoginPage";
