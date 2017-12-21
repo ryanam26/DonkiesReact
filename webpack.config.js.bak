@@ -1,29 +1,29 @@
-const path = require("path");
-const webpack = require("webpack");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+var path = require("path");
+var webpack = require("webpack");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-  devtool: "source-map",
+  devtool: "cheap-module-source-map",
 
   entry: [
     "react-hot-loader/patch",
-    "webpack-dev-server/client?http://0.0.0.0:8080",
+    "webpack-dev-server/client?http://localhost:8080",
     "webpack/hot/only-dev-server",
     "./src/index.js"
   ],
 
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: "dist",
     filename: "index_bundle.js",
     publicPath: "/"
   },
 
   module: {
-    rules: [
+    loaders: [
       {
         test: /\.js$/,
-        loaders: ["babel-loader"],
-        include: path.resolve(__dirname, "src")
+        loaders: ["babel"],
+        include: __dirname + "/src"
       },
       {
         test: /\.scss$/,
@@ -44,22 +44,21 @@ module.exports = {
   },
 
   resolve: {
-    modules: [
-      path.resolve(__dirname, "src"),
-      path.resolve(__dirname, "node_modules")
-    ],
-    extensions: [".js", ".css", ".scss"]
+    root: [path.resolve("./src"), path.resolve("./node_modules")],
+    extensions: ["", ".js", ".css", "scss"]
   },
 
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin("css/style_bundle.css", {
       allChunks: true
     })
   ],
 
   devServer: {
-    contentBase: path.resolve(__dirname, "dist"),
+    contentBase: __dirname + "/dist",
     historyApiFallback: true
     // hot: true
   }
