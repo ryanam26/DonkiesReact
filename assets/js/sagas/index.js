@@ -1,15 +1,19 @@
-import { take, fork } from "redux-saga/effects";
-import history from "~Scripts/history";
+import { fork } from "redux-saga/effects";
 
-import { NAVIGATE } from "~Scripts/constants/actions";
+import accounts from "./accounts";
+import common from "./common";
+import items from "./items";
+import lenders from "./lenders";
+import user from "./user";
 
-function* watchNavigate() {
-  while (true) {
-    const { pathname } = yield take(NAVIGATE.PUSH);
-    yield history.push(pathname);
-  }
-}
+let forkedFunctions = [
+  ...common,
+  ...accounts,
+  ...items,
+  ...lenders,
+  ...user
+].map(item => fork(item));
 
 export default function* root() {
-  yield [fork(watchNavigate)];
+  yield forkedFunctions;
 }

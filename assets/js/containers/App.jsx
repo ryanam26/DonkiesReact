@@ -13,25 +13,47 @@ import SettingsPage from "~Scripts/pages/Settings";
 import TransactionsPage from "~Scripts/pages/Transactions";
 import UserProfilePage from "~Scripts/pages/UserProfile";
 
-export default class App extends React.PureComponent {
+import { connect } from "react-redux";
+import { navigate } from "~Scripts/actions";
+
+class App extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillMount() {
+    let token = window.localStorage.getItem("token");
+    if (token === null) {
+      this.props.navigate("/login");
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
-        <Route component={HomePage} path={`/`} exact />
-        <Route component={AccountsPage} path={`/accounts`} />
-        <Route component={FAQPage} path={`/faq`} />
-        <Route component={AddBankPage} path={`/add_bank`} />
-        <Route component={AddLenderPage} path={`/add_lender`} />
-        <Route component={ConfigureAccountsPage} path={`/configure_accounts`} />
+        <Route component={HomePage} path="/" exact />
+        <Route component={AccountsPage} path="/accounts" />
+        <Route component={FAQPage} path="/faq" />
+        <Route component={AddBankPage} path="/add_bank" />
+        <Route component={AddLenderPage} path="/add_lender" />
+        <Route component={ConfigureAccountsPage} path="/configure_accounts" />
         <Route
           component={CreateFundingSourcePage}
-          path={`/create_funding_souce`}
+          path="/create_funding_souce"
         />
-        <Route component={LoanCalculatorPage} path={`/loan_calculator`} />
-        <Route component={SettingsPage} path={`/settings`} />
-        <Route component={TransactionsPage} path={`/transactions`} />
-        <Route component={UserProfilePage} path={`/user_profile`} />
+        <Route component={LoanCalculatorPage} path="/loan_calculator" />
+        <Route component={SettingsPage} path="/settings" />
+        <Route component={TransactionsPage} path="/transactions" />
+        <Route component={UserProfilePage} path="/user_profile" />
       </React.Fragment>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps, {
+  navigate
+})(App);
