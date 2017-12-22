@@ -24,8 +24,8 @@ export default () => (
       <Route component={LoginPage} path="/login" />
       <Route component={LoginFacebookPage} path="/login_facebook" />
       <Route component={RegistrationParentPage} path="/registration_parent" />
-      <Route component={RegistrationStep1} path="/registration" />
-      <Route component={RegistrationStep2} path="/registration/2" />
+      <Route component={RegistrationStep1} exact path="/registration" />
+      <Route component={RegistrationStep2} exact path="/registration/2" />
       <Route component={RegistrationConfirmPage} path="/confirm" />
       <Route component={TermsPage} path="/terms" />
       <Route component={ResetPasswordRequestPage} path="/forgot_password" />

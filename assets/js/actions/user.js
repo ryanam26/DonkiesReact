@@ -1,5 +1,5 @@
 import { action } from "./index";
-import { USER } from "~Scripts/constants/actions";
+import { USER, TOKEN } from "~Scripts/constants/actions";
 
 export const login = (email, password) =>
   action(USER.LOGIN.SUBMIT, { email, password });
@@ -11,3 +11,5 @@ export const registrationStep2 = form =>
   action(USER.REGISTRATION_STEP2.SUBMIT, { form });
 export const registrationParent = form =>
   action(USER.REGISTRATION_PARENT, { form });
+export const setToken = token => action(TOKEN.SET, { token });
+export const deleteToken = () => action(TOKEN.DELETE);

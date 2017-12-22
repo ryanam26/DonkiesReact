@@ -6,11 +6,13 @@ import { SETTINGS_LOGIN_URL } from "~Scripts/constants/urls";
 import { apiGetRequest, navigate, setFormErrors } from "~Scripts/actions";
 import { login } from "~Scripts/actions/user";
 import Input from "~Scripts/components/Input";
+import autoBind from "react-autobind";
 import ErrorBlock from "~Scripts/components/ErrorBlock";
 
-class Login extends React.PureComponent {
+class Login extends React.Component {
   constructor(props) {
     super(props);
+    autoBind(this);
   }
 
   componentWillMount() {
@@ -26,7 +28,7 @@ class Login extends React.PureComponent {
   }
 
   componentWillReceiveProps(props) {
-    if (props.auth.isAuthenticated) {
+    if (props.user.isAuthenticated) {
       props.navigate("/");
     }
   }
@@ -58,7 +60,6 @@ class Login extends React.PureComponent {
 
   render() {
     const { errors, settings } = this.props;
-    console.log(errors);
 
     return (
       <div className="login-content">
@@ -119,7 +120,8 @@ class Login extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  errors: state.formErrors.login
 });
 
 export default connect(mapStateToProps, {

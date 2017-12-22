@@ -13,8 +13,11 @@ import SettingsPage from "~Scripts/pages/Settings";
 import TransactionsPage from "~Scripts/pages/Transactions";
 import UserProfilePage from "~Scripts/pages/UserProfile";
 
+import Loader from "~Scripts/components/Loader";
+
 import { connect } from "react-redux";
-import { navigate } from "~Scripts/actions";
+import { navigate, apiGetRequest } from "~Scripts/actions";
+import { setToken } from "~Scripts/actions/user";
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -23,12 +26,29 @@ class App extends React.PureComponent {
 
   componentWillMount() {
     let token = window.localStorage.getItem("token");
-    if (token === null) {
+    if (!token) {
       this.props.navigate("/login");
+      return;
+    }
+    this.props.setToken(token);
+    this.props.apiGetRequest("user");
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let { user_details = {} } = nextProps;
+
+    if (Object.keys(user_details).length && user_details.registration_step) {
+      this.props.navigate(`/registration/${user_details.registration_step}`);
     }
   }
 
   render() {
+    let { user_details = {} } = this.props;
+
+    if (!Object.keys(user_details).length) {
+      return <Loader />;
+    }
+
     return (
       <React.Fragment>
         <Route component={HomePage} path="/" exact />
@@ -51,9 +71,11 @@ class App extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user_details: state.user.details
 });
 
 export default connect(mapStateToProps, {
-  navigate
+  navigate,
+  setToken,
+  apiGetRequest
 })(App);

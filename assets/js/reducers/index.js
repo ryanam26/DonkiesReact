@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
-import UserReducers from "~Scripts/reducers/user";
+import UserReducers from "./user";
+import formErrors from "./forms";
 
-export default combineReducers({ user: UserReducers });
+export default combineReducers({ user: UserReducers, formErrors });

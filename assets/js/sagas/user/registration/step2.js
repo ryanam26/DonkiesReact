@@ -17,7 +17,7 @@ function* registrationStep2(form) {
       payload: result.data
     });
   } else {
-    yield put({ type: USER.REGISTRATION_STEP2.SUCCESS });
+    yield put({ type: USER.REGISTRATION_STEP2.SUCCESS, payload: result });
   }
 }
 
