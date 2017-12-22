@@ -45,7 +45,7 @@ class HomeStat extends Component {
 
     return (
       <div className="row">
-        {showModal ? (
+        {/*showModal ? (
           <Modal
             onClickClose={this.hideModal}
             showCloseButton={true}
@@ -66,21 +66,22 @@ class HomeStat extends Component {
             Please allow 2 - 3 business days for funds to be reflected in your
             account
           </Modal>
-        ) : null}
+        ) : null*/}
 
         <DashboardColorBlock
           value={`$${stat.roundup_since_signup.toFixed(2)}`}
           className="bgm-lightgreen"
-          title="Total Saved"
+          title="Amount Collected"
           content="This is the total amount that has been rounded up since registering with the app."
           footer={
-            <button
+            null
+            /*<button
               className="btn btn-default waves-effect"
               style={{ width: 150, margin: "0 auto" }}
               onClick={this.showModal}
             >
               Refund
-            </button>
+            </button>*/
           }
         />
 
