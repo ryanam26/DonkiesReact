@@ -17,6 +17,7 @@ import ResetPasswordPage from "~Scripts/pages/PasswordReset/Confirm";
 import UserNotConfirmedPage from "~Scripts/pages/NotConfirmed";
 import DownLoadAppPage from "~Scripts/pages/DownloadApp";
 import NotFoundPage from "~Scripts/pages/NotFound";
+import AddBankPage from "~Scripts/pages/Bank/Add";
 
 export default () => (
   <Router history={history}>
@@ -33,6 +34,7 @@ export default () => (
       <Route component={UserNotConfirmedPage} path="/not_confirmed" />
       <Route component={DownLoadAppPage} path="/download_app" />
       <Route component={NotFoundPage} path="/404" />
+      <Route component={AddBankPage} path="/add_bank" />
       <Route component={App} path="/" />
     </Switch>
   </Router>

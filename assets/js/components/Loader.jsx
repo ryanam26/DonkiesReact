@@ -6,16 +6,28 @@ export default class Loading extends Component {
   }
 
   render() {
-    return (
-      <div className="page-loader">
+    let { inline } = this.props;
+
+    if (inline !== null) {
+      return (
         <div className="preloader pls-blue">
           <svg className="pl-circular" viewBox="25 25 50 50">
             <circle className="plc-path" cx="50" cy="50" r="20" />
           </svg>
-
-          <p>{"Please wait..."}</p>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="page-loader">
+          <div className="preloader pls-blue">
+            <svg className="pl-circular" viewBox="25 25 50 50">
+              <circle className="plc-path" cx="50" cy="50" r="20" />
+            </svg>
+
+            <p>{"Please wait..."}</p>
+          </div>
+        </div>
+      );
+    }
   }
 }

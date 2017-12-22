@@ -4,7 +4,6 @@ import { Route, Redirect } from "react-router-dom";
 import HomePage from "~Scripts/pages/Dashboard";
 import AccountsPage from "~Scripts/pages/Accounts";
 import FAQPage from "~Scripts/pages/FAQ";
-import AddBankPage from "~Scripts/pages/Bank/Add";
 import AddLenderPage from "~Scripts/pages/Lender/Add";
 import ConfigureAccountsPage from "~Scripts/pages/Accounts/Configure";
 import CreateFundingSourcePage from "~Scripts/pages/FundingSource/Add";
@@ -19,6 +18,10 @@ import { connect } from "react-redux";
 import { navigate, apiGetRequest } from "~Scripts/actions";
 import { setToken } from "~Scripts/actions/user";
 
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
+import Sidebar from "./layout/Sidebar";
+
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -32,13 +35,20 @@ class App extends React.PureComponent {
     }
     this.props.setToken(token);
     this.props.apiGetRequest("user");
+    this.props.apiGetRequest("accounts");
   }
 
   componentWillReceiveProps(nextProps) {
-    let { user_details = {} } = nextProps;
+    let { user_details = {}, accounts } = nextProps;
 
-    if (Object.keys(user_details).length && user_details.registration_step) {
-      this.props.navigate(`/registration/${user_details.registration_step}`);
+    if (Object.keys(user_details).length) {
+      if (user_details.registration_step) {
+        this.props.navigate(`/registration/${user_details.registration_step}`);
+      }
+
+      if (accounts !== null && !accounts.length) {
+        this.props.navigate("/add_bank");
+      }
     }
   }
 
@@ -51,27 +61,40 @@ class App extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <Route component={HomePage} path="/" exact />
-        <Route component={AccountsPage} path="/accounts" />
-        <Route component={FAQPage} path="/faq" />
-        <Route component={AddBankPage} path="/add_bank" />
-        <Route component={AddLenderPage} path="/add_lender" />
-        <Route component={ConfigureAccountsPage} path="/configure_accounts" />
-        <Route
-          component={CreateFundingSourcePage}
-          path="/create_funding_souce"
-        />
-        <Route component={LoanCalculatorPage} path="/loan_calculator" />
-        <Route component={SettingsPage} path="/settings" />
-        <Route component={TransactionsPage} path="/transactions" />
-        <Route component={UserProfilePage} path="/user_profile" />
+        <Header />
+        <section id="main">
+          <Sidebar />
+
+          <section id="content">
+            <div className="container">
+              <Route component={HomePage} path="/" exact />
+              <Route component={AccountsPage} path="/accounts" />
+              <Route component={FAQPage} path="/faq" />
+              <Route component={AddLenderPage} path="/add_lender" />
+              <Route
+                component={ConfigureAccountsPage}
+                path="/configure_accounts"
+              />
+              <Route
+                component={CreateFundingSourcePage}
+                path="/create_funding_souce"
+              />
+              <Route component={LoanCalculatorPage} path="/loan_calculator" />
+              <Route component={SettingsPage} path="/settings" />
+              <Route component={TransactionsPage} path="/transactions" />
+              <Route component={UserProfilePage} path="/user_profile" />
+            </div>
+          </section>
+        </section>
+        <Footer />
       </React.Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  user_details: state.user.details
+  user_details: state.user.details,
+  accounts: state.accounts.accounts
 });
 
 export default connect(mapStateToProps, {

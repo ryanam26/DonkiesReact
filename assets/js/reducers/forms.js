@@ -12,7 +12,7 @@
     non_field_errors: [errors]
 */
 
-import { USER, FORM_ERRORS } from "~Scripts/constants/actions";
+import { USER, FORM_ERRORS, ITEM } from "~Scripts/constants/actions";
 
 const iState = {
   login: null
@@ -29,6 +29,12 @@ export default function formErrors(state = iState, action) {
           [action.formType]: action.errors
         };
       }
+
+    case ITEM.ERROR:
+      return {
+        ...state,
+        item: action.payload.message
+      };
 
     case USER.LOGIN.ERROR:
       return {
