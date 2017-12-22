@@ -1,4 +1,4 @@
-import { ITEM } from "~Scripts/constants/actions";
+import { ITEMS } from "~Scripts/constants/actions";
 
 const iState = {
   items: []
@@ -6,7 +6,7 @@ const iState = {
 
 export default function items(state = iState, action) {
   switch (action.type) {
-    case ITEM.SUCCESS:
+    case ITEMS.SUCCESS:
       return {
         ...state,
         items: action.payload

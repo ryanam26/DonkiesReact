@@ -1,7 +1,8 @@
 import { USER, TOKEN } from "~Scripts/constants/actions";
 
 const iState = {
-  isAuthenticated: false
+  isAuthenticated: false,
+  inProgress: false
 };
 
 export default function user(state = iState, action = {}) {
@@ -36,6 +37,18 @@ export default function user(state = iState, action = {}) {
       return {
         ...state,
         details: action.payload
+      };
+    case USER.CHANGE_PASSWORD.REQUEST:
+    case USER.EDIT_PROFILE.REQUEST:
+      return {
+        ...state,
+        inProgress: true
+      };
+    case USER.CHANGE_PASSWORD.SUCCESS:
+    case USER.EDIT_PROFILE.SUCCESS:
+      return {
+        ...state,
+        inProgress: false
       };
     case USER.LOGOUT:
     case TOKEN.DELETE:

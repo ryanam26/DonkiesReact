@@ -13,3 +13,6 @@ export const registrationParent = form =>
   action(USER.REGISTRATION_PARENT, { form });
 export const setToken = token => action(TOKEN.SET, { token });
 export const deleteToken = () => action(TOKEN.DELETE);
+export const changePassword = form =>
+  action(USER.CHANGE_PASSWORD.SUBMIT, { form });
+export const editProfile = form => action(USER.EDIT_PROFILE.SUBMIT, { form });

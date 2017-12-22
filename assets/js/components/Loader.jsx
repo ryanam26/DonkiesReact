@@ -8,7 +8,7 @@ export default class Loading extends Component {
   render() {
     let { inline } = this.props;
 
-    if (inline !== null) {
+    if (inline !== undefined) {
       return (
         <div className="preloader pls-blue">
           <svg className="pl-circular" viewBox="25 25 50 50">

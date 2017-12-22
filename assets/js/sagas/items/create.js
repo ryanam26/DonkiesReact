@@ -1,5 +1,5 @@
 import { take, put, call, fork } from "redux-saga/effects";
-import { ITEM, ACCOUNTS } from "~Scripts/constants/actions";
+import { ITEMS, ACCOUNTS } from "~Scripts/constants/actions";
 import { ITEMS_URL, ACCOUNTS_URL, USER_URL } from "~Scripts/constants/urls";
 import { apiCall } from "~Scripts/utils/api";
 import { apiGet } from "~Scripts/sagas/common/api";
@@ -12,11 +12,11 @@ function* createItem(publicToken, account_id) {
   const result = yield call(apiCall, ITEMS_URL, "POST", form, true);
 
   if (result.isError) {
-    yield put({ type: ITEM.ERROR, payload: result.data });
+    yield put({ type: ITEMS.ERROR, payload: result.data });
     return;
   }
 
-  yield put({ type: ITEM.SUCCESS, payload: result.data });
+  yield put({ type: ITEMS.SUCCESS, payload: result.data });
 
   // Update items, accounts and user in Redux state.
   // User need to be updated for signup_steps
@@ -30,7 +30,7 @@ function* createItem(publicToken, account_id) {
 
 function* watchCreateItem() {
   while (true) {
-    const { publicToken, account_id } = yield take(ITEM.CREATE);
+    const { publicToken, account_id } = yield take(ITEMS.CREATE);
     yield fork(createItem, publicToken, account_id);
   }
 }

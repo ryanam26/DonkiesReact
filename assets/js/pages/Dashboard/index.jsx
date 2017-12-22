@@ -2,9 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import { navigate } from "~Scripts/actions";
 
+import Staticstic from "./Statistic";
+import Transactions from "./Transactions";
+
 class Dashboard extends React.PureComponent {
   render() {
-    return <h1>Dashboard</h1>;
+    return (
+      <React.Fragment>
+        <Staticstic />
+        <Transactions />
+      </React.Fragment>
+    );
   }
 }
 

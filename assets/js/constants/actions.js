@@ -2,6 +2,8 @@ import createRequestType from "~Scripts/utils/createRequestType";
 
 export const USER = createRequestType("USER", [
   { LOGIN: ["ERROR", "SUCCESS", "SUBMIT"] },
+  { CHANGE_PASSWORD: ["ERROR", "SUCCESS", "SUBMIT", "REQUEST"] },
+  { EDIT_PROFILE: ["ERROR", "SUCCESS", "SUBMIT", "REQUEST"] },
   { REGISTRATION_STEP1: ["ERROR", "SUCCESS", "SUBMIT"] },
   { REGISTRATION_STEP2: ["ERROR", "SUCCESS", "SUBMIT"] },
   "LOGOUT",
@@ -32,7 +34,13 @@ export const SETTINGS = createRequestType("SETTINGS", [
   "ERROR",
   "SUCCESS"
 ]);
-export const ITEM = createRequestType("ITEM", [
+export const TRANSACTIONS = createRequestType("TRANSACTIONS", [
+  "REQUEST",
+  "ERROR",
+  "SUCCESS"
+]);
+export const STAT = createRequestType("STAT", ["REQUEST", "ERROR", "SUCCESS"]);
+export const ITEMS = createRequestType("ITEMS", [
   "CREATE",
   "REQUEST",
   "ERROR",

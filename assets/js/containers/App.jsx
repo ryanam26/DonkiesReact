@@ -1,7 +1,8 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import HomePage from "~Scripts/pages/Dashboard";
+import HomePage from "~Scripts/pages/Dashboard/index";
+import UserProfilePage from "~Scripts/pages/UserProfile/index";
 import AccountsPage from "~Scripts/pages/Accounts";
 import FAQPage from "~Scripts/pages/FAQ";
 import AddLenderPage from "~Scripts/pages/Lender/Add";
@@ -10,7 +11,6 @@ import CreateFundingSourcePage from "~Scripts/pages/FundingSource/Add";
 import LoanCalculatorPage from "~Scripts/pages/Calculator";
 import SettingsPage from "~Scripts/pages/Settings";
 import TransactionsPage from "~Scripts/pages/Transactions";
-import UserProfilePage from "~Scripts/pages/UserProfile";
 
 import Loader from "~Scripts/components/Loader";
 
@@ -29,13 +29,19 @@ class App extends React.PureComponent {
 
   componentWillMount() {
     let token = window.localStorage.getItem("token");
+
     if (!token) {
       this.props.navigate("/login");
       return;
     }
+
     this.props.setToken(token);
     this.props.apiGetRequest("user");
+    this.props.apiGetRequest("settings");
+    this.props.apiGetRequest("transactions");
     this.props.apiGetRequest("accounts");
+    this.props.apiGetRequest("items");
+    this.props.apiGetRequest("stat");
   }
 
   componentWillReceiveProps(nextProps) {
