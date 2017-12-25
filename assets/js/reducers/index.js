@@ -7,6 +7,8 @@ import settings from "./settings";
 import items from "./items";
 import stat from "./stat";
 import transactions from "./transactions";
+import lenders from "./lenders";
+import institutions from "./institutions";
 
 export default combineReducers({
   user,
@@ -15,5 +17,7 @@ export default combineReducers({
   settings,
   items,
   stat,
-  transactions
+  transactions,
+  lenders,
+  institutions
 });

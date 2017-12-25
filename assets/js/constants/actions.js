@@ -2,7 +2,7 @@ import createRequestType from "~Scripts/utils/createRequestType";
 
 export const USER = createRequestType("USER", [
   { LOGIN: ["ERROR", "SUCCESS", "SUBMIT"] },
-  { CHANGE_PASSWORD: ["ERROR", "SUCCESS", "SUBMIT", "REQUEST"] },
+  { CHANGE_PASSWORD: ["ERROR", "SUCCESS", "SUBMIT", "REQUEST", "CONFIRM"] },
   { EDIT_PROFILE: ["ERROR", "SUCCESS", "SUBMIT", "REQUEST"] },
   { REGISTRATION_STEP1: ["ERROR", "SUCCESS", "SUBMIT"] },
   { REGISTRATION_STEP2: ["ERROR", "SUCCESS", "SUBMIT"] },
@@ -39,10 +39,39 @@ export const TRANSACTIONS = createRequestType("TRANSACTIONS", [
   "ERROR",
   "SUCCESS"
 ]);
-export const STAT = createRequestType("STAT", ["REQUEST", "ERROR", "SUCCESS"]);
-export const ITEMS = createRequestType("ITEMS", [
-  "CREATE",
+export const DEBT_INSTITUTIONS = createRequestType("DEBT_INSTITUTIONS", [
   "REQUEST",
   "ERROR",
   "SUCCESS"
+]);
+export const USER_LENDERS = createRequestType("USER_LENDERS", [
+  "REQUEST",
+  "ERROR",
+  "SUCCESS"
+]);
+export const STAT = createRequestType("STAT", ["REQUEST", "ERROR", "SUCCESS"]);
+export const ITEMS = createRequestType("ITEMS", [
+  "CREATE",
+  { DELETE: ["SUBMIT", "ERROR", "SUCCESS"] },
+  "REQUEST",
+  "ERROR",
+  "SUCCESS"
+]);
+export const LENDERS = createRequestType("LENDERS", [
+  "REQUEST",
+  "ERROR",
+  "SUCCESS",
+  { CREATE: ["SUBMIT", "SUCCESS", "ERROR"] },
+  { DELETE: ["SUBMIT", "SUCCESS", "ERROR"] },
+  {
+    USER: [
+      "SUBMIT",
+      "SUCCESS",
+      "ERROR",
+      "REQUEST",
+      "CREATE",
+      "DELETE",
+      "CHANGE"
+    ]
+  }
 ]);

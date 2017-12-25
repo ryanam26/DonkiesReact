@@ -5,10 +5,10 @@ import HomePage from "~Scripts/pages/Dashboard/index";
 import UserProfilePage from "~Scripts/pages/UserProfile/index";
 import AccountsPage from "~Scripts/pages/Accounts";
 import FAQPage from "~Scripts/pages/FAQ";
-import AddLenderPage from "~Scripts/pages/Lender/Add";
+import Lenders from "~Scripts/pages/Lenders";
 import ConfigureAccountsPage from "~Scripts/pages/Accounts/Configure";
 import CreateFundingSourcePage from "~Scripts/pages/FundingSource/Add";
-import LoanCalculatorPage from "~Scripts/pages/Calculator";
+import LoanCalculatorPage from "~Scripts/pages/Calculator/index";
 import SettingsPage from "~Scripts/pages/Settings";
 import TransactionsPage from "~Scripts/pages/Transactions";
 
@@ -42,19 +42,29 @@ class App extends React.PureComponent {
     this.props.apiGetRequest("accounts");
     this.props.apiGetRequest("items");
     this.props.apiGetRequest("stat");
+    this.props.apiGetRequest("debt_institutions");
+    this.props.apiGetRequest("user_lenders");
   }
 
   componentWillReceiveProps(nextProps) {
-    let { user_details = {}, accounts } = nextProps;
+    let { user_details = {}, accounts, user_lenders } = nextProps;
 
     if (Object.keys(user_details).length) {
       if (user_details.registration_step) {
         this.props.navigate(`/registration/${user_details.registration_step}`);
       }
+    }
 
-      if (accounts !== null && !accounts.length) {
-        this.props.navigate("/add_bank");
-      }
+    if (accounts !== null && !accounts.length) {
+      this.props.navigate("/add_bank");
+    }
+
+    if (
+      user_lenders !== null &&
+      !user_lenders.length &&
+      nextProps.location.pathname !== "/add_lender"
+    ) {
+      this.props.navigate("/add_lender");
     }
   }
 
@@ -76,7 +86,7 @@ class App extends React.PureComponent {
               <Route component={HomePage} path="/" exact />
               <Route component={AccountsPage} path="/accounts" />
               <Route component={FAQPage} path="/faq" />
-              <Route component={AddLenderPage} path="/add_lender" />
+              <Route component={Lenders} path="/add_lender" />
               <Route
                 component={ConfigureAccountsPage}
                 path="/configure_accounts"
@@ -100,6 +110,7 @@ class App extends React.PureComponent {
 
 const mapStateToProps = state => ({
   user_details: state.user.details,
+  user_lenders: state.lenders.user_lenders,
   accounts: state.accounts.accounts
 });
 

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import autoBind from "react-autobind";
-import swal from "sweetalert";
 
 import formToObject from "~Scripts/utils/formToObject";
 import usStatesSelectOptions from "~Scripts/utils/usStates";

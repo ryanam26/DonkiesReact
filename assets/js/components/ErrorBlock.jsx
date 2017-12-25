@@ -8,7 +8,7 @@ class ErrorBlock extends Component {
   render() {
     const errors = this.props.errors;
 
-    if (errors === null) return null;
+    if (errors === null || errors === undefined) return null;
 
     if (errors.hasOwnProperty("non_field_errors")) {
       return (

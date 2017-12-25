@@ -11,6 +11,17 @@ export default function items(state = iState, action) {
         ...state,
         items: action.payload
       };
+    case ITEMS.DELETE.SUBMIT:
+      return {
+        ...state,
+        deleteItemInProgress: true
+      };
+    case ITEMS.DELETE.ERROR:
+    case ITEMS.DELETE.SUCCESS:
+      return {
+        ...state,
+        deleteItemInProgress: false
+      };
 
     default:
       return state;

@@ -20,7 +20,7 @@ function* createItem(publicToken, account_id) {
 
   // Update items, accounts and user in Redux state.
   // User need to be updated for signup_steps
-  yield apiGet("item", {}, ITEMS_URL);
+  yield apiGet("items", {}, ITEMS_URL);
   yield apiGet("accounts", {}, ACCOUNTS_URL);
   yield apiGet("user", {}, USER_URL);
 

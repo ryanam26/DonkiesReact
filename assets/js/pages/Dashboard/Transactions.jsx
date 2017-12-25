@@ -58,7 +58,7 @@ class HomeTransactions extends Component {
       col = { value: tr.name };
       row.cols.push(col);
 
-      col = { value: `$${tr.amount}`, className: "f-500 c-cyan" };
+      col = { value: `$${Math.abs(tr.amount)}`, className: "f-500 c-cyan" };
       row.cols.push(col);
 
       col = { value: `$${tr.roundup}`, className: "f-500 c-cyan" };

@@ -1,3 +1,4 @@
-import create from "./create";
+import deleteAccount from "./delete";
+import createAccount from "./create";
 
-export default [create];
+export default [createAccount, deleteAccount];

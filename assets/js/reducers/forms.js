@@ -36,6 +36,18 @@ export default function formErrors(state = iState, action) {
         item: action.payload.message
       };
 
+    case ITEMS.DELETE.ERROR:
+      return {
+        ...state,
+        configureAccounts: action.payload
+      };
+
+    case ITEMS.DELETE.SUCCESS:
+      return {
+        ...state,
+        configureAccounts: null
+      };
+
     case USER.LOGIN.ERROR:
       return {
         ...iState,
@@ -69,7 +81,7 @@ export default function formErrors(state = iState, action) {
     case USER.CHANGE_PASSWORD.ERROR:
       return {
         ...iState,
-        changePassword: action.payload
+        resetPasswordRequest: action.payload
       };
 
     default:

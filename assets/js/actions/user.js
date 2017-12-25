@@ -16,3 +16,5 @@ export const deleteToken = () => action(TOKEN.DELETE);
 export const changePassword = form =>
   action(USER.CHANGE_PASSWORD.SUBMIT, { form });
 export const editProfile = form => action(USER.EDIT_PROFILE.SUBMIT, { form });
+export const resetPasswordRequest = form =>
+  action(USER.CHANGE_PASSWORD.REQUEST, { form });
