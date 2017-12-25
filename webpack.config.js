@@ -1,6 +1,20 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
+let plugins = [
+  new HtmlWebpackPlugin({
+    template: path.resolve(__dirname, "assets", "html", "index.html"),
+    hash: true,
+    filename: "index.html",
+    inject: "body"
+  })
+];
+
+if (process.env.NODE_ENV === "production") {
+  plugins += [new UglifyJsPlugin()];
+}
 
 module.exports = {
   entry: [path.resolve(__dirname, "assets", "js", "index.js")],
@@ -22,14 +36,7 @@ module.exports = {
     ]
   },
 
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "assets", "html", "index.html"),
-      hash: true,
-      filename: "index.html",
-      inject: "body"
-    })
-  ],
+  plugins: plugins,
 
   resolve: {
     extensions: [".js", ".jsx"],

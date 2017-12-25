@@ -4,8 +4,9 @@
   "repository": "git@github.com:DonkiesTechnologies/DonkiesReact.git",
   "license": "MIT",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --host 0.0.0.0 --port 8080",
-    "build": "./node_modules/.bin/webpack"
+    "start":
+      "./node_modules/.bin/webpack-dev-server --host 0.0.0.0 --port 8080",
+    "build": "./node_modules/.bin/webpack -p"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -31,6 +32,7 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
     "sweetalert": "^2.1.0",
+    "uglifyjs-webpack-plugin": "^1.1.4",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7",
     "whatwg-fetch": "^2.0.3"
