@@ -28,7 +28,7 @@ class AddBank extends Component {
   componentWillReceiveProps(nextProps) {
     let { accounts } = nextProps;
     if (accounts !== null && accounts.length) {
-      this.props.navigate("/");
+      this.props.navigate("/add_lender");
     }
   }
 
